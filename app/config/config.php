@@ -67,10 +67,11 @@ if (Debugger::$showBar && php_sapi_name() !== 'cli') {
  * 
  * What you store here is totally up to you.
  */
+
 return [
 	'database' => [
 		// uncomment the below 4 lines for mysql
-		 'host' => 'localhost:3306',
+		 'host' => 'localhost',
 		 'dbname' => 'cyber',
 		 'user' => 'root',
 		 'password' => ''

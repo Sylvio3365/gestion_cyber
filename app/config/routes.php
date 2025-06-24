@@ -12,7 +12,8 @@ use flight\net\Router;
 
 $UserController = new UserController();
 
-$router->get('/login', [$UserController, 'showLoginForm']);
+
+$router->get('/', [$UserController, 'showLoginForm']);
 $router->post('/login', [$UserController, 'login']);
 
 

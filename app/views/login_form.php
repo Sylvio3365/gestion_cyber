@@ -31,11 +31,10 @@
                   </div>
                   <form class="user" method="post" action="/login">
                     <div class="form-group">
-                      <input type="email" class="form-control" id="exampleInputEmail" aria-describedby="emailHelp"
-                        placeholder="Enter Email Address">
+                    <input type="text" name="identifiant" class="form-control" placeholder="Email ou nom d'utilisateur">
                     </div>
                     <div class="form-group">
-                      <input type="password" class="form-control" id="exampleInputPassword" placeholder="Password">
+                      <input type="password" name="password" class="form-control" placeholder="Mot de passe">
                     </div>
                     <div class="form-group">
                       <div class="custom-control custom-checkbox small" style="line-height: 1.5rem;">
@@ -45,7 +44,7 @@
                       </div>
                     </div>
                     <div class="form-group">
-                      <a href="index.html" class="btn btn-primary btn-block">Login</a>
+                    <input type="submit" value="Soumettre"><br><br>
                     </div>
                     <hr>
                     
