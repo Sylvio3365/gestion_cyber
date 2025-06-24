@@ -14,4 +14,6 @@ class UserController
         $data = ['message' => "Hello world"];
         Flight::render('index', $data);
     }
+
+    
 }
