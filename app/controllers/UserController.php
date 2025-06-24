@@ -12,8 +12,6 @@ class UserController
     public function home()
     {
         $data = ['message' => "Hello world"];
-        Flight::render('index', $data);
+        Flight::render('template', $data);
     }
-
-    
 }

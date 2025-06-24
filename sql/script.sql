@@ -1,3 +1,9 @@
+DROP DATABASE IF EXISTS cyber;
+
+CREATE DATABASE cyber;
+
+USE cyber;
+
 CREATE TABLE
     account_type (
         id_account_type INT AUTO_INCREMENT,
@@ -142,6 +148,13 @@ CREATE TABLE
     );
 
 CREATE TABLE
+    type_de_payement (
+        id_type_de_payement INT AUTO_INCREMENT,
+        nom VARCHAR(50) NOT NULL,
+        PRIMARY KEY (id_type_de_payement)
+    );
+
+CREATE TABLE
     user_app (
         id_user INT AUTO_INCREMENT,
         name VARCHAR(50) NOT NULL,
@@ -236,9 +249,11 @@ CREATE TABLE
         date_vente DATETIME NOT NULL,
         total DECIMAL(25, 2) NOT NULL,
         argent_donner DECIMAL(25, 2) NOT NULL,
+        id_type_de_payement INT NOT NULL,
         id_vente_draft INT NOT NULL,
         PRIMARY KEY (id_vente),
         UNIQUE (id_vente_draft),
+        FOREIGN KEY (id_type_de_payement) REFERENCES type_de_payement (id_type_de_payement),
         FOREIGN KEY (id_vente_draft) REFERENCES vente_draft (id_vente_draft)
     );
 
