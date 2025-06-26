@@ -50,6 +50,8 @@ $accountType = strtolower($user['role_name']); // 'Admin' ou 'Employé' (depuis 
     <?php endif; ?>
 
     <p><a href="/logout">Se déconnecter</a></p>
+    <p><a href="/benef_form">Benefice</a></p>
+
 
 </body>
 </html>
