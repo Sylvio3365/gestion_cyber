@@ -279,3 +279,7 @@ CREATE TABLE
         FOREIGN KEY (id_vente_draft) REFERENCES vente_draft (id_vente_draft),
         FOREIGN KEY (id_statut) REFERENCES statut (id_statut)
     );
+    INSERT INTO user_app 
+(name, username, firstname, email, password, deleted_at, id_account_type)
+VALUES 
+('admin', 'admin', 'admin', 'admin', 'admin', NULL, 1);
