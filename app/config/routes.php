@@ -15,5 +15,7 @@ $UserController = new UserController();
 
 $router->get('/', [$UserController, 'showLoginForm']);
 $router->post('/login', [$UserController, 'login']);
+$router->get('/logout', [$UserController, 'logout']);
+
 
 

@@ -30,14 +30,9 @@ class UserController {
         $user = $model->login($identifiant, $password);
 
         if ($user) {
-            // Exemple : on peut stocker l'utilisateur en session
             $_SESSION['user'] = $user;
 
-            Flight::json([
-                'status' => 'success',
-                'message' => 'Connexion réussie',
-                'user' => $user
-            ]);
+            Flight::render('accueil_(test)');
         } else {
             Flight::json([
                 'status' => 'error',
@@ -46,17 +41,25 @@ class UserController {
         }
     }
 
+    public function logout() {
+        // Démarre la session si ce n’est pas déjà fait
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+    
+        // Détruit toutes les données de session
+        session_unset();
+        session_destroy();
+    
+        // Redirige vers la page de login
+        Flight::render('login_form');
+
+    }
+    
+
     public function showLoginForm()
     {
-        // // Vérifier si l'utilisateur est déjà connecté
-        // if ($this->isLoggedIn()) {
-        //     Flight::redirect('/dashboard');
-        // }
-
-        // $data = [
-        //     'title' => 'Connexion',
-        //     'error' => Flight::request()->query->error ?? null
-        // ];
         Flight::render('login_form', null);
     }
+
 }

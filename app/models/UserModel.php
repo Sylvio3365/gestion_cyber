@@ -18,10 +18,13 @@ class UserModel {
      */
     public function login($identifiant, $password)
     {
-        $sql = "SELECT * FROM user_app 
-                WHERE (username = ? OR email = ?) 
-                AND deleted_at IS NULL 
-                LIMIT 1";
+        $sql = "SELECT u.*, a.name AS role_name
+        FROM user_app u
+        JOIN account_type a ON u.id_account_type = a.id_account_type
+        WHERE (u.username = ? OR u.email = ?)
+          AND u.deleted_at IS NULL
+        LIMIT 1";
+
 
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(1, $identifiant);
