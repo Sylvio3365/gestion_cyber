@@ -10,7 +10,6 @@ class UserController {
 
     public function __construct() {}
 
-<<<<<<< login
     public function login() {
         $request = Flight::request()->data;
 
@@ -63,11 +62,9 @@ class UserController {
     }
     
 
-=======
     public function home()
     {
         $data = ['message' => "Hello world"];
         Flight::render('template', $data);
     }
->>>>>>> main
 }
