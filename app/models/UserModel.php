@@ -4,15 +4,48 @@ namespace app\models;
 
 use Flight;
 
-class UserModel
-{
+
+class UserModel {
 
     private $db;
 
-    public function __construct($db)
-    {
+    public function __construct($db) {
         $this->db = $db;
     }
 
-    public function user() {}
+    /**
+     * Tente de connecter un utilisateur avec email ou username + mot de passe
+     */
+    public function login($identifiant, $password)
+    {
+        $sql = "SELECT u.*, a.name AS role_name
+        FROM user_app u
+        JOIN account_type a ON u.id_account_type = a.id_account_type
+        WHERE (u.username = ? OR u.email = ?)
+          AND u.deleted_at IS NULL
+        LIMIT 1";
+
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(1, $identifiant);
+        $stmt->bindValue(2, $identifiant);
+        $stmt->execute();
+
+        $result = $stmt->fetchAll(); // tableau de lignes
+
+        if (!empty($result)) {
+            $user = $result[0]; // on prend la première ligne
+
+            if ($user['password'] === $password) {
+                unset($user['password']);
+                return $user;
+            }
+            
+        }
+
+        return false; // Échec d’authentification
+    }
+
 }
+
+

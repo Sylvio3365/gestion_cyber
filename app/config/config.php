@@ -67,13 +67,14 @@ if (Debugger::$showBar && php_sapi_name() !== 'cli') {
  * 
  * What you store here is totally up to you.
  */
+
 return [
 	'database' => [
 		// uncomment the below 4 lines for mysql
-		 'host' => 'localhost:8889',
-		 'dbname' => 'tpflight',
+		 'host' => 'localhost',
+		 'dbname' => 'cyber',
 		 'user' => 'root',
-		 'password' => 'root'
+		 'password' => ''
 
 		// uncomment the following line for sqlite
 		// 'file_path' => __DIR__ . $ds . '..' . $ds . 'database.sqlite'
