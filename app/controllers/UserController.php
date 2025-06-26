@@ -11,6 +11,7 @@ class UserController {
     public function __construct() {}
 
     public function login() {
+        
         $request = Flight::request()->data;
 
         // Vérifie que les champs requis sont présents
