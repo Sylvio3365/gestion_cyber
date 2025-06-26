@@ -61,4 +61,10 @@ class UserController {
         Flight::render('login_form', null);
     }
 
+    public function home()
+    {
+        $data = ['message' => "Hello world"];
+        Flight::render('template', $data);
+    }
+
 }
