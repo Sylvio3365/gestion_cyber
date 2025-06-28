@@ -1,12 +1,6 @@
-DROP DATABASE IF EXISTS cyber;
-
-CREATE DATABASE cyber;
-
-USE cyber;
-
 CREATE TABLE
     account_type (
-        id_account_type INT AUTO_INCREMENT,
+        id_account_type INT,
         name VARCHAR(50) NOT NULL,
         remarque VARCHAR(50),
         deleted_at DATETIME,
@@ -16,7 +10,7 @@ CREATE TABLE
 
 CREATE TABLE
     branche (
-        id_branche INT AUTO_INCREMENT,
+        id_branche INT,
         nom VARCHAR(50) NOT NULL,
         description VARCHAR(50),
         deleted_at DATETIME,
@@ -26,7 +20,7 @@ CREATE TABLE
 
 CREATE TABLE
     categorie (
-        id_categorie INT AUTO_INCREMENT,
+        id_categorie INT,
         nom VARCHAR(50),
         id_branche INT NOT NULL,
         PRIMARY KEY (id_categorie),
@@ -35,7 +29,7 @@ CREATE TABLE
 
 CREATE TABLE
     service (
-        id_service INT AUTO_INCREMENT,
+        id_service INT,
         description VARCHAR(50),
         nom VARCHAR(50),
         deleted_at DATETIME,
@@ -46,14 +40,14 @@ CREATE TABLE
 
 CREATE TABLE
     type_mouvement (
-        id_mouvement INT AUTO_INCREMENT,
+        id_mouvement INT,
         type VARCHAR(50) NOT NULL,
         PRIMARY KEY (id_mouvement)
     );
 
 CREATE TABLE
     prix_service (
-        id_prix_service INT AUTO_INCREMENT,
+        id_prix_service INT,
         date_modification DATETIME,
         prix DECIMAL(15, 2) NOT NULL,
         mois INT NOT NULL,
@@ -66,7 +60,7 @@ CREATE TABLE
 
 CREATE TABLE
     client (
-        id_client INT AUTO_INCREMENT,
+        id_client INT,
         nom VARCHAR(50) NOT NULL,
         prenom VARCHAR(50) NOT NULL,
         added_at DATETIME NOT NULL,
@@ -76,7 +70,7 @@ CREATE TABLE
 
 CREATE TABLE
     statut (
-        id_statut INT AUTO_INCREMENT,
+        id_statut INT,
         nom VARCHAR(50) NOT NULL,
         description VARCHAR(50),
         deleted_at DATETIME,
@@ -86,7 +80,7 @@ CREATE TABLE
 
 CREATE TABLE
     prix_achat_service (
-        id_prix_achat_service INT AUTO_INCREMENT,
+        id_prix_achat_service INT,
         mois INT NOT NULL,
         date_modification VARCHAR(50),
         annee INT NOT NULL,
@@ -99,7 +93,7 @@ CREATE TABLE
 
 CREATE TABLE
     marque (
-        id_marque INT AUTO_INCREMENT,
+        id_marque INT,
         nom VARCHAR(50) NOT NULL,
         deleted_at DATETIME,
         PRIMARY KEY (id_marque)
@@ -107,7 +101,7 @@ CREATE TABLE
 
 CREATE TABLE
     poste (
-        id_poste INT AUTO_INCREMENT,
+        id_poste INT,
         numero_poste VARCHAR(50) NOT NULL,
         deleted_at DATETIME,
         PRIMARY KEY (id_poste),
@@ -116,7 +110,7 @@ CREATE TABLE
 
 CREATE TABLE
     etat (
-        id_etat INT AUTO_INCREMENT,
+        id_etat INT,
         deleted_at DATETIME,
         nom VARCHAR(50) NOT NULL,
         PRIMARY KEY (id_etat),
@@ -125,7 +119,7 @@ CREATE TABLE
 
 CREATE TABLE
     poste_etat (
-        id_poste_etat INT AUTO_INCREMENT,
+        id_poste_etat INT,
         date_debut DATETIME NOT NULL,
         date_fin DATETIME,
         id_etat INT NOT NULL,
@@ -149,14 +143,14 @@ CREATE TABLE
 
 CREATE TABLE
     type_de_payement (
-        id_type_de_payement INT AUTO_INCREMENT,
+        id_type_de_payement INT,
         nom VARCHAR(50) NOT NULL,
         PRIMARY KEY (id_type_de_payement)
     );
 
 CREATE TABLE
     user_app (
-        id_user INT AUTO_INCREMENT,
+        id_user INT,
         name VARCHAR(50) NOT NULL,
         username VARCHAR(50) NOT NULL,
         firstname VARCHAR(50) NOT NULL,
@@ -172,7 +166,7 @@ CREATE TABLE
 
 CREATE TABLE
     produit (
-        id_produit INT AUTO_INCREMENT,
+        id_produit INT,
         description VARCHAR(50),
         nom VARCHAR(50) NOT NULL,
         deleted_at DATETIME,
@@ -185,7 +179,7 @@ CREATE TABLE
 
 CREATE TABLE
     stock (
-        id_stock INT AUTO_INCREMENT,
+        id_stock INT,
         quantite INT NOT NULL,
         date_mouvement DATETIME,
         id_produit INT NOT NULL,
@@ -197,7 +191,7 @@ CREATE TABLE
 
 CREATE TABLE
     prix_produit (
-        id_prix_produit INT AUTO_INCREMENT,
+        id_prix_produit INT,
         date_modification DATETIME,
         prix DECIMAL(20, 4) NOT NULL,
         mois INT NOT NULL,
@@ -210,7 +204,7 @@ CREATE TABLE
 
 CREATE TABLE
     vente_draft (
-        id_vente_draft INT AUTO_INCREMENT,
+        id_vente_draft INT,
         date_creation DATETIME NOT NULL,
         id_user INT NOT NULL,
         id_client INT NOT NULL,
@@ -221,7 +215,7 @@ CREATE TABLE
 
 CREATE TABLE
     vente_draft_produit (
-        id_vente_draft_produit INT AUTO_INCREMENT,
+        id_vente_draft_produit INT,
         quantite INT NOT NULL,
         prix_unitaire DECIMAL(25, 2) NOT NULL,
         id_vente_draft INT NOT NULL,
@@ -233,7 +227,7 @@ CREATE TABLE
 
 CREATE TABLE
     vente_draft_service (
-        id_vente_draft_service INT AUTO_INCREMENT,
+        id_vente_draft_service INT,
         quantite INT NOT NULL,
         prix_unitaire DECIMAL(25, 2) NOT NULL,
         id_service INT NOT NULL,
@@ -245,7 +239,7 @@ CREATE TABLE
 
 CREATE TABLE
     vente (
-        id_vente INT AUTO_INCREMENT,
+        id_vente INT,
         date_vente DATETIME NOT NULL,
         total DECIMAL(25, 2) NOT NULL,
         argent_donner DECIMAL(25, 2) NOT NULL,
@@ -259,7 +253,7 @@ CREATE TABLE
 
 CREATE TABLE
     prix_achat_produit (
-        id_prix_achat_produit INT AUTO_INCREMENT,
+        id_prix_achat_produit INT,
         annee INT NOT NULL,
         mois INT NOT NULL,
         date_modification DATETIME NOT NULL,
@@ -279,7 +273,3 @@ CREATE TABLE
         FOREIGN KEY (id_vente_draft) REFERENCES vente_draft (id_vente_draft),
         FOREIGN KEY (id_statut) REFERENCES statut (id_statut)
     );
-    INSERT INTO user_app 
-(name, username, firstname, email, password, deleted_at, id_account_type)
-VALUES 
-('admin', 'admin', 'admin', 'admin', 'admin', NULL, 1);

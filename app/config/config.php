@@ -75,7 +75,6 @@ return [
 		 'dbname' => 'cyber',
 		 'user' => 'root',
 		 'password' => ''
-
 		// uncomment the following line for sqlite
 		// 'file_path' => __DIR__ . $ds . '..' . $ds . 'database.sqlite'
 	],

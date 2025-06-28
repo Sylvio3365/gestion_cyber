@@ -27,7 +27,6 @@ $router->get('/logout', [$UserController, 'logout']);
 $router->get('/benef_form', [$VenteController, 'showBenefice']);
 $router->post('/benefice', [$VenteController, 'afficherBenefice']);
 
-
 $router->get('/admin/branche', [$AdminController, 'manageBranches']);
 
 $router->post('/admin/branche/add', [$AdminController, 'addBranch']);
@@ -67,3 +66,4 @@ $router->get('/admin/type_mouvement', [$AdminController, 'manageTypeMouvements']
 $router->post('/admin/type_mouvement/add', [$AdminController, 'addTypeMouvement']);
 $router->post('/admin/type_mouvement/edit', [$AdminController, 'editTypeMouvement']);
 $router->post('/admin/type_mouvement/delete', [$AdminController, 'deleteTypeMouvement']);
+
