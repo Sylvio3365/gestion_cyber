@@ -4,7 +4,7 @@ use app\controllers\UserController;
 use app\controllers\VenteController;
 
 use app\controllers\AdminController;
-
+use app\controllers\ConnexionController;
 use flight\Engine;
 use flight\net\Router;
 //use Flight;
@@ -17,7 +17,6 @@ use flight\net\Router;
 $UserController = new UserController();
 
 $VenteController = new VenteController();
-
 
 $AdminController = new AdminController();
 
@@ -67,3 +66,5 @@ $router->post('/admin/type_mouvement/add', [$AdminController, 'addTypeMouvement'
 $router->post('/admin/type_mouvement/edit', [$AdminController, 'editTypeMouvement']);
 $router->post('/admin/type_mouvement/delete', [$AdminController, 'deleteTypeMouvement']);
 
+// GESTION DES CONNEXION (AVEC POSTE OU SANS POSTE) 
+$ConnexionController = new ConnexionController();
