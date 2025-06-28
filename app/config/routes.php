@@ -4,7 +4,8 @@ use app\controllers\UserController;
 use app\controllers\VenteController;
 
 use app\controllers\AdminController;
-
+use app\controllers\ConnexionController;
+use app\controllers\PosteController;
 use flight\Engine;
 use flight\net\Router;
 //use Flight;
@@ -67,3 +68,7 @@ $router->get('/admin/type_mouvement', [$AdminController, 'manageTypeMouvements']
 $router->post('/admin/type_mouvement/add', [$AdminController, 'addTypeMouvement']);
 $router->post('/admin/type_mouvement/edit', [$AdminController, 'editTypeMouvement']);
 $router->post('/admin/type_mouvement/delete', [$AdminController, 'deleteTypeMouvement']);
+
+// Gestion du trafic de connexion des clients (avec leur poste)
+$PosteController = new PosteController();
+$router->get('/poste/accueil', [$PosteController, 'accueil']);
