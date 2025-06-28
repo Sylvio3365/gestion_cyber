@@ -26,11 +26,7 @@
         'total' => count($postes)
     ];
     $stats['occupation'] = round(($stats['actifs'] / $stats['total']) * 100);
-    if ($estNouveauJour) {
-        echo "new";
-    } else if (!$estNouveauJour) {
-        echo "tsy new";
-    }
+
     ?>
 
     <div class="main-content">
@@ -43,27 +39,31 @@
                         <p class="section-subtitle">Suivi en temps réel des postes informatiques</p>
                     </div>
                     <div class="session-controls <?= $sessionActive ? 'session-active' : 'session-inactive' ?>">
-                        <button class="btn btn-success btn-icon-text" onclick="toggleSession(true)">
-                            <i class="bi bi-play-fill"></i>
-                            Démarrer Session
-                        </button>
-                        <button class="btn btn-outline-secondary btn-icon-text" onclick="toggleSession(false)">
-                            <i class="bi bi-stop-fill"></i>
-                            Arrêter Session
-                        </button>
+                        <?php if ($estNouveauJour): ?>
+                            <form method="post" action="gestion_session.php">
+                                <input type="hidden" name="action" value="demarrer">
+                                <button type="submit" class="btn btn-success btn-icon-text">
+                                    <i class="bi bi-play-fill"></i>
+                                    Démarrer Session
+                                </button>
+                            </form>
+                        <?php else: ?>
+                            <form method="post" action="gestion_session.php">
+                                <input type="hidden" name="action" value="arreter">
+                                <button type="submit" class="btn btn-outline-secondary btn-icon-text">
+                                    <i class="bi bi-stop-fill"></i>
+                                    Arrêter Session
+                                </button>
+                            </form>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
-            <!-- Info Container -->
             <?php include('info_actuel.php'); ?>
             <?php include('stat_poste.php'); ?>
 
             <!-- PC Status Section -->
             <div class="pc-status-section">
-                <div class="section-header mb-4">
-                    <h3 class="section-subtitle">État des Postes Informatiques</h3>
-                    <p class="text-muted small">Cliquez sur un PC pour gérer sa session</p>
-                </div>
 
                 <div class="row g-3">
                     <?php foreach ($postes as $index => $poste): ?>
