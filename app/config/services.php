@@ -6,7 +6,7 @@ use flight\debug\database\PdoQueryCapture;
 use Tracy\Debugger;
 use app\models\ProductModel;
 use app\models\AdminModel;
-
+use ap\model\DashboardModel;
 /** 
  * @var array $config This comes from the returned array at the bottom of the config.php file
  * @var Engine $app
@@ -36,4 +36,7 @@ Flight::map('productModel', function () {
 });
 Flight::map('adminModel', function () {
     return new AdminModel(Flight::db());
+});
+Flight::map('dashboardModel', function () {
+    return new DashboardnModel(Flight::db());
 });

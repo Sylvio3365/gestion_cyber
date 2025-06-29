@@ -49,13 +49,53 @@ $accountType = strtolower($user['role_name']); // 'Admin' ou 'Employé' (depuis 
     <?php endif; ?>
 
     <?php if ($accountType === 'employé'): ?>
-        <div class="employee">
-            <h2>Fonctionnalités Vendeur</h2>
-            <ul>
-                <li>Effectuer un achat pour un client</li>
-                <li>Voir la liste des produits disponibles</li>
-            </ul>
-        </div>
+        <h2>Produits Disponibles</h2>
+
+<?php if (!empty($produits)): ?>
+    <table border="1" cellpadding="5" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Nom Produit</th>
+                <th>Description</th>
+                <th>Marque</th>
+                <th>Catégorie</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($produits as $p): ?>
+                <tr>
+                    <td><?= htmlspecialchars($p['nom']) ?></td>
+                    <td><?= htmlspecialchars($p['description']) ?></td>
+                    <td>
+                        <?php
+                        // Trouver le nom de la marque correspondante
+                        foreach ($marques as $m) {
+                            if ($m['id_marque'] == $p['id_marque']) {
+                                echo htmlspecialchars($m['nom']);
+                                break;
+                            }
+                        }
+                        ?>
+                    </td>
+                    <td>
+                        <?php
+                        // Trouver le nom de la catégorie correspondante
+                        foreach ($categories as $c) {
+                            if ($c['id_categorie'] == $p['id_categorie']) {
+                                echo htmlspecialchars($c['nom']);
+                                break;
+                            }
+                        }
+                        ?>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+<?php else: ?>
+    <p>Aucun produit disponible.</p>
+<?php endif; ?>
+
     <?php endif; ?>
 
     <p><a href="/logout">Se déconnecter</a></p>

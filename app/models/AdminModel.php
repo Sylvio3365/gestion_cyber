@@ -93,6 +93,32 @@ class AdminModel {
         $stmt = $this->db->query($sql);
         return $stmt->fetchAll();
     }
+    public function getProduitsDisponibles() {
+        $sql = "SELECT 
+            p.id_produit,
+            p.nom, 
+            p.description,
+            p.id_marque,
+            p.id_categorie,
+            SUM(
+                CASE 
+                    WHEN tm.type = 'entrée' THEN s.quantite 
+                    ELSE -s.quantite 
+                END
+            ) AS quantite
+        FROM produit p
+        JOIN marque m ON p.id_marque = m.id_marque
+        JOIN stock s ON p.id_produit = s.id_produit
+        JOIN type_mouvement tm ON s.id_mouvement = tm.id_mouvement
+        WHERE p.deleted_at IS NULL
+        GROUP BY p.id_produit, p.nom, p.description, p.id_marque, p.id_categorie
+        HAVING quantite > 0
+        ORDER BY p.nom";
+    
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
     
     public function addProduit($nom, $description, $id_marque, $id_categorie) {
         $sql = "INSERT INTO produit (nom, description, id_marque, id_categorie) VALUES (?, ?, ?, ?)";

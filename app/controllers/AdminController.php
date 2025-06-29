@@ -8,8 +8,9 @@ use app\models\AdminModel;
 class AdminController {
     public function manageBranches() {
         $branches = Flight::adminModel()->getAllBranches();
-        Flight::render('admin/crud_branche', ['branches' => $branches]);
+        Flight::render('/dashboard', ['branches' => $branches]);
     }
+    
     public function addBranch() {
         $request = Flight::request()->data;
         
@@ -188,8 +189,18 @@ class AdminController {
         $produits = Flight::adminModel()->getAllProduits();
         $marques = Flight::adminModel()->getAllMarques();
         $categories = Flight::adminModel()->getAllCategories();
-    
         Flight::render('admin/crud_produit', [
+            'produits' => $produits,
+            'marques' => $marques,
+            'categories' => $categories
+        ]);
+    }
+    
+    public function manageProduitsDashboard() {
+        $produits = Flight::adminModel()->getProduitsDisponibles();
+        $marques = Flight::adminModel()->getAllMarques();
+        $categories = Flight::adminModel()->getAllCategories();
+        Flight::render('accueil_(test)', [
             'produits' => $produits,
             'marques' => $marques,
             'categories' => $categories

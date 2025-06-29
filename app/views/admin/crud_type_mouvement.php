@@ -57,7 +57,7 @@
         </tbody>
     </table>
 
-    <p><a href="/dashboard">Retour au Dashboard</a></p>
+    <p><a href="/dashboardA">Retour au Dashboard</a></p>
 </div>
 
 </body>
