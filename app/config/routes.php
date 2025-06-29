@@ -69,7 +69,7 @@ $router->post('/admin/type_mouvement/add', [$AdminController, 'addTypeMouvement'
 $router->post('/admin/type_mouvement/edit', [$AdminController, 'editTypeMouvement']);
 $router->post('/admin/type_mouvement/delete', [$AdminController, 'deleteTypeMouvement']);
 
-// Gestion du trafic de connexion des clients (avec leur poste)
+// Gestion du trafic de connexion des clients (avec un poste)
 $PosteController = new PosteController();
 $router->get('/poste/accueil', [$PosteController, 'accueil']);
 $router->get('/poste/demarrerSession', [$PosteController, 'demarrerSession']);
@@ -78,3 +78,5 @@ $router->post('/poste/arreterSessionPoste', [$PosteController, 'arreterSessionPo
 $router->post('/poste/mettreEnMaintenance', [$PosteController, 'mettreEnMaintenance']);
 $router->post('/poste/rendreDisponible', [$PosteController, 'rendreDisponible']);
 
+$ConnexionController = new ConnexionController();
+$router->get('/connexion/sansposte', [$ConnexionController, 'showGestionConnexionCLientSansPoste']);
