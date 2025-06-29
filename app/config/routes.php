@@ -72,3 +72,9 @@ $router->post('/admin/type_mouvement/delete', [$AdminController, 'deleteTypeMouv
 // Gestion du trafic de connexion des clients (avec leur poste)
 $PosteController = new PosteController();
 $router->get('/poste/accueil', [$PosteController, 'accueil']);
+$router->get('/poste/demarrerSession', [$PosteController, 'demarrerSession']);
+$router->post('/poste/demarrerSessionPoste', [$PosteController, 'demarrerSessionPoste']);
+$router->post('/poste/arreterSessionPoste', [$PosteController, 'arreterSessionPoste']);
+$router->post('/poste/mettreEnMaintenance', [$PosteController, 'mettreEnMaintenance']);
+$router->post('/poste/rendreDisponible', [$PosteController, 'rendreDisponible']);
+

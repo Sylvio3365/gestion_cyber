@@ -191,6 +191,4 @@ class AdminModel {
         $stmt = $this->db->prepare($sql);
         return $stmt->execute([$id]);
     }
-    
-    
 }

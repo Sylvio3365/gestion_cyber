@@ -6,6 +6,7 @@ use flight\debug\database\PdoQueryCapture;
 use Tracy\Debugger;
 use app\models\ProductModel;
 use app\models\AdminModel;
+use app\models\ConnexionModel;
 use app\models\PosteModel;
 
 /** 
@@ -37,4 +38,8 @@ Flight::map('adminModel', function () {
 
 Flight::map('PosteModel', function () {
     return new PosteModel(Flight::db());
+});
+
+Flight::map('ConnexionModel', function () {
+    return new ConnexionModel(Flight::db());
 });

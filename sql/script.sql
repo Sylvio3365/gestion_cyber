@@ -279,3 +279,10 @@ CREATE TABLE
         FOREIGN KEY (id_vente_draft) REFERENCES vente_draft (id_vente_draft),
         FOREIGN KEY (id_statut) REFERENCES statut (id_statut)
     );
+
+ALTER TABLE historique_connexion ADD statut INT NOT NULL DEFAULT 0;
+
+ALTER TABLE historique_connexion
+MODIFY COLUMN id_historique_connection INT NOT NULL AUTO_INCREMENT,
+DROP PRIMARY KEY,
+ADD PRIMARY KEY (id_historique_connection);
