@@ -52,7 +52,7 @@ $accountType = strtolower($user['role_name']); // 'Admin' ou 'Employé' (depuis 
         <div class="employee">
             <h2>Fonctionnalités Vendeur</h2>
             <ul>
-                <li>Effectuer un achat pour un client</li>
+                <li><a href="/interface-client">Effectuer un achat pour un client</a></li>
                 <li>Voir la liste des produits disponibles</li>
             </ul>
         </div>
