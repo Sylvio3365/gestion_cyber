@@ -2,7 +2,7 @@
 
 use app\controllers\UserController;
 use app\controllers\VenteController;
-
+use app\controllers\PanierController;
 use app\controllers\AdminController;
 
 use flight\Engine;
@@ -15,7 +15,7 @@ use flight\net\Router;
  */
 
 $UserController = new UserController();
-
+$PanierController = new PanierController();
 $VenteController = new VenteController();
 
 
@@ -67,3 +67,20 @@ $router->get('/admin/type_mouvement', [$AdminController, 'manageTypeMouvements']
 $router->post('/admin/type_mouvement/add', [$AdminController, 'addTypeMouvement']);
 $router->post('/admin/type_mouvement/edit', [$AdminController, 'editTypeMouvement']);
 $router->post('/admin/type_mouvement/delete', [$AdminController, 'deleteTypeMouvement']);
+
+
+$router->get('/panier', [$PanierController, 'afficherPanier']);
+$router->post('/panier/creer', [$PanierController, 'creerPanier']);
+$router->post('/panier/ajouter-produit', [$PanierController, 'ajouterProduit']);
+$router->post('/panier/ajouter-service', [$PanierController, 'ajouterService']);
+$router->post('/panier/modifier-quantite-produit', [$PanierController, 'modifierQuantiteProduit']);
+$router->post('/panier/modifier-quantite-service', [$PanierController, 'modifierQuantiteService']);
+$router->post('/panier/supprimer-produit', [$PanierController, 'supprimerProduit']);
+$router->post('/panier/supprimer-service', [$PanierController, 'supprimerService']);
+$router->post('/panier/ajouter-client', [$PanierController, 'ajouterClient']);
+$router->post('/panier/selectionner-client', [$PanierController, 'selectionnerClient']);
+$router->post('/panier/valider', [$PanierController, 'validerVente']);
+$router->get('/interface-client', [$PanierController, 'interfaceClient']);
+$router->post('/interface-client/ajouter-panier', [$PanierController, 'ajouterAuPanierDepuisInterface']);
+$router->get('/api/clients', [$PanierController, 'apiClients']);
+$router->get('/panier/recapitulatif-json', [$PanierController, 'recapitulatifJson']);

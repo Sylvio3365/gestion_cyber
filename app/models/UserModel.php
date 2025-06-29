@@ -46,6 +46,19 @@ class UserModel {
         return false; // Échec d’authentification
     }
 
+    // fonction de Tafita
+    public function getUserById($id) {
+        $sql = "SELECT u.*, a.name AS 
+                FROM user_app u
+                JOIN account_type a ON u.id_account_type = a.id_account_type
+                WHERE u.id_user_app = ? AND u.deleted_at IS NULL";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$id]);
+        return $stmt->fetch();
+    }
+
+    
 }
 
 

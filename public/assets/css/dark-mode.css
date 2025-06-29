@@ -1,0 +1,349 @@
+/* Styles de mode sombre - Améliorés pour une meilleure visibilité */
+body {
+    background-color: #f0f5fa; /* Fond clair par défaut */
+}
+
+body.dark-mode {
+    background-color: #1e2227; /* Gris foncé au lieu de noir (#121212) */
+    color: #f0f0f0; /* Texte plus clair pour meilleur contraste */
+}
+
+/* Header & Navigation */
+body.dark-mode .main-header {
+    background-color: #272b33; /* Gris légèrement plus clair */
+    border-bottom: 1px solid #3a3f4a;
+}
+
+body.dark-mode .sidebar {
+    background: #2b2d31 !important; /* Gris foncé au lieu du violet */
+    color: #e0e0e0;
+}
+
+body.dark-mode .sidebar-menu .nav-link {
+    color: #e0e0e0;
+}
+
+body.dark-mode .sidebar-menu .nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+body.dark-mode .logo-container {
+    border-bottom: 1px solid #36393f; /* Bordure plus foncée */
+    background-color: rgba(255, 255, 255, 0.02);
+}
+
+/* Cards & Elements */
+body.dark-mode .card {
+    background-color: #272b33;
+    border: 1px solid #3a3f4a;
+}
+
+body.dark-mode .card-header {
+    background-color: #2d323c;
+    border-bottom: 1px solid #3a3f4a;
+}
+
+/* Search, inputs and buttons */
+body.dark-mode .search-container {
+    background-color: #2d323c;
+    border: 1px solid #3a3f4a;
+}
+
+body.dark-mode .search-input {
+    color: #ffffff;
+    background-color: transparent;
+}
+
+body.dark-mode .search-container i {
+    color: #bdc1c6;
+}
+
+body.dark-mode .form-control,
+body.dark-mode .form-select {
+    background-color: #2d323c;
+    border: 1px solid #3a3f4a;
+    color: #ffffff;
+}
+
+/* Interface Client spécifique */
+body.dark-mode .welcome-banner {
+    background: linear-gradient(to right, #34317a, #4f3d79);
+}
+
+body.dark-mode .service-section,
+body.dark-mode .pc-item,
+body.dark-mode .service-item,
+body.dark-mode .supply-item,
+body.dark-mode .cart-section,
+body.dark-mode .payment-section {
+    background-color: #272b33;
+    border: 1px solid #3a3f4a;
+}
+
+/* Section Internet & PC - Plus visible */
+body.dark-mode .service-header h2,
+body.dark-mode .service-header i {
+    color: #ffffff; /* Titres plus visibles */
+}
+
+body.dark-mode .service-header p {
+    color: #bdc1c6; /* Sous-titres plus visibles */
+}
+
+/* Cartes PC dans la section internet */
+body.dark-mode .pc-grid .pc-item {
+    background-color: #2d323c; /* Légèrement plus clair que le fond */
+}
+
+body.dark-mode .status-badge.available {
+    background-color: rgba(16, 185, 129, 0.2);
+    color: #10b981;
+}
+
+body.dark-mode .status-badge.busy {
+    background-color: rgba(239, 68, 68, 0.2);
+    color: #ef4444;
+}
+
+body.dark-mode .pc-item h4,
+body.dark-mode .service-item h4,
+body.dark-mode .supply-item h4 {
+    color: #ffffff;
+}
+
+body.dark-mode .session-item,
+body.dark-mode .cart-item {
+    border-bottom-color: #3a3f4a;
+}
+
+body.dark-mode .cart-summary {
+    background-color: #2d323c;
+}
+
+body.dark-mode .tarification-info {
+    background-color: #2d323c;
+}
+
+body.dark-mode .tarification-info h4,
+body.dark-mode .tarification-info p {
+    color: #f0f0f0;
+}
+
+body.dark-mode .promo {
+    color: #8ab4f8 !important; /* Bleu plus visible */
+}
+
+/* Gestion PC spécifique */
+body.dark-mode .pc-management-header .section-title,
+body.dark-mode .section-subtitle {
+    color: #ffffff;
+}
+
+body.dark-mode .pc-status-section {
+    background-color: #272b33;
+    border: 1px solid #3a3f4a;
+}
+
+body.dark-mode .pc-card {
+    background-color: #2d323c;
+    border: 1px solid #3a3f4a;
+}
+
+body.dark-mode .pc-card-header {
+    background-color: #343a46;
+    border-bottom-color: #3a3f4a;
+}
+
+body.dark-mode .pc-number,
+body.dark-mode .info-item {
+    color: #f0f0f0;
+}
+
+body.dark-mode .pc-card.active {
+    border-color: #2eb85c;
+}
+
+/* Thème sombre modifications */
+body.dark-mode .theme-toggle button {
+    color: #ffffff !important;
+}
+
+/* Animation de transition */
+body, body * {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Prix et valeurs importantes - meilleure visibilité */
+body.dark-mode .pc-price,
+body.dark-mode .price,
+body.dark-mode .summary-item.total {
+    color: #ffffff !important;
+    font-weight: 600;
+}
+
+/* Boutons en mode sombre */
+body.dark-mode .btn-primary {
+    background-color: #2563eb;
+    border-color: #2563eb;
+}
+
+body.dark-mode .btn-success {
+    background-color: #059669;
+    border-color: #059669;
+}
+
+/* Contenu des cartes */
+body.dark-mode .pc-info span,
+body.dark-mode .service-info p,
+body.dark-mode .supply-info p {
+    color: #bdc1c6;
+}
+
+/* Amélioration de la visibilité des textes dans le panier et le paiement */
+body.dark-mode .cart-section h2,
+body.dark-mode .payment-section h2 {
+    color: #ffffff;
+}
+
+/* Labels et textes dans les sections panier/paiement */
+body.dark-mode .section-header h2,
+body.dark-mode .section-header p {
+    color: #ffffff !important;
+}
+
+/* Amélioration des champs de formulaire */
+body.dark-mode input::placeholder {
+    color: #9ca3af !important; /* Plus visible que le gris foncé par défaut */
+}
+
+/* Méthodes de paiement */
+body.dark-mode .payment-method {
+    background-color: #2d323c;
+    border: 1px solid #3a3f4a;
+}
+
+body.dark-mode .payment-method span,
+body.dark-mode .payment-method i {
+    color: #bdc1c6 !important;
+}
+
+body.dark-mode .payment-method.active {
+    background-color: #3a3f4a;
+    border-color: #4f46e5;
+}
+
+body.dark-mode .payment-method.active span,
+body.dark-mode .payment-method.active i {
+    color: #ffffff !important;
+}
+
+/* Amélioration des labels de formulaire */
+body.dark-mode .form-label {
+    color: #bdc1c6 !important;
+}
+
+/* Amélioration des textes dans le récapitulatif panier */
+body.dark-mode .cart-item .item-details h5 {
+    color: #ffffff;
+}
+
+body.dark-mode .cart-item .item-details p,
+body.dark-mode .summary-item:not(.total) {
+    color: #bdc1c6;
+}
+
+/* Textes des titres de section */
+body.dark-mode .section-header i {
+    color: #8ab4f8 !important;
+}
+
+/* Textes des inputs */
+body.dark-mode .form-control {
+    color: #ffffff !important;
+}
+
+/* Éléments de récapitulatif */
+body.dark-mode .session-info p,
+body.dark-mode .summary-item span {
+    color: #d1d5db !important;
+}
+
+/* Réduction fidélité */
+body.dark-mode .summary-item.discount {
+    color: #34d399 !important; /* Vert plus vif pour la réduction */
+}
+
+/* Amélioration visibilité des montants */
+body.dark-mode .item-price {
+    color: #ffffff !important;
+    font-weight: 600;
+}
+
+/* Amélioration de la visibilité du menu burger */
+body.dark-mode .hamburger-btn,
+body.dark-mode #menu-toggle {
+    color: #ffffff !important;
+    background-color: transparent;
+}
+
+body.dark-mode .hamburger-btn:hover,
+body.dark-mode #menu-toggle:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+body.dark-mode .hamburger-btn i,
+body.dark-mode #menu-toggle i {
+    color: #ffffff !important;
+    font-size: 1.5rem;
+}
+
+/* Ajustement des fonds principaux pour qu'ils soient gris en mode sombre */
+body.dark-mode {
+    background-color: #1e2227 !important; /* Fond principal plus foncé */
+}
+
+body.dark-mode .content-wrapper,
+body.dark-mode main,
+body.dark-mode .main-content,
+body.dark-mode .container-fluid,
+body.dark-mode .container {
+    background-color: #1e2227 !important; /* Assure que tous les conteneurs principaux sont gris foncé */
+}
+
+/* Assurer que les fonds blancs restants sont gris */
+body.dark-mode .bg-white,
+body.dark-mode div[style*="background-color: white"],
+body.dark-mode div[style*="background-color: #fff"],
+body.dark-mode div[style*="background-color: #ffffff"],
+body.dark-mode section[style*="background-color: white"],
+body.dark-mode main[style*="background-color: white"] {
+    background-color: #272b33 !important;
+}
+
+/* S'assurer que le texte reste lisible sur ces fonds */
+body.dark-mode .bg-white *,
+body.dark-mode div[style*="background-color: white"] *,
+body.dark-mode div[style*="background-color: #fff"] *,
+body.dark-mode div[style*="background-color: #ffffff"] * {
+    color: #e0e0e0 !important;
+}
+
+/* Maintenir la visibilité des icônes du mode sombre */
+body.dark-mode .bi {
+    color: #a0a0a0;
+}
+
+/* Ajustement des sous-menus pour maintenir la couleur violette */
+body.dark-mode .submenu {
+    background-color: #272b33;
+    border: 1px solid #3a3f4a;
+    border-left: none;
+}
+
+/* Style du menu actif/étendu en mode sombre */
+body.dark-mode .has-submenu.expanded > .nav-link {
+    background-color: #272b33;
+    border: 1px solid #3a3f4a;
+    color: white;
+}
