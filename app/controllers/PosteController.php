@@ -27,7 +27,7 @@ class PosteController
             'messageType' => $messageType
         ];
 
-        Flight::render('poste/accueil.php', $data);
+        Flight::render('connexion/avec_poste/accueil.php', $data);
     }
 
     private function redirectWithMessage($url, $message, $type = 'success')
@@ -41,7 +41,7 @@ class PosteController
         try {
             $demarrer = Flight::PosteModel()->demarrerSession();
             if ($demarrer) {
-                $this->redirectWithMessage('/poste/con/accueil', 'Session démarrée avec succès pour tous les postes');
+                $this->redirectWithMessage('/poste/accueil', 'Session démarrée avec succès pour tous les postes');
             }
         } catch (\Exception $e) {
             $this->redirectWithMessage('/poste/accueil', 'Erreur: ' . $e->getMessage(), 'error');

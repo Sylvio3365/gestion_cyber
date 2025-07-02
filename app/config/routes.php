@@ -80,3 +80,4 @@ $router->post('/poste/rendreDisponible', [$PosteController, 'rendreDisponible'])
 
 $ConnexionController = new ConnexionController();
 $router->get('/connexion/sansposte', [$ConnexionController, 'showGestionConnexionCLientSansPoste']);
+$router->post('/connexion/sansposte/add', [$ConnexionController, 'addClientConecter']);

@@ -24,10 +24,6 @@
             <!-- Header Section -->
             <div class="pc-management-header mb-4">
                 <div class="d-flex justify-content-between align-items-center flex-wrap">
-                    <div class="mb-3 mb-md-0">
-                        <h2 class="section-title">Gestion des PC</h2>
-                        <p class="section-subtitle">Suivi en temps réel des postes informatiques</p>
-                    </div>
                     <div>
                         <?php if ($estNouveauJour) { ?>
                             <form method="get" action="/poste/demarrerSession">
@@ -60,6 +56,11 @@
 
             <?php if (!$estNouveauJour): ?>
                 <div class="pc-status-section">
+                    <div class="mb-3 mb-md-0">
+                        <h2 class="section-title">Gestion des PC</h2>
+                        <h5 class="section-subtitle">Suivi en temps réel des postes informatiques</h5>
+                    </div>
+                    <br>
                     <div class="row g-3">
                         <?php foreach ($postes as $index => $poste): ?>
                             <?php
@@ -101,15 +102,25 @@
                                                             <i class="bi bi-trash me-2"></i>Supprimer
                                                         </a>
                                                     </li>
+                                                    <li>
+                                                        <hr class="dropdown-divider">
+                                                    </li>
                                                     <?php if ($poste['etat_nom'] !== 'En maintenance') { ?>
-                                                        <li>
-                                                            <hr class="dropdown-divider">
-                                                        </li>
                                                         <li>
                                                             <form method="post" action="/poste/mettreEnMaintenance" class="d-inline">
                                                                 <input type="hidden" name="poste_id" value="<?= $poste['id_poste'] ?>">
                                                                 <button type="submit" class="dropdown-item" style="background: none; border: none; width: 100%; text-align: left;">
                                                                     <i class="bi bi-tools me-2"></i>Mettre en maintenance
+                                                                </button>
+                                                            </form>
+                                                        </li>
+                                                    <?php } else { ?>
+                                                        <li>
+                                                            <form method="post" action="/poste/rendreDisponible" class="w-100">
+                                                                <input type="hidden" name="action" value="marquer_disponible">
+                                                                <input type="hidden" name="poste_id" value="<?= $poste['id_poste'] ?>">
+                                                                <button type="submit" class="dropdown-item" style="background: none; border: none; width: 100%; text-align: left;">
+                                                                    <i class="bi bi-tools me-2"></i>Marquer disponible
                                                                 </button>
                                                             </form>
                                                         </li>
@@ -165,13 +176,7 @@
                                                 </button>
                                             </form>
                                         <?php elseif ($poste['etat_nom'] === 'En maintenance'): ?>
-                                            <form method="post" action="/poste/rendreDisponible" class="w-100">
-                                                <input type="hidden" name="action" value="marquer_disponible">
-                                                <input type="hidden" name="poste_id" value="<?= $poste['id_poste'] ?>">
-                                                <button type="submit" class="btn btn-outline-light w-100">
-                                                    Marquer disponible
-                                                </button>
-                                            </form>
+
                                         <?php elseif ($poste['etat_nom'] === 'Disponible'): ?>
                                             <form method="post" action="" class="w-100">
                                                 <input type="hidden" name="action" value="demarrer_poste">
