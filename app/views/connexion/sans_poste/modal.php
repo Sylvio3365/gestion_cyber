@@ -27,7 +27,7 @@
 
                     <div class="mb-3" id="dureeContainer" style="display: none;">
                         <label for="dureeMinutes" class="form-label">Durée de connexion (minutes)</label>
-                        <input type="number" class="form-control" name="duree" id="dureeMinutes" min="15" placeholder="30">
+                        <input type="number" class="form-control" name="duree" id="dureeMinutes" min="1" placeholder="30">
                     </div>
                 </div>
                 <div class="modal-footer">

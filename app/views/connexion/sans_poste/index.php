@@ -23,64 +23,7 @@
                     <h2 class="text-primary fw-bold mb-0">
                         <i class="fas fa-wifi me-2"></i> Gestion des connexions WiFi
                     </h2>
-                    <div class="badge bg-info fs-6 px-3 py-2">
-                        <i class="fas fa-users me-1"></i>
-                        <?php echo count($clientConnecter); ?> clients connectés
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        <!-- Statistiques rapides -->
-        <div class="row mb-4">
-            <div class="col-md-3 col-sm-6 mb-3">
-                <div class="card border-0 shadow-sm h-100">
-                    <div class="card-body text-center">
-                        <div class="text-primary mb-2">
-                            <i class="fas fa-infinity fa-2x"></i>
-                        </div>
-                        <h6 class="text-muted mb-1">Connexions illimitées</h6>
-                        <h4 class="text-primary mb-0">
-                            <?php echo count(array_filter($clientConnecter, fn($c) => $c['date_fin'] == null)); ?>
-                        </h4>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6 mb-3">
-                <div class="card border-0 shadow-sm h-100">
-                    <div class="card-body text-center">
-                        <div class="text-warning mb-2">
-                            <i class="fas fa-clock fa-2x"></i>
-                        </div>
-                        <h6 class="text-muted mb-1">Connexions limitées</h6>
-                        <h4 class="text-warning mb-0">
-                            <?php echo count(array_filter($clientConnecter, fn($c) => $c['date_fin'] != null)); ?>
-                        </h4>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6 mb-3">
-                <div class="card border-0 shadow-sm h-100">
-                    <div class="card-body text-center">
-                        <div class="text-success mb-2">
-                            <i class="fas fa-signal fa-2x"></i>
-                        </div>
-                        <h6 class="text-muted mb-1">Statut réseau</h6>
-                        <h6 class="text-success mb-0">
-                            <i class="fas fa-circle me-1"></i>Actif
-                        </h6>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6 mb-3">
-                <div class="card border-0 shadow-sm h-100">
-                    <div class="card-body text-center">
-                        <button class="btn btn-primary btn-lg w-100 h-100 d-flex flex-column align-items-center justify-content-center"
-                            data-bs-toggle="modal" data-bs-target="#addClientModal">
-                            <i class="fas fa-plus fa-2x mb-2"></i>
-                            <span>Ajouter un client</span>
-                        </button>
-                    </div>
                 </div>
             </div>
         </div>
@@ -90,15 +33,30 @@
             <div class="col-12">
                 <div class="card border-0 shadow-sm">
                     <div class="card-header bg-white border-bottom">
-                        <h5 class="mb-0 d-flex align-items-center">
-                            <i class="fas fa-users me-2 text-primary"></i>
-                            Clients connectés
-                            <span class="ms-auto badge bg-secondary"><?php echo count($clientConnecter); ?></span>
-                        </h5>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0 d-flex align-items-center">
+                                <i class="fas fa-users me-2 text-primary"></i>
+                                <?php echo count($clientConnecter); ?> clients connectés
+                            </h5>
+                            <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addClientModal">
+                                <i class="fas fa-plus fa-2x mb-2"></i>
+                                <span class="fs-6">Ajouter</span>
+                            </button>
+                        </div>
                     </div>
+
                     <div class="card-body p-4">
                         <div class="row g-4" id="clientsContainer">
-                            <?php if (empty($clientConnecter)): ?>
+                            <?php
+                            // Pagination
+                            $clientsPerPage = 8;  // Afficher 6 clients par page
+                            $currentPage = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+                            $totalClients = count($clientConnecter);
+                            $totalPages = ceil($totalClients / $clientsPerPage);
+                            $startIndex = ($currentPage - 1) * $clientsPerPage;
+                            $clientsToShow = array_slice($clientConnecter, $startIndex, $clientsPerPage);
+
+                            if (empty($clientsToShow)): ?>
                                 <div class="col-12">
                                     <div class="text-center py-5">
                                         <i class="fas fa-wifi text-muted" style="font-size: 4rem;"></i>
@@ -107,7 +65,7 @@
                                     </div>
                                 </div>
                             <?php else: ?>
-                                <?php foreach ($clientConnecter as $cn): ?>
+                                <?php foreach ($clientsToShow as $cn): ?>
                                     <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
                                         <div class="card h-100 border-0 shadow-sm position-relative <?php echo ($cn['date_fin'] == null) ? 'border-start border-primary border-4' : 'border-start border-warning border-4'; ?>"
                                             data-client-id="<?php echo $cn['id_client']; ?>"
@@ -118,11 +76,11 @@
                                             <div class="position-absolute top-0 end-0 mt-2 me-2">
                                                 <?php if ($cn['date_fin'] == null): ?>
                                                     <span class="badge bg-primary">
-                                                        <i class="fas fa-infinity me-1"></i>Illimité
+                                                        <i class="fas fa-infinity me-1"></i>
                                                     </span>
                                                 <?php else: ?>
                                                     <span class="badge bg-warning">
-                                                        <i class="fas fa-clock me-1"></i>Limité
+                                                        <i class="fas fa-clock me-1"></i>
                                                     </span>
                                                 <?php endif; ?>
                                             </div>
@@ -152,15 +110,14 @@
 
                                                 <!-- Actions -->
                                                 <div class="mt-auto">
-                                                    <?php if ($cn['date_fin'] == null): ?>
-                                                        <button class="btn btn-outline-danger btn-sm w-100">
-                                                            <i class="fas fa-stop me-1"></i> Arrêter la connexion
-                                                        </button>
-                                                    <?php else: ?>
-                                                        <button class="btn btn-outline-secondary btn-sm w-100" disabled>
-                                                            <i class="fas fa-check me-1"></i> Connexion terminée
-                                                        </button>
-                                                    <?php endif; ?>
+                                                    <?php if ($cn['date_fin'] == null) { ?>
+                                                        <form action="/connexion/sansposte/arreter" method="post">
+                                                            <button class="btn btn-outline-danger btn-sm w-100">
+                                                                <input type="hidden" name="id" value="<?php echo $cn['id_historique_connection']; ?>">
+                                                                <i class="fas fa-stop me-1"></i> Arrêter la connexion
+                                                            </button>
+                                                        </form>
+                                                    <?php } ?>
                                                 </div>
                                             </div>
                                         </div>
@@ -168,6 +125,34 @@
                                 <?php endforeach; ?>
                             <?php endif; ?>
                         </div>
+
+                        <!-- Pagination -->
+                        <br>
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination justify-content-center">
+                                <?php if ($currentPage > 1): ?>
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page=<?php echo $currentPage - 1; ?>" aria-label="Précédent">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                <?php endif; ?>
+
+                                <?php for ($page = 1; $page <= $totalPages; $page++): ?>
+                                    <li class="page-item <?php echo $page == $currentPage ? 'active' : ''; ?>">
+                                        <a class="page-link" href="?page=<?php echo $page; ?>"><?php echo $page; ?></a>
+                                    </li>
+                                <?php endfor; ?>
+
+                                <?php if ($currentPage < $totalPages): ?>
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page=<?php echo $currentPage + 1; ?>" aria-label="Suivant">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                <?php endif; ?>
+                            </ul>
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -216,8 +201,34 @@
                     } else {
                         element.innerHTML = '<i class="fas fa-times-circle me-1"></i>Connexion expirée';
                         element.className = element.className.replace(/text-\w+/g, '') + ' text-danger';
+
+                        // Si la connexion est expirée, actualiser la page après 2 secondes
+                        setTimeout(() => {
+                            location.reload(); // Recharge la page
+                        }, 2000);
                     }
                 }
+            }
+
+            // Fonction pour vérifier l'état des connexions et actualiser la page si nécessaire
+            function checkConnectionStatus() {
+                const clients = document.querySelectorAll('.card');
+
+                clients.forEach(card => {
+                    const dateFin = card.getAttribute('data-fin');
+                    const durationElement = card.querySelector('.duration-text');
+
+                    if (dateFin) {
+                        const now = new Date();
+                        const fin = new Date(dateFin);
+                        if (fin <= now) {
+                            // Si la connexion est terminée, actualiser la page
+                            setTimeout(() => {
+                                location.reload(); // Recharge la page
+                            }, 2000);
+                        }
+                    }
+                });
             }
 
             // Initialisation et mise à jour périodique
@@ -244,6 +255,9 @@
                             element.getAttribute('data-fin')
                         );
                     });
+
+                    // Vérifier l'état des connexions et actualiser si nécessaire
+                    checkConnectionStatus();
                 }
 
                 // Mise à jour initiale
@@ -268,6 +282,7 @@
                 });
             });
         </script>
+
 </body>
 
 </html>

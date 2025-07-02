@@ -81,3 +81,9 @@ $router->post('/poste/rendreDisponible', [$PosteController, 'rendreDisponible'])
 $ConnexionController = new ConnexionController();
 $router->get('/connexion/sansposte', [$ConnexionController, 'showGestionConnexionCLientSansPoste']);
 $router->post('/connexion/sansposte/add', [$ConnexionController, 'addClientConecter']);
+
+$router->get('/connexion/histo', [$ConnexionController, 'showHisto']);
+
+$router->post('/connexion/sansposte/arreter', [$ConnexionController, 'arreterarreterConnexion']);
+
+$router->post('/connexion/payer', [$ConnexionController, 'payer']);

@@ -9,6 +9,37 @@ class ConnexionController
 {
     public function __construct() {}
 
+    public function showHisto()
+    {
+        $historiques = Flight::ConnexionModel()->getHisto();
+        $data = [
+            'historiques' => $historiques,
+        ];
+        Flight::render('connexion/historique/index.php', $data);
+    }
+
+    public function payer()
+    {
+        $id_histo = $_POST['id'];
+        $payer =  Flight::ConnexionModel()->payer($id_histo);
+        if ($payer) {
+            Flight::redirect('/connexion/histo');
+        } else {
+            Flight::error('Erreur lors de l\'arret du payement.');
+        }
+    }
+
+    public function arreterarreterConnexion()
+    {
+        $d_histo = $_POST['id'];
+        $stop = Flight::ConnexionModel()->arreterConnexion($d_histo);
+        if ($stop) {
+            Flight::redirect('/connexion/sansposte');
+        } else {
+            Flight::error('Erreur lors de l\'arret de la connexion.');
+        }
+    }
+
     public function showGestionConnexionCLientSansPoste()
     {
         $clients = Flight::ConnexionModel()->getAllClient();
