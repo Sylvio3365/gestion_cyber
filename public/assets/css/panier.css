@@ -1,0 +1,224 @@
+/* ===== STYLES POUR LA PAGE PANIER ===== */
+
+/* Styles généraux pour la page panier */
+.cart-page {
+    background-color: var(--gray-50);
+    min-height: calc(100vh - var(--header-height));
+    padding: 2rem;
+}
+
+.cart-header h1 {
+    color: var(--gray-900);
+    font-weight: 600;
+}
+
+.cart-content {
+    margin-top: 1rem;
+}
+
+/* Styles pour les articles du panier */
+.cart-items-section .card,
+.cart-summary-section .card {
+    border: none;
+    box-shadow: var(--shadow-sm);
+    border-radius: 12px;
+}
+
+.cart-item-row {
+    transition: background-color 0.2s ease;
+}
+
+.cart-item-row:hover {
+    background-color: var(--gray-50);
+}
+
+.quantity-controls {
+    gap: 0.5rem;
+}
+
+.quantity-controls button {
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.empty-cart i {
+    font-size: 5rem;
+}
+
+/* Styles pour le résumé de commande */
+.summary-item {
+    padding: 0.5rem 0;
+}
+
+/* Styles pour les modes de paiement */
+.payment-methods {
+    margin: 1rem 0;
+}
+
+.payment-method {
+    border: 2px solid var(--gray-300);
+    border-radius: 8px;
+    padding: 1rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: white;
+    margin-bottom: 0.5rem;
+}
+
+.payment-method:hover {
+    border-color: var(--blue-500);
+    background-color: var(--blue-50, #eff6ff);
+}
+
+.payment-method.active {
+    border-color: var(--blue-500);
+    background-color: var(--blue-50, #eff6ff);
+    color: var(--blue-600);
+}
+
+.payment-method i {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.payment-method span {
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+/* Styles pour le modal de paiement */
+.modal-content {
+    border-radius: 12px;
+    border: none;
+}
+
+.modal-header {
+    border-bottom: 1px solid var(--gray-200);
+    background-color: var(--gray-50);
+}
+
+.order-summary {
+    background-color: var(--gray-50);
+    padding: 1rem;
+    border-radius: 8px;
+}
+
+.loyalty-points {
+    border-left: 4px solid var(--orange-600);
+}
+
+/* Styles pour les badges de navigation */
+.info-badge {
+    margin: 0.5rem;
+}
+
+.info-badge button {
+    border-radius: 25px;
+    padding: 0.75rem 1.5rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: none;
+    box-shadow: var(--shadow-sm);
+}
+
+.info-badge button:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .cart-page {
+        padding: 1rem;
+    }
+    
+    .cart-header {
+        text-align: center;
+    }
+    
+    .cart-header .d-flex {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .payment-methods .row {
+        flex-direction: column;
+    }
+    
+    .payment-method {
+        margin-bottom: 1rem;
+    }
+    
+    .cart-item-row .row {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.5rem;
+    }
+    
+    .quantity-controls {
+        justify-content: center;
+    }
+}
+
+/* Mode sombre */
+body.dark-mode .cart-page {
+    background-color: #1a1a1a;
+}
+
+body.dark-mode .cart-items-section .card,
+body.dark-mode .cart-summary-section .card {
+    background-color: #2d2d2d;
+    border-color: #404040;
+}
+
+body.dark-mode .cart-header h1 {
+    color: #ffffff;
+}
+
+body.dark-mode .cart-item-row:hover {
+    background-color: #404040;
+}
+
+body.dark-mode .payment-method {
+    background-color: #2d2d2d;
+    border-color: #404040;
+    color: #ffffff;
+}
+
+body.dark-mode .payment-method:hover,
+body.dark-mode .payment-method.active {
+    background-color: #404040;
+    border-color: var(--blue-500);
+}
+
+body.dark-mode .modal-content {
+    background-color: #2d2d2d;
+    color: #ffffff;
+}
+
+body.dark-mode .modal-header {
+    background-color: #404040;
+    border-color: #505050;
+}
+
+body.dark-mode .order-summary {
+    background-color: #404040;
+}
+
+body.dark-mode .form-control {
+    background-color: #404040;
+    border-color: #505050;
+    color: #ffffff;
+}
+
+body.dark-mode .form-control:focus {
+    background-color: #404040;
+    border-color: var(--blue-500);
+    color: #ffffff;
+}
