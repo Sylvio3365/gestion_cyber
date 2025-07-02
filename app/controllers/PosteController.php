@@ -41,7 +41,7 @@ class PosteController
         try {
             $demarrer = Flight::PosteModel()->demarrerSession();
             if ($demarrer) {
-                $this->redirectWithMessage('/poste/accueil', 'Session démarrée avec succès pour tous les postes');
+                $this->redirectWithMessage('/poste/con/accueil', 'Session démarrée avec succès pour tous les postes');
             }
         } catch (\Exception $e) {
             $this->redirectWithMessage('/poste/accueil', 'Erreur: ' . $e->getMessage(), 'error');
