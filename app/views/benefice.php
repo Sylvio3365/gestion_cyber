@@ -8,6 +8,11 @@
         form { margin-bottom: 20px; }
         input[type="submit"] { padding: 6px 12px; }
         .result { font-weight: bold; margin-top: 20px; color: green; }
+        .branche-result { margin-top: 10px; color: navy; }
+        table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        tr:nth-child(even) { background-color: #f9f9f9; }
     </style>
 </head>
 <body>
@@ -28,11 +33,35 @@
         <input type="submit" value="Calculer">
     </form>
 
-    <?php if (!empty($_SESSION['benefice_result'])): ?>
+    <?php if (isset($benefice)): ?>
         <div class="result">
-            Résultat : <?php echo $_SESSION['benefice_result']; ?>
+            <h3>Bénéfice global :</h3>
+            <p><?php echo $benefice['total']; ?></p>
         </div>
-        <?php unset($_SESSION['benefice_result']); ?>
+
+        <div class="branche-result">
+            <h3>Détail du bénéfice par branche :</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Branche</th>
+                        <th>Ventes</th>
+                        <th>Achats</th>
+                        <th>Bénéfice</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($benefice['branches'] as $branche => $details): ?>
+                    <tr>
+                        <td><?php echo htmlspecialchars($branche); ?></td>
+                        <td><?php echo $details['vente']; ?></td>
+                        <td><?php echo $details['achat']; ?></td>
+                        <td><?php echo $details['benefice']; ?></td>
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
     <?php endif; ?>
 
 </body>
