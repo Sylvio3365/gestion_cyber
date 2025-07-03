@@ -13,20 +13,35 @@ CREATE TABLE service_produit (
 
 INSERT INTO account_type(name, remarque) VALUES
 ('admin', 'Administrateur'),
-('employé', 'employé utilisateur');
+('vendeur', 'employé utilisateur');
 INSERT INTO user_app (name, username, firstname, email, password, deleted_at, id_account_type) VALUES
 ('admin', 'admin', 'admin', 'admin', 'admin', NULL, 1),
 ('user', 'user', 'User', 'user', 'user', NULL, 2);
 
+
+
+
 INSERT INTO branche (nom, description) VALUES
-('Bureautique', 'Tout pour le bureau');
+  ('Fourniture',  'Articles et matériel de bureau'),
+  ('Connexion',   'Abonnements & équipements réseau'),
+  ('Multiservice','Services d''impression, scan, etc.');
 
 INSERT INTO categorie (nom, id_branche) VALUES
-('Fournitures', 1),      -- Pour stylos, papier, etc.
-('Services', 1);         -- Pour photocopie, impression, etc.
+  -- Fourniture
+  ('Papeterie',    1),
+  ('Accessoires',  1),
+
+  -- Connexion
+  ('Internet',     2),
+
+  -- Multiservice
+  ('Services', 3);
+
 
 INSERT INTO marque (nom) VALUES
-('BIC'), ('Papyrus'), ('HP');
+  ('BIC'),
+  ('Papyrus'),
+  ('HP');
 
 INSERT INTO produit (nom, description, id_marque, id_categorie) VALUES
 ('Stylo bleu', 'Stylo bille classique', 1, 1),
@@ -59,7 +74,7 @@ INSERT INTO prix_service (date_modification, prix, mois, annee, description, id_
 (NOW(), 300, 6, 2025, 'Tarif standard', 3);  -- scan
 
 INSERT INTO type_de_payement (nom) VALUES
-('Espèces'), ('Mobile Money');
+('Especes'), ('Mobile Money');
 
 INSERT INTO service_produit (id_service, id_produit, quantite_par_service) VALUES
 (1, 3, 1), -- Photocopie consomme 1 papier A4 par service

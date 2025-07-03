@@ -10,28 +10,40 @@ class StatController {
         $this->model = Flight::statistiqueModel();
     }
 
-   public function topProduitParBranche()
+public function topProduitParBranche()
 {
-    $branche_id = Flight::request()->query->branche ?? null;
-    $date_debut = Flight::request()->query->date_debut ?? null;
-    $date_fin = Flight::request()->query->date_fin ?? null;
+    $branche_id  = Flight::request()->query->branche ?? null;
+    $date_debut  = Flight::request()->query->date_debut ?? null;
+    $date_fin    = Flight::request()->query->date_fin ?? null;
 
+    // Récupération branches (toujours)
     $branches = $this->model->getAllBranches();
+
+    // Résultats par défaut vides
     $resultats = [];
 
-    // Valide que la date est correcte et dans le bon ordre
-    if ($branche_id && $date_debut && $date_fin && strtotime($date_debut) !== false && strtotime($date_fin) !== false && strtotime($date_debut) <= strtotime($date_fin)) {
+    // Validation et récupération données
+    if (
+        $branche_id &&
+        $date_debut && $date_fin &&
+        strtotime($date_debut) !== false &&
+        strtotime($date_fin) !== false &&
+        strtotime($date_debut) <= strtotime($date_fin)
+    ) {
         $resultats = $this->model->getHistogrammeTousProduitsParBranche($branche_id, $date_debut, $date_fin);
     }
 
-    Flight::render('Stat', [
-        'branches' => $branches,
-        'resultats' => $resultats,
-        'branche' => $branche_id,
+    // Passage des variables vers la vue (toujours défini)
+    Flight::render('Statistique/Stat', [
+        'branches'   => $branches,
+        'resultats'  => $resultats,
+        'branche'    => $branche_id,
         'date_debut' => $date_debut,
-        'date_fin' => $date_fin
+        'date_fin'   => $date_fin,
     ]);
 }
+
+
 
 
 
