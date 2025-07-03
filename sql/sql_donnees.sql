@@ -72,10 +72,10 @@ VALUES
 INSERT INTO
     produit (nom, description, id_marque, id_categorie)
 VALUES
-    ('Stylo bleu', 'Stylo bille classique', 1, 1),
-    ('Crayon à papier', 'Crayon graphite HB', 1, 1),
-    ('Papier A4', '500 feuilles', 2, 1),
-    ('Classeur', 'Classeur cartonné', 2, 1);
+    ('Stylo bleu', 'Stylo bille classique', 1, 2),
+    ('Crayon à papier', 'Crayon graphite HB', 1, 2),
+    ('Papier A4', '500 feuilles', 2, 2),
+    ('Classeur', 'Classeur cartonné', 2, 2);
 
 -- Insérer des valeurs dans type_mouvement
 INSERT INTO
@@ -142,7 +142,7 @@ VALUES
 INSERT INTO
     type_de_payement (nom)
 VALUES
-    ('Espèces'),
+    ('Especes'),
     ('Mobile Money');
 
 -- Insérer des valeurs dans service_produit
