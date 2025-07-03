@@ -42,7 +42,7 @@
                             <li><a href="/admin/marque"><i class="bi bi-tag"></i> Marque</a></li>
                             <li><a href="/admin/produit"><i class="bi bi-box"></i> Produit</a></li>
                             <li><a href="/admin/service"><i class="bi bi-wrench"></i> Service</a></li>
-                            <li><a href="/admin/produit"><i class="bi bi-box"></i> Stock</a></li> <!-- Corrected the stock icon -->
+                            <li><a href="/admin/stock"><i class="bi bi-box"></i> Stock</a></li> <!-- Corrected the stock icon -->
                         </ul>
                     </li>
                     <li class="nav-item">
@@ -77,8 +77,8 @@
                             <i class="bi bi-chevron-down submenu-indicator"></i>
                         </a>
                         <ul class="submenu collapse">
-                            <li><a href="#"><i class="bi bi-cash-stack"></i> Recette par branche</a></li> <!-- Updated to cash-stack -->
-                            <li><a href="#"><i class="bi bi-pie-chart"></i> Vente par branche</a></li> <!-- Updated to pie-chart -->
+                            <li><a href="#"><i class="bi bi-cash-stack"></i>Recette par branche</a></li> <!-- Updated to cash-stack -->
+                            <li><a href="/stat"><i class="bi bi-pie-chart"></i>Vente</a></li> <!-- Updated to pie-chart -->
                         </ul>
                     </li>
                 </ul>
@@ -140,7 +140,6 @@
                             <div class="user-profile">
                                 <span class="user-name"><?= htmlspecialchars($_SESSION['user']['firstname'] ?? 'Utilisateur') ?></span>
                             </div>
-                            <a href="/logout" class="btn btn-outline-primary btn-sm login-btn">Se déconnecter</a>
                         </div>
                     </div>
                 </div>
