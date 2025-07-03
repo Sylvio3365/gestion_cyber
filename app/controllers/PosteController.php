@@ -19,7 +19,9 @@ class PosteController
         $nouveauJour = Flight::PosteModel()->estNouveauJour();
         $clients = Flight::ConnexionModel()->getAllClient();
 
+        $page = 'connexion/avec_poste/accueil';
         $data = [
+            'page' => $page,
             'estNouveauJour' => $nouveauJour,
             'postes' => $postes,
             'clients' => $clients,
@@ -27,7 +29,7 @@ class PosteController
             'messageType' => $messageType
         ];
 
-        Flight::render('connexion/avec_poste/accueil.php', $data);
+        Flight::render('index', $data);
     }
 
     private function redirectWithMessage($url, $message, $type = 'success')

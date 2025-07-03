@@ -2,27 +2,32 @@
 
 namespace app\models;
 
-class PanierModel {
+class PanierModel
+{
     private $db;
 
-    public function __construct($db) {
+    public function __construct($db)
+    {
         $this->db = $db;
     }
 
-    public function creerPanier($id_user, $id_client = null) {
+    public function creerPanier($id_user, $id_client = null)
+    {
         $sql = "INSERT INTO vente_draft (date_creation, id_user, id_client) VALUES (NOW(), ?, ?)";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([$id_user, $id_client]);
         return $this->db->lastInsertId();
     }
 
-    public function updateClientPanier($id_vente_draft, $id_client) {
+    public function updateClientPanier($id_vente_draft, $id_client)
+    {
         $sql = "UPDATE vente_draft SET id_client = ? WHERE id_vente_draft = ?";
         $stmt = $this->db->prepare($sql);
         return $stmt->execute([$id_client, $id_vente_draft]);
     }
 
-    public function ajouterProduitPanier($id_vente_draft, $id_produit, $quantite, $prix_unitaire) {
+    public function ajouterProduitPanier($id_vente_draft, $id_produit, $quantite, $prix_unitaire)
+    {
         $sql = "SELECT id_vente_draft_produit, quantite FROM vente_draft_produit 
                 WHERE id_vente_draft = ? AND id_produit = ?";
         $stmt = $this->db->prepare($sql);
@@ -42,7 +47,8 @@ class PanierModel {
         }
     }
 
-    public function ajouterServicePanier($id_vente_draft, $id_service, $quantite, $prix_unitaire) {
+    public function ajouterServicePanier($id_vente_draft, $id_service, $quantite, $prix_unitaire)
+    {
         $sql = "SELECT id_vente_draft_service, quantite FROM vente_draft_service 
                 WHERE id_vente_draft = ? AND id_service = ?";
         $stmt = $this->db->prepare($sql);
@@ -62,7 +68,8 @@ class PanierModel {
         }
     }
 
-    public function getPanier($id_vente_draft) {
+    public function getPanier($id_vente_draft)
+    {
         $sql_produits = "SELECT vdp.*, p.nom as produit_nom, p.id_produit
                         FROM vente_draft_produit vdp
                         JOIN produit p ON vdp.id_produit = p.id_produit
@@ -85,39 +92,44 @@ class PanierModel {
         ];
     }
 
-    public function modifierQuantiteProduit($id_vente_draft_produit, $nouvelle_quantite) {
+    public function modifierQuantiteProduit($id_vente_draft_produit, $nouvelle_quantite)
+    {
         if ($nouvelle_quantite <= 0) {
             return $this->supprimerProduitPanier($id_vente_draft_produit);
         }
-        
+
         $sql = "UPDATE vente_draft_produit SET quantite = ? WHERE id_vente_draft_produit = ?";
         $stmt = $this->db->prepare($sql);
         return $stmt->execute([$nouvelle_quantite, $id_vente_draft_produit]);
     }
 
-    public function modifierQuantiteService($id_vente_draft_service, $nouvelle_quantite) {
+    public function modifierQuantiteService($id_vente_draft_service, $nouvelle_quantite)
+    {
         if ($nouvelle_quantite <= 0) {
             return $this->supprimerServicePanier($id_vente_draft_service);
         }
-        
+
         $sql = "UPDATE vente_draft_service SET quantite = ? WHERE id_vente_draft_service = ?";
         $stmt = $this->db->prepare($sql);
         return $stmt->execute([$nouvelle_quantite, $id_vente_draft_service]);
     }
 
-    public function supprimerProduitPanier($id_vente_draft_produit) {
+    public function supprimerProduitPanier($id_vente_draft_produit)
+    {
         $sql = "DELETE FROM vente_draft_produit WHERE id_vente_draft_produit = ?";
         $stmt = $this->db->prepare($sql);
         return $stmt->execute([$id_vente_draft_produit]);
     }
 
-    public function supprimerServicePanier($id_vente_draft_service) {
+    public function supprimerServicePanier($id_vente_draft_service)
+    {
         $sql = "DELETE FROM vente_draft_service WHERE id_vente_draft_service = ?";
         $stmt = $this->db->prepare($sql);
         return $stmt->execute([$id_vente_draft_service]);
     }
 
-    public function calculerTotal($id_vente_draft) {
+    public function calculerTotal($id_vente_draft)
+    {
         $sql_produits = "SELECT SUM(quantite * prix_unitaire) as total_produits 
                         FROM vente_draft_produit WHERE id_vente_draft = ?";
         $stmt = $this->db->prepare($sql_produits);
@@ -133,7 +145,8 @@ class PanierModel {
         return $total_produits + $total_services;
     }
 
-    public function validerVente($id_vente_draft, $argent_donne, $id_type_paiement) {
+    public function validerVente($id_vente_draft, $argent_donne, $id_type_paiement)
+    {
         $total = $this->calculerTotal($id_vente_draft);
 
         // Vérification si l'argent donné est suffisant
@@ -157,7 +170,8 @@ class PanierModel {
         return $id_vente;
     }
 
-    private function gererStockProduits($id_vente_draft) {
+    private function gererStockProduits($id_vente_draft)
+    {
         $sql = "SELECT id_produit, quantite FROM vente_draft_produit WHERE id_vente_draft = ?";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([$id_vente_draft]);
@@ -173,7 +187,8 @@ class PanierModel {
         }
     }
 
-    private function gererStockServices($id_vente_draft) {
+    private function gererStockServices($id_vente_draft)
+    {
         $sql = "SELECT id_service, quantite FROM vente_draft_service WHERE id_vente_draft = ?";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([$id_vente_draft]);
@@ -183,10 +198,10 @@ class PanierModel {
 
         foreach ($services as $service) {
             $produits_consommes = $this->getProduitConsommeParService($service['id_service']);
-            
+
             foreach ($produits_consommes as $produit_consomme) {
                 $quantite_consommee = $service['quantite'] * $produit_consomme['quantite_par_service'];
-                
+
                 $sql_stock = "INSERT INTO stock (quantite, date_mouvement, id_produit, id_mouvement) 
                              VALUES (?, NOW(), ?, ?)";
                 $stmt_stock = $this->db->prepare($sql_stock);
@@ -195,7 +210,8 @@ class PanierModel {
         }
     }
 
-    public function getProduitConsommeParService($id_service) {
+    public function getProduitConsommeParService($id_service)
+    {
         $sql = "SELECT sp.id_produit, sp.quantite_par_service, p.nom
                 FROM service_produit sp
                 JOIN produit p ON sp.id_produit = p.id_produit
@@ -205,7 +221,8 @@ class PanierModel {
         return $stmt->fetchAll();
     }
 
-    public function getProduits() {
+    public function getProduits()
+    {
         $sql = "SELECT p.*, pp.prix,
                 (SELECT SUM(s.quantite)
                     FROM stock s
@@ -218,42 +235,51 @@ class PanierModel {
         return $stmt->fetchAll();
     }
 
-    public function getServices() {
-        $sql = "SELECT s.*, ps.prix FROM service s 
+    public function getServices()
+    {
+        $sql = "SELECT s.*, ps.prix 
+                FROM service s 
                 LEFT JOIN prix_service ps ON s.id_service = ps.id_service 
                 WHERE s.deleted_at IS NULL 
+                AND s.nom != 'connexion'
                 ORDER BY ps.date_modification DESC";
         $stmt = $this->db->query($sql);
         return $stmt->fetchAll();
     }
 
-    public function getTypesPaiement() {
+
+    public function getTypesPaiement()
+    {
         $sql = "SELECT * FROM type_de_payement";
         $stmt = $this->db->query($sql);
         return $stmt->fetchAll();
     }
 
-    public function getTypePaiementById($id) {
+    public function getTypePaiementById($id)
+    {
         $sql = "SELECT * FROM type_de_payement WHERE id_type_de_payement = ?";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([$id]);
         return $stmt->fetch();
     }
-    public function getClientById($id) {
+    public function getClientById($id)
+    {
         $sql = "SELECT * FROM client WHERE id_client = ? AND deleted_at IS NULL";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([$id]);
         return $stmt->fetch();
     }
 
-    public function ajouterClient($nom, $prenom) {
+    public function ajouterClient($nom, $prenom)
+    {
         $sql = "INSERT INTO client (nom, prenom, added_at) VALUES (?, ?, NOW())";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([$nom, $prenom]);
         return $this->db->lastInsertId();
     }
 
-    public function rechercherClients($terme = '') {
+    public function rechercherClients($terme = '')
+    {
         $sql = "SELECT id_client, nom, prenom FROM client 
                 WHERE (nom LIKE ? OR prenom LIKE ?) AND deleted_at IS NULL 
                 ORDER BY nom, prenom LIMIT 10";
@@ -263,14 +289,16 @@ class PanierModel {
         return $stmt->fetchAll();
     }
 
-    public function getProduitById($id_produit) {
+    public function getProduitById($id_produit)
+    {
         $sql = "SELECT * FROM produit WHERE id_produit = ?";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([$id_produit]);
         return $stmt->fetch();
     }
 
-    public function getServiceById($id_service) {
+    public function getServiceById($id_service)
+    {
         $sql = "SELECT * FROM service WHERE id_service = ?";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([$id_service]);

@@ -6,7 +6,8 @@ use app\controllers\PanierController;
 use app\controllers\AdminController;
 use app\controllers\TemplateController;
 use app\controllers\StatController;
-
+use app\controllers\ConnexionController;
+use app\controllers\PosteController;
 use flight\Engine;
 use flight\net\Router;
 //use Flight;
@@ -91,3 +92,22 @@ $router->get('/stat', [$StatController, 'topProduitParBranche']);
 
 $TemplateController = new TemplateController();
 $router->get('/template', [$TemplateController, 'show']);
+
+// Gestion du trafic de connexion des clients (avec un poste)
+$PosteController = new PosteController();
+$router->get('/poste/accueil', [$PosteController, 'accueil']);
+$router->get('/poste/demarrerSession', [$PosteController, 'demarrerSession']);
+$router->post('/poste/demarrerSessionPoste', [$PosteController, 'demarrerSessionPoste']);
+$router->post('/poste/arreterSessionPoste', [$PosteController, 'arreterSessionPoste']);
+$router->post('/poste/mettreEnMaintenance', [$PosteController, 'mettreEnMaintenance']);
+$router->post('/poste/rendreDisponible', [$PosteController, 'rendreDisponible']);
+
+$ConnexionController = new ConnexionController();
+$router->get('/connexion/sansposte', [$ConnexionController, 'showGestionConnexionCLientSansPoste']);
+$router->post('/connexion/sansposte/add', [$ConnexionController, 'addClientConecter']);
+
+$router->get('/connexion/apayer', [$ConnexionController, 'showHisto']);
+
+$router->post('/connexion/sansposte/arreter', [$ConnexionController, 'arreterarreterConnexion']);
+
+$router->post('/connexion/payer', [$ConnexionController, 'payer']);
