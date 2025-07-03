@@ -192,7 +192,7 @@
                             $percentage = round(($row['quantite_total'] / $total) * 100, 2);
                         ?>
                             <tr>
-                                <td><?= htmlspecialchars($row['produit']) ?></td>
+                                <td><?= htmlspecialchars($row['nom_objet']) ?></td>
                                 <td class="text-end"><?= number_format($row['quantite_total'], 0, ',', ' ') ?></td>
                                 <td class="text-end"><?= $percentage ?>%</td>
                             </tr>
@@ -204,7 +204,7 @@
                 <!-- === Script Chart.js === -->
                 <script>
                     (function () {
-                        const labels = <?= json_encode(array_column($resultats, 'produit')) ?>;
+                        const labels = <?= json_encode(array_column($resultats, 'nom_objet')) ?>;
                         const data   = <?= json_encode(array_column($resultats, 'quantite_total')) ?>;
 
                         /* Couleurs dynamiques : palette HSL */

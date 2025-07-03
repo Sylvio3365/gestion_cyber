@@ -81,7 +81,7 @@ public function getAllBranches(): array
 }
 
 // Fonction pour récupérer histogramme produits par branche et dates (avec jointures vente + vente_draft)
-public function getHistogrammeTousProduitsParBranche(string $branche_id, string $date_debut, string $date_fin): array
+public function getHistogrammeTousProduitsEtServicesParBranche(string $branche_id, string $date_debut, string $date_fin): array
 {
     if (
         strtotime($date_debut) === false ||
@@ -92,16 +92,28 @@ public function getHistogrammeTousProduitsParBranche(string $branche_id, string 
     }
 
     $sql = "
-        SELECT p.nom AS produit, SUM(vdp.quantite) AS quantite_total
-        FROM vente v
-        INNER JOIN vente_draft vd ON vd.id_vente_draft = v.id_vente_draft
-        INNER JOIN vente_draft_produit vdp ON vdp.id_vente_draft = vd.id_vente_draft
-        INNER JOIN produit p ON p.id_produit = vdp.id_produit
-        INNER JOIN categorie c ON c.id_categorie = p.id_categorie
+        SELECT nom_objet, SUM(quantite) AS quantite_total
+        FROM (
+            SELECT p.nom AS nom_objet, vdp.quantite, p.id_categorie
+            FROM vente v
+            INNER JOIN vente_draft vd ON vd.id_vente_draft = v.id_vente_draft
+            INNER JOIN vente_draft_produit vdp ON vdp.id_vente_draft = vd.id_vente_draft
+            INNER JOIN produit p ON p.id_produit = vdp.id_produit
+            WHERE vd.date_creation BETWEEN :date_debut AND :date_fin
+
+            UNION ALL
+
+            SELECT s.nom AS nom_objet, vds.quantite, s.id_categorie
+            FROM vente v
+            INNER JOIN vente_draft vd ON vd.id_vente_draft = v.id_vente_draft
+            INNER JOIN vente_draft_service vds ON vds.id_vente_draft = vd.id_vente_draft
+            INNER JOIN service s ON s.id_service = vds.id_service
+            WHERE vd.date_creation BETWEEN :date_debut AND :date_fin
+        ) AS ventes_combinees
+        INNER JOIN categorie c ON c.id_categorie = ventes_combinees.id_categorie
         INNER JOIN branche b ON b.id_branche = c.id_branche
         WHERE b.id_branche = :branche_id
-          AND vd.date_creation BETWEEN :date_debut AND :date_fin
-        GROUP BY p.nom
+        GROUP BY nom_objet
         ORDER BY quantite_total DESC
     ";
 
@@ -109,7 +121,7 @@ public function getHistogrammeTousProduitsParBranche(string $branche_id, string 
     $stmt->execute([
         ':branche_id' => $branche_id,
         ':date_debut' => $date_debut,
-        ':date_fin'   => $date_fin,
+        ':date_fin' => $date_fin,
     ]);
 
     return $stmt->fetchAll(\PDO::FETCH_ASSOC) ?: [];
