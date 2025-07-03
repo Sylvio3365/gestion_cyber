@@ -7,7 +7,9 @@ use Tracy\Debugger;
 use app\models\StatistiqueModel;
 use app\models\AdminModel;
 use app\models\ConnexionModel;
+use app\models\HistoConnexModel;
 use app\models\PosteModel;
+use app\models\StatRecetteModel;
 
 /** 
  * @var array $config This comes from the returned array at the bottom of the config.php file
@@ -31,8 +33,6 @@ $app->register('db', $pdoClass, [$dsn, $config['database']['user'] ?? null, $con
 // Redis? This is where you'd set that up
 // $app->register('redis', Redis::class, [ $config['redis']['host'], $config['redis']['port'] ]);
 
-
-
 Flight::map('statistiqueModel', function () {
     return new StatistiqueModel(Flight::db());
 });
@@ -47,4 +47,12 @@ Flight::map('PosteModel', function () {
 
 Flight::map('ConnexionModel', function () {
     return new ConnexionModel(Flight::db());
+});
+
+Flight::map('statModel', function () {
+    return new StatRecetteModel(Flight::db());
+});
+
+Flight::map('historiqueModel', function () {
+    return new HistoConnexModel(Flight::db());
 });

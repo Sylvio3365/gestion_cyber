@@ -78,9 +78,11 @@ class ConnexionModel
         return $stmt->fetchAll();
     }
 
-    public function creerVente($id_client, $id_service, $quantite, $prix_unitaire)
+    public function creerVente($id_user, $id_client, $id_service, $quantite, $prix_unitaire)
     {
-        $id_user = 2; // L'ID de l'utilisateur (vous pouvez ajuster cette valeur)
+        if ($id_user == null) {
+            $id_user = 2; // L'ID de l'utilisateur (vous pouvez ajuster cette valeur)
+        }
         try {
             // 1. Créer un enregistrement dans la table vente_draft
             $date_creation = date('Y-m-d H:i:s');
@@ -162,7 +164,7 @@ class ConnexionModel
         }
     }
 
-    public function payer($idhistoriqueconn)
+    public function payer($id_user, $idhistoriqueconn)
     {
         try {
             $query_update = "UPDATE historique_connexion SET statut = 1 WHERE id_historique_connection = :idhistoriqueconn";
@@ -197,7 +199,7 @@ class ConnexionModel
             $montant_a_payer = $duree_minutes * ($prix_service);  // Le prix par minute est récupéré dynamiquement
 
             // // Appeler la fonction de création de la vente
-            $ventes = $this->creerVente($connexion['id_client'], $this->getServiceConnexion(), $duree_minutes, $prix_service);
+            $ventes = $this->creerVente($id_user, $connexion['id_client'], $this->getServiceConnexion(), $duree_minutes, $prix_service);
 
             if ($ventes) {
                 return true;

@@ -137,6 +137,20 @@ VALUES
     (NOW (), 400, 6, 2025, 'Tarif standard', 2), -- Impression couleur
     (NOW (), 300, 6, 2025, 'Tarif standard', 3);
 
+INSERT INTO
+    prix_service (
+        date_modification,
+        prix,
+        mois,
+        annee,
+        description,
+        id_service
+    )
+VALUES
+    (NOW (), 100, 7, 2025, 'Tarif standard', 1), -- Photocopie NB
+    (NOW (), 400, 7, 2025, 'Tarif standard', 2), -- Impression couleur
+    (NOW (), 300, 7, 2025, 'Tarif standard', 3);
+
 -- Scan
 -- Insérer des valeurs dans type_de_payement
 INSERT INTO

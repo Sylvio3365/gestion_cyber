@@ -7,7 +7,9 @@ use app\controllers\AdminController;
 use app\controllers\TemplateController;
 use app\controllers\StatController;
 use app\controllers\ConnexionController;
+use app\controllers\HistoConnexController;
 use app\controllers\PosteController;
+use app\controllers\StatRecetteController;
 use flight\Engine;
 use flight\net\Router;
 //use Flight;
@@ -105,9 +107,13 @@ $router->post('/poste/rendreDisponible', [$PosteController, 'rendreDisponible'])
 $ConnexionController = new ConnexionController();
 $router->get('/connexion/sansposte', [$ConnexionController, 'showGestionConnexionCLientSansPoste']);
 $router->post('/connexion/sansposte/add', [$ConnexionController, 'addClientConecter']);
-
 $router->get('/connexion/apayer', [$ConnexionController, 'showHisto']);
-
 $router->post('/connexion/sansposte/arreter', [$ConnexionController, 'arreterarreterConnexion']);
-
 $router->post('/connexion/payer', [$ConnexionController, 'payer']);
+
+$stat =  new StatRecetteController();
+$router->get('/recette/branche', [$stat, 'showStats']);
+$router->get('/admin/stats/', [$stat, 'apiStats']);
+
+$histo = new HistoConnexController();
+$router->get('/connexion/historique', [$histo, 'showHistorique']);

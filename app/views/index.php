@@ -61,7 +61,7 @@
                             <li><a href="/poste/accueil"><i class="bi bi-display"></i> Avec poste</a></li>
                             <li><a href="/connexion/sansposte"><i class="bi bi-person-lines-fill"></i> Sans poste</a></li>
                             <li><a href="/connexion/apayer"><i class="bi bi-credit-card"></i> Payer</a></li> <!-- Updated to credit-card -->
-                            <li><a href="#"><i class="bi bi-clock-history"></i> Historique</a></li> <!-- Updated to clock-history -->
+                            <li><a href="/connexion/historique"><i class="bi bi-clock-history"></i> Historique</a></li> <!-- Updated to clock-history -->
                         </ul>
                     </li>
                     <li class="nav-item">
@@ -77,7 +77,7 @@
                             <i class="bi bi-chevron-down submenu-indicator"></i>
                         </a>
                         <ul class="submenu collapse">
-                            <li><a href="#"><i class="bi bi-cash-stack"></i>Recette par branche</a></li> <!-- Updated to cash-stack -->
+                            <li><a href="/recette/branche"><i class="bi bi-cash-stack"></i>Recette par branche</a></li> <!-- Updated to cash-stack -->
                             <li><a href="/stat"><i class="bi bi-pie-chart"></i>Vente</a></li> <!-- Updated to pie-chart -->
                         </ul>
                     </li>

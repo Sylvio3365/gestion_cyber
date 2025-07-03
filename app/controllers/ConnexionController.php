@@ -22,10 +22,16 @@ class ConnexionController
 
     public function payer()
     {
+        if (!isset($_SESSION['user'])) {
+            Flight::redirect('/');
+        }
         $id_histo = $_POST['id'];
-        $payer =  Flight::ConnexionModel()->payer($id_histo);
+        $payer =  Flight::ConnexionModel()->payer(
+            $_SESSION['user']['id_user'],
+            $id_histo
+        );
         if ($payer) {
-            Flight::redirect('/connexion/histo');
+            Flight::redirect('/connexion/apayer');
         } else {
             Flight::error('Erreur lors de l\'arret du payement.');
         }
