@@ -1,3 +1,7 @@
+drop database cyber;
+CREATE database cyber;
+use cyber;
+
 CREATE TABLE
     account_type (
         id_account_type INT AUTO_INCREMENT,

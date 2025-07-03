@@ -4,7 +4,7 @@ use flight\Engine;
 use flight\database\PdoWrapper;
 use flight\debug\database\PdoQueryCapture;
 use Tracy\Debugger;
-use app\models\ProductModel;
+use app\models\StatistiqueModel;
 use app\models\AdminModel;
 
 /** 
@@ -31,8 +31,8 @@ use app\models\AdminModel;
 
 
 
-Flight::map('productModel', function () {
-    return new ProductModel(Flight::db());
+Flight::map('statistiqueModel', function () {
+    return new StatistiqueModel(Flight::db());
 });
 Flight::map('adminModel', function () {
     return new AdminModel(Flight::db());
