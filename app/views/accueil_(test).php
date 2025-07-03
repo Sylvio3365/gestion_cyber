@@ -48,7 +48,7 @@ $accountType = strtolower($user['role_name']); // 'Admin' ou 'Employé' (depuis 
         </div>
     <?php endif; ?>
 
-    <?php if ($accountType === 'employé'): ?>
+    <!--  -->
         <div class="employee">
             <h2>Fonctionnalités Vendeur</h2>
             <ul>
@@ -56,7 +56,7 @@ $accountType = strtolower($user['role_name']); // 'Admin' ou 'Employé' (depuis 
                 <li>Voir la liste des produits disponibles</li>
             </ul>
         </div>
-    <?php endif; ?>
+    
 
     <p><a href="/logout">Se déconnecter</a></p>
     <p><a href="/benef_form">Benefice</a></p>
