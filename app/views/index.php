@@ -42,7 +42,7 @@
                             <li><a href="/admin/marque"><i class="bi bi-tag"></i> Marque</a></li>
                             <li><a href="/admin/produit"><i class="bi bi-box"></i> Produit</a></li>
                             <li><a href="/admin/service"><i class="bi bi-wrench"></i> Service</a></li>
-                            <li><a href="/admin/produit"><i class="bi bi-box"></i> Stock</a></li> <!-- Corrected the stock icon -->
+                            <li><a href="/admin/stock"><i class="bi bi-box"></i> Stock</a></li> <!-- Corrected the stock icon -->
                         </ul>
                     </li>
                     <li class="nav-item">

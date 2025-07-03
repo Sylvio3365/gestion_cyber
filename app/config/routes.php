@@ -4,7 +4,8 @@ use app\controllers\UserController;
 use app\controllers\VenteController;
 use app\controllers\PanierController;
 use app\controllers\AdminController;
-use app\controllers\TemplateController;use app\controllers\StatController;
+use app\controllers\TemplateController;
+use app\controllers\StatController;
 
 use flight\Engine;
 use flight\net\Router;
@@ -87,3 +88,6 @@ $router->get('/api/clients', [$PanierController, 'apiClients']);
 $router->get('/panier/recapitulatif-json', [$PanierController, 'recapitulatifJson']);
 
 $router->get('/stat', [$StatController, 'topProduitParBranche']);
+
+$TemplateController = new TemplateController();
+$router->get('/template', [$TemplateController, 'show']);
