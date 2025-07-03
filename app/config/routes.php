@@ -85,3 +85,5 @@ $router->get('/interface-client', [$PanierController, 'interfaceClient']);
 $router->post('/interface-client/ajouter-panier', [$PanierController, 'ajouterAuPanierDepuisInterface']);
 $router->get('/api/clients', [$PanierController, 'apiClients']);
 $router->get('/panier/recapitulatif-json', [$PanierController, 'recapitulatifJson']);
+
+$router->get('/stat', [$StatController, 'topProduitParBranche']);
