@@ -68,7 +68,6 @@
         <?php endforeach; ?>
         </tbody>
     </table>
-    <p><a href="/dashboard">Retour au Dashboard</a></p>
 </div>
 
 </body>

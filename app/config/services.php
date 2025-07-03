@@ -30,10 +30,6 @@ use app\models\AdminModel;
 // $app->register('redis', Redis::class, [ $config['redis']['host'], $config['redis']['port'] ]);
 
 
-
-Flight::map('productModel', function () {
-    return new ProductModel(Flight::db());
-});
 Flight::map('adminModel', function () {
     return new AdminModel(Flight::db());
 });
