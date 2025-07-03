@@ -118,9 +118,9 @@ VALUES
 INSERT INTO
     service (nom, description, id_categorie)
 VALUES
-    ('Photocopie', 'Par page A4', 2),
-    ('Impression', 'Par page A4', 2),
-    ('Scan', 'Par page', 2);
+    ('Photocopie', 'Par page A4', 3),
+    ('Impression', 'Par page A4', 3),
+    ('Scan', 'Par page', 3);
 
 -- Insérer des valeurs dans prix_service
 INSERT INTO
