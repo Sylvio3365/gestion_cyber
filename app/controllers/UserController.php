@@ -33,7 +33,7 @@ class UserController {
         if ($user) {
             $_SESSION['user'] = $user;
 
-             Flight::redirect('/dashboard');
+             Flight::redirect('/interface-client');
         } else {
             Flight::json([
                 'status' => 'error',
