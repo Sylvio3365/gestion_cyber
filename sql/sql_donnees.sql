@@ -72,10 +72,10 @@ VALUES
 INSERT INTO
     produit (nom, description, id_marque, id_categorie)
 VALUES
-    ('Stylo bleu', 'Stylo bille classique', 1, 1),
-    ('Crayon à papier', 'Crayon graphite HB', 1, 1),
-    ('Papier A4', '500 feuilles', 2, 1),
-    ('Classeur', 'Classeur cartonné', 2, 1);
+    ('Stylo bleu', 'Stylo bille classique', 1, 2),
+    ('Crayon à papier', 'Crayon graphite HB', 1, 2),
+    ('Papier A4', '500 feuilles', 2, 2),
+    ('Classeur', 'Classeur cartonné', 2, 2);
 
 -- Insérer des valeurs dans type_mouvement
 INSERT INTO
@@ -93,10 +93,10 @@ INSERT INTO
         id_mouvement
     )
 VALUES
-    (100, NOW (), 1, 1),
-    (80, NOW (), 2, 1),
-    (500, NOW (), 3, 1),
-    (15, NOW (), 4, 1);
+    (100, NOW(), 1, 1),
+    (80, NOW(), 2, 1),
+    (500, NOW(), 3, 1),
+    (15, NOW(), 4, 1);
 
 -- Insérer des valeurs dans prix_produit
 INSERT INTO
@@ -109,18 +109,18 @@ INSERT INTO
         id_produit
     )
 VALUES
-    (NOW (), 500, 6, 2025, 'Prix courant', 1),
-    (NOW (), 400, 6, 2025, 'Prix courant', 2),
-    (NOW (), 100, 6, 2025, 'Prix courant', 3),
-    (NOW (), 2500, 6, 2025, 'Prix courant', 4);
+    (NOW(), 500, 6, 2025, 'Prix courant', 1),
+    (NOW(), 400, 6, 2025, 'Prix courant', 2),
+    (NOW(), 100, 6, 2025, 'Prix courant', 3),
+    (NOW(), 2500, 6, 2025, 'Prix courant', 4);
 
 -- Insérer des valeurs dans service
 INSERT INTO
     service (nom, description, id_categorie)
 VALUES
-    ('Photocopie', 'Par page A4', 2),
-    ('Impression', 'Par page A4', 2),
-    ('Scan', 'Par page', 2);
+    ('Photocopie', 'Par page A4', 3),
+    ('Impression', 'Par page A4', 3),
+    ('Scan', 'Par page', 3);
 
 -- Insérer des valeurs dans prix_service
 INSERT INTO
@@ -133,16 +133,16 @@ INSERT INTO
         id_service
     )
 VALUES
-    (NOW (), 100, 6, 2025, 'Tarif standard', 1), -- Photocopie NB
-    (NOW (), 400, 6, 2025, 'Tarif standard', 2), -- Impression couleur
-    (NOW (), 300, 6, 2025, 'Tarif standard', 3);
+    (NOW(), 100, 6, 2025, 'Tarif standard', 1), -- Photocopie NB
+    (NOW(), 400, 6, 2025, 'Tarif standard', 2), -- Impression couleur
+    (NOW(), 300, 6, 2025, 'Tarif standard', 3);
 
 -- Scan
 -- Insérer des valeurs dans type_de_payement
 INSERT INTO
     type_de_payement (nom)
 VALUES
-    ('Espèces'),
+    ('Especes'),
     ('Mobile Money');
 
 -- Insérer des valeurs dans service_produit

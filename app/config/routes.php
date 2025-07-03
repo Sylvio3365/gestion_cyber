@@ -4,7 +4,8 @@ use app\controllers\UserController;
 use app\controllers\VenteController;
 use app\controllers\PanierController;
 use app\controllers\AdminController;
-use app\controllers\TemplateController;
+use app\controllers\TemplateController;use app\controllers\StatController;
+
 use flight\Engine;
 use flight\net\Router;
 //use Flight;
@@ -17,7 +18,7 @@ use flight\net\Router;
 $UserController = new UserController();
 $PanierController = new PanierController();
 $VenteController = new VenteController();
-
+$StatController = new StatController();
 
 $AdminController = new AdminController();
 
@@ -85,5 +86,4 @@ $router->post('/interface-client/ajouter-panier', [$PanierController, 'ajouterAu
 $router->get('/api/clients', [$PanierController, 'apiClients']);
 $router->get('/panier/recapitulatif-json', [$PanierController, 'recapitulatifJson']);
 
-$TemplateController = new TemplateController();
-$router->get('/template', [$TemplateController, 'show']);
+$router->get('/stat', [$StatController, 'topProduitParBranche']);

@@ -1,73 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
-  <link href="assets/admin/img/logo/logo.png" rel="icon">
-  <title>RuangAdmin - Login</title>
-  <link href="assets/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-  <link href="assets/admin/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-  <link href="assets/admin/css/ruang-admin.min.css" rel="stylesheet">
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SignIn</title>
+  <link rel="stylesheet" type="text/css" href="/assets/css/login.css" />
+  <!-- <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script> -->
 </head>
-
-<body class="bg-gradient-login">
-  <!-- Login Content -->
-  <div class="container-login">
-    <div class="row justify-content-center">
-      <div class="col-xl-6 col-lg-12 col-md-9">
-        <div class="card shadow-sm my-5">
-          <div class="card-body p-0">
-            <div class="row">
-              <div class="col-lg-12">
-                <div class="login-form">
-                  <div class="text-center">
-                    <h1 class="h4 text-gray-900 mb-4">Login</h1>
-                  </div>
-                  <form class="user" method="post" action="/login">
-                    <div class="form-group">
-                    <input type="text" name="identifiant" class="form-control" placeholder="Email ou nom d'utilisateur">
-                    </div>
-                    <div class="form-group">
-                      <input type="password" name="password" class="form-control" placeholder="Mot de passe">
-                    </div>
-                    <div class="form-group">
-                      <div class="custom-control custom-checkbox small" style="line-height: 1.5rem;">
-                        <input type="checkbox" class="custom-control-input" id="customCheck">
-                        <label class="custom-control-label" for="customCheck">Remember
-                          Me</label>
-                      </div>
-                    </div>
-                    <div class="form-group">
-                    <input type="submit" value="Soumettre"><br><br>
-                    </div>
-                    <hr>
-                    
-                  </form>
-                  <hr>
-                  <div class="text-center">
-                    <a class="font-weight-bold small" href="register.html">Create an Account!</a>
-                  </div>
-                  <div class="text-center">
-                  </div>
-                </div>
-              </div>
+<body>
+  <div class="container">
+    <div class="forms-container">
+      <div class="signin-signup">
+        <!-- Formulaire de connexion modifié -->
+        <form class="user" method="post" action="/login">
+          <h2 class="title">Connexion</h2>
+          <div class="form-group input-field">
+            <i class="fas fa-user"></i>
+            <input type="text" name="identifiant" class="form-control" placeholder="Email ou nom d'utilisateur" />
+          </div>
+          <div class="form-group input-field">
+            <i class="fas fa-lock"></i>
+            <input type="password" name="password" class="form-control" placeholder="Mot de passe" />
+          </div>
+          <div class="form-group">
+            <div class="custom-control custom-checkbox small" style="line-height: 1.5rem;">
+              <input type="checkbox" class="custom-control-input" id="customCheck">
+              <label class="custom-control-label" for="customCheck">Se souvenir de moi</label>
             </div>
           </div>
+          <div class="form-group">
+            <input type="submit" value="Soumettre" class="btn solid" />
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="panels-container">
+      <div class="panel left-panel">
+        <div class="content">
+          <h3>Connectez-vous</h3>
+          <p>En tant qu'administrateur ou employé</p>
         </div>
+        <img src="/assets/img/log.svg" class="image" alt="Image" />
       </div>
     </div>
   </div>
-  <!-- Login Content -->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-  <script src="js/ruang-admin.min.js"></script>
-</body>
 
+  <script src="/assets/js/app.js"></script>
+</body>
 </html>
