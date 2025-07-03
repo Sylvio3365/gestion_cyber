@@ -30,12 +30,6 @@
                             <span class="menu-text">Dashboard</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/interface-client">
-                            <i class="bi bi-laptop"></i>
-                            <span class="menu-text">Bureautique et services</span>
-                        </a>
-                    </li>
                     <li class="nav-item has-submenu">
                         <a class="nav-link submenu-toggle" href="#">
                             <i class="bi bi-gear"></i>
@@ -48,6 +42,26 @@
                             <li><a href="#"><i class="bi bi-tag"></i> Marque</a></li>
                             <li><a href="#"><i class="bi bi-box"></i> Produit</a></li>
                             <li><a href="#"><i class="bi bi-wrench"></i> Service</a></li>
+                            <li><a href="#"><i class="bi bi-box"></i> Stock</a></li> <!-- Corrected the stock icon -->
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/interface-client">
+                            <i class="bi bi-laptop"></i>
+                            <span class="menu-text">Bureautique et services</span>
+                        </a>
+                    </li>
+                    <li class="nav-item has-submenu">
+                        <a class="nav-link submenu-toggle" href="#">
+                            <i class="bi bi-link"></i>
+                            <span class="menu-text">Connexion</span>
+                            <i class="bi bi-chevron-down submenu-indicator"></i>
+                        </a>
+                        <ul class="submenu collapse">
+                            <li><a href="#"><i class="bi bi-display"></i> Avec poste</a></li>
+                            <li><a href="#"><i class="bi bi-person-lines-fill"></i> Sans poste</a></li>
+                            <li><a href="#"><i class="bi bi-credit-card"></i> Payer</a></li> <!-- Updated to credit-card -->
+                            <li><a href="#"><i class="bi bi-clock-history"></i> Historique</a></li> <!-- Updated to clock-history -->
                         </ul>
                     </li>
                     <li class="nav-item">
@@ -56,11 +70,16 @@
                             <span class="menu-text">Clients</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="bi bi-bar-chart-line"></i>
-                            <span class="menu-text">Statistiques</span>
+                    <li class="nav-item has-submenu">
+                        <a class="nav-link submenu-toggle" href="#">
+                            <i class="bi bi-bar-chart-line"></i> <!-- Corrected to represent Statistics -->
+                            <span class="menu-text">Statistique</span>
+                            <i class="bi bi-chevron-down submenu-indicator"></i>
                         </a>
+                        <ul class="submenu collapse">
+                            <li><a href="#"><i class="bi bi-cash-stack"></i> Recette par branche</a></li> <!-- Updated to cash-stack -->
+                            <li><a href="#"><i class="bi bi-pie-chart"></i> Vente par branche</a></li> <!-- Updated to pie-chart -->
+                        </ul>
                     </li>
                 </ul>
                 <ul class="nav flex-column sidebar-menu sidebar-footer">
