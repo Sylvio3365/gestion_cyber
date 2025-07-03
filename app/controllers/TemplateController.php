@@ -11,6 +11,6 @@ class TemplateController
 
     public function show()
     {
-        Flight::render('template/index.php');
+        Flight::render('index.php');
     }
 }
