@@ -54,7 +54,9 @@
                             <div class="service-info">
                                 <h4><?= htmlspecialchars($service['nom']) ?></h4>
                                 <p><?= htmlspecialchars($service['description'] ?? '') ?></p>
-                                <div class="price"><?= number_format($service['prix'], 0, ',', ' ') ?> Ar</div>
+                                <?php if ($service['prix'] !== null): ?>
+                                    <div class="price"><?= number_format($service['prix'], 0, ',', ' ') ?> Ar</div>
+                                <?php endif; ?>
                                 <div class="unit">par <?= htmlspecialchars($service['unite'] ?? 'unité') ?></div>
                             </div>
                             <form method="post" action="/interface-client/ajouter-panier" class="quantity-control">
