@@ -4,7 +4,7 @@ use app\controllers\UserController;
 use app\controllers\VenteController;
 use app\controllers\PanierController;
 use app\controllers\AdminController;
-use app\controllers\StatController;
+use app\controllers\StatistiqueController;
 
 use flight\Engine;
 use flight\net\Router;
@@ -18,7 +18,7 @@ use flight\net\Router;
 $UserController = new UserController();
 $PanierController = new PanierController();
 $VenteController = new VenteController();
-$StatController = new StatController();
+$StatController = new StatistiqueController();
 
 $AdminController = new AdminController();
 
