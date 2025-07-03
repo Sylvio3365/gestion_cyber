@@ -93,10 +93,10 @@ INSERT INTO
         id_mouvement
     )
 VALUES
-    (100, NOW (), 1, 1),
-    (80, NOW (), 2, 1),
-    (500, NOW (), 3, 1),
-    (15, NOW (), 4, 1);
+    (100, NOW(), 1, 1),
+    (80, NOW(), 2, 1),
+    (500, NOW(), 3, 1),
+    (15, NOW(), 4, 1);
 
 -- Insérer des valeurs dans prix_produit
 INSERT INTO
@@ -109,10 +109,10 @@ INSERT INTO
         id_produit
     )
 VALUES
-    (NOW (), 500, 6, 2025, 'Prix courant', 1),
-    (NOW (), 400, 6, 2025, 'Prix courant', 2),
-    (NOW (), 100, 6, 2025, 'Prix courant', 3),
-    (NOW (), 2500, 6, 2025, 'Prix courant', 4);
+    (NOW(), 500, 6, 2025, 'Prix courant', 1),
+    (NOW(), 400, 6, 2025, 'Prix courant', 2),
+    (NOW(), 100, 6, 2025, 'Prix courant', 3),
+    (NOW(), 2500, 6, 2025, 'Prix courant', 4);
 
 -- Insérer des valeurs dans service
 INSERT INTO
@@ -133,9 +133,9 @@ INSERT INTO
         id_service
     )
 VALUES
-    (NOW (), 100, 6, 2025, 'Tarif standard', 1), -- Photocopie NB
-    (NOW (), 400, 6, 2025, 'Tarif standard', 2), -- Impression couleur
-    (NOW (), 300, 6, 2025, 'Tarif standard', 3);
+    (NOW(), 100, 6, 2025, 'Tarif standard', 1), -- Photocopie NB
+    (NOW(), 400, 6, 2025, 'Tarif standard', 2), -- Impression couleur
+    (NOW(), 300, 6, 2025, 'Tarif standard', 3);
 
 -- Scan
 -- Insérer des valeurs dans type_de_payement
