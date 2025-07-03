@@ -333,6 +333,7 @@ class AdminController
         $types = Flight::adminModel()->getAllTypesMouvement();
 
         Flight::render('index', [
+            'page' => 'admin/crud_stock',
             'stocks' => $stocks,
             'produits' => $produits,
             'types' => $types
