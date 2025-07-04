@@ -30,8 +30,7 @@ $router->get('/', [$UserController, 'showLoginForm']);
 $router->post('/login', [$UserController, 'login']);
 $router->get('/logout', [$UserController, 'logout']);
 $router->get('/benef_form', [$VenteController, 'showBenefice']);
-$router->post('/benefice', [$VenteController, 'afficherBenefice']);
-
+$router->get('/benefice', [$VenteController, 'afficherBenefice']);
 
 $router->get('/admin/branche', [$AdminController, 'manageBranches']);
 

@@ -79,6 +79,7 @@
                         <ul class="submenu collapse">
                             <li><a href="/recette/branche"><i class="bi bi-cash-stack"></i>Recette par branche</a></li> <!-- Updated to cash-stack -->
                             <li><a href="/stat"><i class="bi bi-pie-chart"></i>Vente</a></li> <!-- Updated to pie-chart -->
+                            <li><a href="/benefice"><i class="bi bi-pie-chart"></i>Benefice</a></li> <!-- Updated to pie-chart -->
                         </ul>
                     </li>
                 </ul>
