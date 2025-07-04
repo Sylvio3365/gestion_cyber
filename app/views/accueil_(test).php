@@ -1,5 +1,4 @@
 <?php
-
 // Simule une session (à enlever si tu passes une vraie session depuis le contrôleur)
 if (!isset($_SESSION['user'])) {
     echo "<p style='color:red;'>Aucun utilisateur connecté.</p>";
@@ -8,60 +7,38 @@ if (!isset($_SESSION['user'])) {
 
 $user = $_SESSION['user'];
 $accountType = strtolower($user['role_name']); // 'Admin' ou 'Employé' (depuis account_type.name)
-
 ?>
 
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Dashboard de test</title>
-    <style>
-        body { font-family: Arial, sans-serif; padding: 20px; }
-        .admin { background-color: #f1f1f1; padding: 10px; margin-bottom: 10px; }
-        .employee { background-color: #dff0d8; padding: 10px; margin-bottom: 10px; }
-        ul { list-style: none; padding: 0; }
-        li { margin-bottom: 5px; }
-        a { text-decoration: none; color: #007BFF; }
-        a:hover { text-decoration: underline; }
-    </style>
-</head>
-<body>
-
-    <h1>Bienvenue, <?php echo htmlspecialchars($user['firstname']); ?> !</h1>
-    <p>Type de compte : <strong><?php echo htmlspecialchars($user['name']); ?></strong></p>
-
+<div class="dashboard-content">
+    <h1>Bienvenue, <?= htmlspecialchars($user['firstname']) ?> !</h1>
+    <p>Type de compte : <strong><?= htmlspecialchars($user['role_name']) ?></strong></p>
     <?php if ($accountType === 'admin'): ?>
         <div class="admin">
-            <h2>Fonctionnalités Admin</h2>
-            <ul>
-                <li><a href="/admin/marque">Gérer les marques</a></li>
-                <li><a href="/admin/categorie">Gérer les categories</a></li>
-                <li><a href="/admin/produit">Gérer les produits</a></li>
-                <li><a href="/admin/service">Gérer les services</a></li>
-                <li><a href="/admin/branche">Gérer les branches</a></li>
-                <li><a href="/admin/stock">Gérer le stock</a></li>
-                <li><a href="/admin/type_mouvement">Gérer les types de mouvement</a></li>
-                <li><a href="/admin/vente">Voir les ventes</a></li>
-                <li><a href="/admin/connexion">Historique des connexions</a></li>
+            <h2><i class="bi bi-shield-check me-2"></i>Fonctionnalités Admin</h2>
+            <ul class="dashboard-links">
+                <li><a href="/admin/marque"><i class="bi bi-tag me-2"></i>Gérer les marques</a></li>
+                <li><a href="/admin/categorie"><i class="bi bi-clipboard me-2"></i>Gérer les catégories</a></li>
+                <li><a href="/admin/produit"><i class="bi bi-box me-2"></i>Gérer les produits</a></li>
+                <li><a href="/admin/service"><i class="bi bi-wrench me-2"></i>Gérer les services</a></li>
+                <li><a href="/admin/branche"><i class="bi bi-archive me-2"></i>Gérer les branches</a></li>
+                <li><a href="/admin/stock"><i class="bi bi-boxes me-2"></i>Gérer le stock</a></li>
+                <li><a href="/admin/type_mouvement"><i class="bi bi-arrow-repeat me-2"></i>Gérer les types de mouvement</a></li>
             </ul>
         </div>
     <?php endif; ?>
-
-
     <?php if ($accountType === 'vendeur'): ?>
         <div class="employee">
-            <h2>Fonctionnalités Vendeur</h2>
-            <ul>
-                <li><a href="/interface-client">Effectuer un achat pour un client</a></li>
-                <li>Voir la liste des produits disponibles</li>
+            <h2><i class="bi bi-person-badge me-2"></i>Fonctionnalités Vendeur</h2>
+            <ul class="dashboard-links">
+                <li><a href="/interface-client"><i class="bi bi-laptop me-2"></i>Interface client</a></li>
+                <li><a href="/panier"><i class="bi bi-cart3 me-2"></i>Panier</a></li>
             </ul>
         </div>
     <?php endif; ?>
+    <div class="mt-4">
+        <a href="/benef_form" class="btn btn-outline-primary">
+            <i class="bi bi-graph-up me-2"></i>Voir les bénéfices
+        </a>
+    </div>
+</div>
 
-    <p><a href="/logout">Se déconnecter</a></p>
-    <p><a href="/benef_form">Benefice</a></p>
-
-
-</body>
-</html>

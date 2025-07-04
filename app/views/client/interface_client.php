@@ -5,12 +5,6 @@
         <p>Choisissez vos services et produits</p>
         <div class="info-badges">
             <div class="info-badge">
-                <button class="btn btn-primary btn-lg" onclick="scrollToSection('pc-section')">
-                    <i class="bi bi-display me-2"></i>
-                    Accès PC & Internet
-                </button>
-            </div>
-            <div class="info-badge">
                 <button class="btn btn-success btn-lg" onclick="scrollToSection('services-section')">
                     <i class="bi bi-printer me-2"></i>
                     Services Bureautiques
@@ -24,18 +18,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Internet Access Section -->
-    <div class="service-section" id="pc-section">
-        <div class="service-header">
-            <i class="bi bi-display"></i>
-            <h2>Accès Internet & PC</h2>
-            <p>Choisissez votre poste de travail</p>
-        </div>
-        <!-- ... tu peux automatiser ici si tu as les PC en BDD ... -->
-        <!-- ... sinon laisse statique comme dans le HTML ... -->
-    </div>
-
     <!-- Services Bureautiques Section -->
     <div class="service-section" id="services-section">
         <div class="service-header">

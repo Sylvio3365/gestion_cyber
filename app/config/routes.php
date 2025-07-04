@@ -40,7 +40,8 @@ $router->post('/admin/branche/edit', [$AdminController, 'editBranch']);
 $router->post('/admin/branche/delete', [$AdminController, 'deleteBranch']);
 
 $router->get('/dashboard', function () {
-    Flight::render('accueil_(test)');
+    $page = 'accueil_(test)';
+    Flight::render('index', compact('page'));
 });
 //marques
 $router->get('/admin/marque', [$AdminController, 'manageMarques']);
