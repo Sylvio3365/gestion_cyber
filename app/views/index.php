@@ -79,7 +79,7 @@
                         <ul class="submenu collapse">
                             <li><a href="/recette/branche"><i class="bi bi-cash-stack"></i>Recette par branche</a></li> <!-- Updated to cash-stack -->
                             <li><a href="/stat"><i class="bi bi-pie-chart"></i>Vente</a></li> <!-- Updated to pie-chart -->
-                            <li><a href="/benefice"><i class="bi bi-pie-chart"></i>Benefice</a></li> <!-- Updated to pie-chart -->
+                            <li><a href="/benef_form"><i class="bi bi-pie-chart"></i>Benefice</a></li> <!-- Updated to pie-chart -->
                         </ul>
                     </li>
                 </ul>
@@ -124,14 +124,14 @@
                                         <i class="bi bi-cart3"></i>
                                     </a>
                                 </div>
-                                <div class="icon-badge">
+                                <!-- <div class="icon-badge">
                                     <i class="bi bi-envelope"></i>
                                     <span class="badge">2</span>
                                 </div>
                                 <div class="icon-badge">
                                     <i class="bi bi-list-check"></i>
                                     <span class="badge">3</span>
-                                </div>
+                                </div> -->
                             </div>
                             <div class="theme-toggle">
                                 <button id="theme-toggle-btn" class="btn btn-link text-dark p-0">

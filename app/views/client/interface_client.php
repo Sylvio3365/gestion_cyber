@@ -5,13 +5,13 @@
         <p>Choisissez vos services et produits</p>
         <div class="info-badges">
             <div class="info-badge">
-                <button class="btn btn-success btn-lg" onclick="scrollToSection('services-section')">
+                <button class="btn btn-transparent btn-lg" onclick="scrollToSection('services-section')">
                     <i class="bi bi-printer me-2"></i>
-                    Services Bureautiques
+                    Services
                 </button>
             </div>
             <div class="info-badge">
-                <button class="btn btn-warning btn-lg" onclick="scrollToSection('fournitures-section')">
+                <button class="btn btn-transparent btn-lg" onclick="scrollToSection('fournitures-section')">
                     <i class="bi bi-basket me-2"></i>
                     Fournitures
                 </button>

@@ -16,32 +16,48 @@ body {
 
 /* Banner de bienvenue */
 .welcome-banner {
-    background: linear-gradient(to right, #4f46e5, #8b5cf6);
-    border-radius: 12px;
-    padding: 2rem;
-    text-align: center;
+    background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #60a5fa 100%);
     color: white;
-    margin-bottom: 2rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 3.5rem 2rem;
+    border-radius: 12px;
+    margin-bottom: 2.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.welcome-banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0.4;
 }
 
 .welcome-banner h1 {
-    font-size: 2rem;
+    font-size: 2.8rem;
     font-weight: 700;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.8rem;
+    text-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+    letter-spacing: 0.5px;
 }
 
 .welcome-banner p {
-    font-size: 1rem;
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
     opacity: 0.9;
-    margin-bottom: 1rem;
 }
 
 .info-badges {
     display: flex;
     justify-content: center;
     gap: 1.5rem;
-    margin-top: 1.25rem;
+    margin-top: 1.5rem;
+    position: relative;
+    z-index: 2;
 }
 
 .info-badge {
@@ -540,15 +556,68 @@ body {
     color: #10b981;
 }
 
-/* Responsive adjustments */
+/* Boutons transparents pour la bannière */
+.btn-transparent {
+    background-color: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-transparent::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.5), transparent);
+    transform: translateY(3px);
+    transition: transform 0.3s ease;
+}
+
+.btn-transparent:hover {
+    background-color: rgba(255, 255, 255, 0.25);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    color: white;
+}
+
+.btn-transparent:hover::after {
+    transform: translateY(0);
+}
+
+.btn-transparent .bi-printer {
+    color: rgba(255, 255, 255, 0.95);
+}
+
+.btn-transparent .bi-basket {
+    color: rgba(255, 255, 255, 0.95);
+}
+
+/* Media queries pour responsive */
 @media (max-width: 768px) {
     .cart-section, .payment-section {
         margin-bottom: 2rem;
     }
     
+    .welcome-banner {
+        padding: 2.5rem 1.5rem;
+    }
+    
+    .welcome-banner h1 {
+        font-size: 2.2rem;
+    }
+    
     .info-badges {
         flex-direction: column;
-        gap: 0.75rem;
+        gap: 1rem;
     }
     
     .pc-item, .service-item, .supply-item {
@@ -563,6 +632,10 @@ body {
     .payment-methods .col-4 {
         flex: 0 0 33.333333%;
         max-width: 33.333333%;
+    }
+    
+    .btn-transparent {
+        width: 100%;
     }
 }
 

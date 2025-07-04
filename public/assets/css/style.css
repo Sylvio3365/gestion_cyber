@@ -321,6 +321,26 @@ body.dark-mode .submenu li a.active {
   padding: 0 1.5rem;
   display: flex;
   align-items: center;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: calc(100% - var(--sidebar-width));
+  z-index: 99;
+  transition: width var(--transition-normal);
+}
+
+/* Ajuster la largeur du header quand la sidebar est réduite */
+.content-wrapper.expanded .main-header {
+  width: calc(100% - var(--sidebar-collapsed-width));
+}
+
+/* Ajuster le contenu principal pour qu'il ne soit pas caché sous le header fixe */
+.main-content {
+  padding: 1.5rem;
+  margin-top: var(--header-height); /* Ajouter cette ligne */
+  min-height: calc(100vh - var(--header-height));
+  background-color: var(--gray-50);
+  animation: fadeIn 0.5s ease;
 }
 
 .header-left {
@@ -526,6 +546,7 @@ body.dark-mode .submenu li a.active {
 /* Main Content */
 .main-content {
   padding: 1.5rem;
+  margin-top: var(--header-height); /* Ajouter cette ligne */
   min-height: calc(100vh - var(--header-height));
   background-color: var(--gray-50);
   animation: fadeIn 0.5s ease;

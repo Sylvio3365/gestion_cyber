@@ -9,36 +9,100 @@ $user = $_SESSION['user'];
 $accountType = strtolower($user['role_name']); // 'Admin' ou 'Employé' (depuis account_type.name)
 ?>
 
-<div class="dashboard-content">
-    <h1>Bienvenue, <?= htmlspecialchars($user['firstname']) ?> !</h1>
-    <p>Type de compte : <strong><?= htmlspecialchars($user['role_name']) ?></strong></p>
-    <?php if ($accountType === 'admin'): ?>
-        <div class="admin">
-            <h2><i class="bi bi-shield-check me-2"></i>Fonctionnalités Admin</h2>
-            <ul class="dashboard-links">
-                <li><a href="/admin/marque"><i class="bi bi-tag me-2"></i>Gérer les marques</a></li>
-                <li><a href="/admin/categorie"><i class="bi bi-clipboard me-2"></i>Gérer les catégories</a></li>
-                <li><a href="/admin/produit"><i class="bi bi-box me-2"></i>Gérer les produits</a></li>
-                <li><a href="/admin/service"><i class="bi bi-wrench me-2"></i>Gérer les services</a></li>
-                <li><a href="/admin/branche"><i class="bi bi-archive me-2"></i>Gérer les branches</a></li>
-                <li><a href="/admin/stock"><i class="bi bi-boxes me-2"></i>Gérer le stock</a></li>
-                <li><a href="/admin/type_mouvement"><i class="bi bi-arrow-repeat me-2"></i>Gérer les types de mouvement</a></li>
-            </ul>
+<link rel="stylesheet" href="/assets/css/accueil.css">
+
+<div class="dashboard-container py-4">
+    <div class="welcome-section mb-4">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <h1 class="welcome-title">Bienvenue, <?= htmlspecialchars($user['firstname']) ?> !</h1>
+                <p class="welcome-subtitle">Tableau de bord <span class="badge account-type-badge"><?= htmlspecialchars($user['role_name']) ?></span></p>
+            </div>
+            <div class="col-md-4 text-end">
+                <div class="current-date-time">
+                    <div class="date"><?php echo date('d M Y'); ?></div>
+                    <div class="time" id="currentTime"></div>
+                </div>
+            </div>
         </div>
-        <div class="mt-4">
-        <a href="/benef_form" class="btn btn-outline-primary">
-            <i class="bi bi-graph-up me-2"></i>Voir les bénéfices
-        </a>
     </div>
+
+    <?php if ($accountType === 'admin'): ?>
+        <div class="admin-features-container">
+            <h2 class="section-title"><i class="bi bi-shield-check me-2"></i></h2>
+            
+            <div class="row">
+                <?php 
+                $adminFeatures = [
+                    ['url' => '/admin/marque', 'icon' => 'bi-tag', 'title' => 'Marques', 'desc' => 'Gérer les marques de produits'],
+                    ['url' => '/admin/categorie', 'icon' => 'bi-clipboard', 'title' => 'Catégories', 'desc' => 'Organiser les produits'],
+                    ['url' => '/admin/produit', 'icon' => 'bi-box', 'title' => 'Produits', 'desc' => 'Gérer l\'inventaire'],
+                    ['url' => '/admin/service', 'icon' => 'bi bi-printer', 'title' => 'Services', 'desc' => 'Offres de services'],
+                    ['url' => '/admin/branche', 'icon' => 'bi-archive', 'title' => 'Branches', 'desc' => 'Sections de l\'entreprise'],
+                    ['url' => '/admin/stock', 'icon' => 'bi-boxes', 'title' => 'Stock', 'desc' => 'Gestion d\'inventaire'],
+                    ['url' => '/admin/type_mouvement', 'icon' => 'bi-arrow-repeat', 'title' => 'Mouvements', 'desc' => 'Types de transactions'],
+                    ['url' => '/benef_form', 'icon' => 'bi-graph-up', 'title' => 'Bénéfices', 'desc' => 'Voir les benefices'],
+                ];
+                
+                foreach ($adminFeatures as $feature): ?>
+                    <div class="col-md-3 col-sm-6 mb-4">
+                        <a href="<?= $feature['url'] ?>" class="feature-card">
+                            <div class="feature-icon">
+                                <i class="bi <?= $feature['icon'] ?>"></i>
+                            </div>
+                            <div class="feature-content">
+                                <h3><?= $feature['title'] ?></h3>
+                                <p><?= $feature['desc'] ?></p>
+                            </div>
+                        </a>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
     <?php endif; ?>
+
     <?php if ($accountType === 'vendeur'): ?>
-        <div class="employee">
-            <h2><i class="bi bi-person-badge me-2"></i>Fonctionnalités Vendeur</h2>
-            <ul class="dashboard-links">
-                <li><a href="/interface-client"><i class="bi bi-laptop me-2"></i>Interface client</a></li>
-                <li><a href="/panier"><i class="bi bi-cart3 me-2"></i>Panier</a></li>
-            </ul>
+        <div class="employee-features-container">
+            <h2 class="section-title"><i class="bi bi-person-badge me-2"></i></h2>
+            
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <a href="/interface-client" class="feature-card large">
+                        <div class="feature-icon">
+                            <i class="bi bi-laptop"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3>Interface Client</h3>
+                            <p>Effectuer des ventes et gérer les achats des clients</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <a href="/panier" class="feature-card large">
+                        <div class="feature-icon">
+                            <i class="bi bi-cart3"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3>Mon panier</h3>
+                            <p>Voir et gérer les articles dans le panier</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
         </div>
     <?php endif; ?>
 </div>
 
+<script>
+function updateTime() {
+    const timeElement = document.getElementById('currentTime');
+    const now = new Date();
+    const hours = now.getHours().toString().padStart(2, '0');
+    const minutes = now.getMinutes().toString().padStart(2, '0');
+    const seconds = now.getSeconds().toString().padStart(2, '0');
+    timeElement.textContent = `${hours}:${minutes}:${seconds}`;
+}
+
+setInterval(updateTime, 1000);
+updateTime();
+</script>
