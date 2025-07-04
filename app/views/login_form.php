@@ -16,11 +16,11 @@
           <h2 class="title">Connexion</h2>
           <div class="form-group input-field">
             <i class="fas fa-user"></i>
-            <input type="text" name="identifiant" class="form-control" placeholder="Email ou nom d'utilisateur" />
+            <input type="text" name="identifiant" class="form-control" placeholder="Email ou nom d'utilisateur" required/>
           </div>
           <div class="form-group input-field">
             <i class="fas fa-lock"></i>
-            <input type="password" name="password" class="form-control" placeholder="Mot de passe" />
+            <input type="password" name="password" class="form-control" placeholder="Mot de passe" required/>
           </div>
           <div class="form-group">
             <div class="custom-control custom-checkbox small" style="line-height: 1.5rem;">

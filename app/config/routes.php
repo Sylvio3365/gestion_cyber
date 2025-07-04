@@ -39,7 +39,7 @@ $router->post('/admin/branche/edit', [$AdminController, 'editBranch']);
 $router->post('/admin/branche/delete', [$AdminController, 'deleteBranch']);
 
 $router->get('/dashboard', function () {
-    $page = 'accueil_(test)';
+    $page = 'accueil';
     Flight::render('index', compact('page'));
 });
 //marques

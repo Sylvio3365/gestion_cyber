@@ -25,6 +25,11 @@ $accountType = strtolower($user['role_name']); // 'Admin' ou 'Employé' (depuis 
                 <li><a href="/admin/type_mouvement"><i class="bi bi-arrow-repeat me-2"></i>Gérer les types de mouvement</a></li>
             </ul>
         </div>
+        <div class="mt-4">
+        <a href="/benef_form" class="btn btn-outline-primary">
+            <i class="bi bi-graph-up me-2"></i>Voir les bénéfices
+        </a>
+    </div>
     <?php endif; ?>
     <?php if ($accountType === 'vendeur'): ?>
         <div class="employee">
@@ -35,10 +40,5 @@ $accountType = strtolower($user['role_name']); // 'Admin' ou 'Employé' (depuis 
             </ul>
         </div>
     <?php endif; ?>
-    <div class="mt-4">
-        <a href="/benef_form" class="btn btn-outline-primary">
-            <i class="bi bi-graph-up me-2"></i>Voir les bénéfices
-        </a>
-    </div>
 </div>
 
