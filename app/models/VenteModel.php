@@ -10,7 +10,6 @@ class VenteModel {
     }
 
     /**
-     * Calcule le bénéfice total (ventes - achats) pour une période donnée
      * 
      * @param string|null $date Format 'YYYY-MM-DD'
      * @param int|null $mois
