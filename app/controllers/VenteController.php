@@ -44,6 +44,6 @@ class VenteController
 
     public function showBenefice()
     {
-        Flight::render('benefice');
+        Flight::render('Statistique/benefice');
     }
 }
