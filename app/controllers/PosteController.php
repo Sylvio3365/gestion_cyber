@@ -9,6 +9,31 @@ class PosteController
 {
     public function __construct() {}
 
+    public function showHistoEtat()
+    {
+        $postes = Flight::PosteModel()->getAll();
+
+        // Valeur par défaut : premier poste
+        $defaultPoste = $postes[0]['id_poste'] ?? 1;
+
+        // Lecture des filtres GET
+        $idPoste = Flight::request()->query['poste_id'] ?? $defaultPoste;
+        $dateDebut = Flight::request()->query['date_debut'] ?? date('Y-m-d') . ' 00:00:00';
+        $dateFin = Flight::request()->query['date_fin'] ?? date('Y-m-d') . ' 23:59:59';
+
+        $histo = Flight::PosteModel()->getHistoEtatPoste($idPoste, $dateDebut, $dateFin);
+        $page = 'connexion/historique/Histo_etat_poste';
+
+        Flight::render('index', [
+            'page' => $page,
+            'histo' => $histo,
+            'postes' => $postes,
+            'selectedPoste' => $idPoste,
+            'dateDebut' => substr($dateDebut, 0, 10),
+            'dateFin' => substr($dateFin, 0, 10)
+        ]);
+    }
+
     public function accueil()
     {
         // Récupérer les messages depuis l'URL

@@ -42,7 +42,8 @@
                             <li><a href="/admin/marque"><i class="bi bi-tag"></i> Marque</a></li>
                             <li><a href="/admin/produit"><i class="bi bi-box"></i> Produit</a></li>
                             <li><a href="/admin/service"><i class="bi bi-wrench"></i> Service</a></li>
-                            <li><a href="/admin/stock"><i class="bi bi-box"></i> Stock</a></li> <!-- Corrected the stock icon -->
+                            <li><a href="/admin/stock"><i class="bi bi-box"></i> Stock</a></li>
+                            <li><a href="/admin/prix"><i class="bi bi-currency-dollar"></i> Prix</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
@@ -59,10 +60,12 @@
                         </a>
                         <ul class="submenu collapse">
                             <li><a href="/poste/accueil"><i class="bi bi-display"></i> Avec poste</a></li>
+                            <li><a href="/poste/historique"><i class="bi bi-activity"></i> Historique états poste</a></li>
                             <li><a href="/connexion/sansposte"><i class="bi bi-person-lines-fill"></i> Sans poste</a></li>
-                            <li><a href="/connexion/apayer"><i class="bi bi-credit-card"></i> Payer</a></li> <!-- Updated to credit-card -->
-                            <li><a href="/connexion/historique"><i class="bi bi-clock-history"></i> Historique</a></li> <!-- Updated to clock-history -->
+                            <li><a href="/connexion/apayer"><i class="bi bi-credit-card"></i> Payer</a></li>
+                            <li><a href="/connexion/historique"><i class="bi bi-clock-history"></i> Historique</a></li>
                         </ul>
+
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">

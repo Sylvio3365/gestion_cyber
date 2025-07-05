@@ -7,6 +7,64 @@ use app\models\AdminModel;
 
 class AdminController
 {
+    public function showCrudPrix()
+    {
+        $page = 'admin/crud_prix';
+        $services = Flight::adminModel()->getAllServices();
+        $produits = Flight::adminModel()->getAllProduits();
+
+        $prixAchat = [];
+        $prixVente = [];
+
+        if (!empty($_GET['type']) && !empty($_GET['id_item']) && !empty($_GET['annee'])) {
+            $type = $_GET['type'];
+            $id = $_GET['id_item'];
+            $annee = $_GET['annee'];
+
+            if ($type === 'produit') {
+                $ventes = Flight::adminModel()->getAllPrixProduits();
+                $achats = Flight::adminModel()->getAllPrixAchatProduits();
+
+                foreach ($achats as $a) {
+                    if ($a['id_produit'] == $id && $a['annee'] == $annee) {
+                        $mois = (int) $a['mois'];
+                        $prixAchat[$mois] = $a['prix'];
+                    }
+                }
+                foreach ($ventes as $v) {
+                    if ($v['id_produit'] == $id && $v['annee'] == $annee) {
+                        $mois = (int) $v['mois'];
+                        $prixVente[$mois] = $v['prix'];
+                    }
+                }
+            } elseif ($type === 'service') {
+                $ventes = Flight::adminModel()->getAllPrixServices();
+                $achats = Flight::adminModel()->getAllPrixAchatServices();
+
+                foreach ($achats as $a) {
+                    if ($a['id_service'] == $id && $a['annee'] == $annee) {
+                        $mois = (int) $a['mois'];
+                        $prixAchat[$mois] = $a['prix'];
+                    }
+                }
+                foreach ($ventes as $v) {
+                    if ($v['id_service'] == $id && $v['annee'] == $annee) {
+                        $mois = (int) $v['mois'];
+                        $prixVente[$mois] = $v['prix'];
+                    }
+                }
+            }
+        }
+
+        Flight::render('index', [
+            'page' => $page,
+            'produits' => $produits,
+            'services' => $services,
+            'prixAchat' => $prixAchat,
+            'prixVente' => $prixVente
+        ]);
+    }
+
     public function manageBranches()
     {
         $branches = Flight::adminModel()->getAllBranches();
@@ -328,7 +386,7 @@ class AdminController
     }
     public function manageStocks()
     {
-        $stocks = Flight::adminModel()->getAllStocks();
+        $stocks = Flight::adminModel()->getStockRestantParProduit();
         $produits = Flight::adminModel()->getAllProduits();
         $types = Flight::adminModel()->getAllTypesMouvement();
 
