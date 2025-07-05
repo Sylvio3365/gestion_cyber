@@ -146,7 +146,7 @@
 
         <!-- Graphiques -->
         <div class="row mt-4">
-            <div class="col-md-6">
+            <div class="col-md-12"> <!-- élargi de 6 à 12 colonnes -->
                 <div class="card">
                     <div class="card-header">
                         <h3><i class="fas fa-chart-bar me-2"></i>Comparaison par catégorie</h3>
@@ -159,6 +159,7 @@
                 </div>
             </div>
         </div>
+
 
         <!-- Tableau récapitulatif -->
         <div class="card mt-4">

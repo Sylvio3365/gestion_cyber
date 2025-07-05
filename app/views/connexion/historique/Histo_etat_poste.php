@@ -16,13 +16,13 @@
             </div>
             <div class="col-md-3">
                 <label for="date_debut" class="form-label">Entre :</label>
-                <input type="date" name="date_debut" id="date_debut" class="form-control"
-                    value="<?= $dateDebut ?>">
+                <input type="datetime-local" name="date_debut" id="date_debut" class="form-control"
+                    value="<?= date('Y-m-d\TH:i', strtotime($dateDebut)) ?>">
             </div>
             <div class="col-md-3">
                 <label for="date_fin" class="form-label">Et :</label>
-                <input type="date" name="date_fin" id="date_fin" class="form-control"
-                    value="<?= $dateFin ?>">
+                <input type="datetime-local" name="date_fin" id="date_fin" class="form-control"
+                    value="<?= date('Y-m-d\TH:i', strtotime($dateFin)) ?>">
             </div>
             <div class="col-md-2 d-flex align-items-end">
                 <button type="submit" class="btn btn-primary w-100">Filtrer</button>

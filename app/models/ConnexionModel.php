@@ -88,7 +88,7 @@ class ConnexionModel
         $resultats_final = [];
 
         foreach ($resultats_bruts as $connexion) {
-            
+
             $date_debut = new \DateTime($connexion['date_debut']);
             $date_fin = new \DateTime($connexion['date_fin']);
 
@@ -96,8 +96,11 @@ class ConnexionModel
             $duree_minutes = ($interval->h * 60) + $interval->i;
 
             $connexion['duree_minutes'] = $duree_minutes;
-            $connexion['montant_a_payer'] = round($duree_minutes * $tarif_par_minute, 2);
 
+            $connexion['montant_a_payer'] = round($duree_minutes * $tarif_par_minute, 2);
+            if ($duree_minutes <= 15) {
+                $connexion['montant_a_payer'] = $tarif_par_15min;
+            }
             $resultats_final[] = $connexion;
         }
 
@@ -220,7 +223,9 @@ class ConnexionModel
             if ($prix_service === false) {
                 return 'Erreur lors de la récupération du prix.';
             }
-
+            if ($duree_minutes < 15) {
+                $duree_minutes = 15;
+            }
             // // Calculer le montant à payer
             $montant_a_payer = $duree_minutes * ($prix_service);  // Le prix par minute est récupéré dynamiquement
 
