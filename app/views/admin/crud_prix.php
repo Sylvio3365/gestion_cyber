@@ -52,26 +52,26 @@
                     <th>Mois</th>
                     <th>Prix d'achat</th>
                     <th>Prix de vente</th>
-                    <th>Action</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
                 <?php for ($mois = 1; $mois <= 12; $mois++): ?>
                     <tr>
                         <td><?= $mois ?></td>
-
-                        <form method="post" action="/admin/prix/valider" class="d-flex align-items-center">
+                        <form method="post" action="/admin/prix/valider">
                             <input type="hidden" name="type" value="<?= htmlspecialchars($_GET['type']) ?>">
                             <input type="hidden" name="id_item" value="<?= htmlspecialchars($_GET['id_item']) ?>">
                             <input type="hidden" name="annee" value="<?= htmlspecialchars($_GET['annee']) ?>">
                             <input type="hidden" name="mois" value="<?= $mois ?>">
+                            <input type="hidden" name="description" value="Ajout mois <?= $mois ?>">
 
                             <!-- Prix d'achat -->
                             <td>
                                 <?php if (isset($prixAchat[$mois])): ?>
                                     <span class="text-primary"><?= number_format($prixAchat[$mois], 2) ?> Ar</span>
                                 <?php else: ?>
-                                    <input type="number" step="0.01" name="achat" class="form-control" placeholder="Prix d'achat" required>
+                                    <input type="number" step="50" name="achat" class="form-control" placeholder="Prix d'achat">
                                 <?php endif; ?>
                             </td>
 
@@ -80,7 +80,7 @@
                                 <?php if (isset($prixVente[$mois])): ?>
                                     <span class="text-success"><?= number_format($prixVente[$mois], 2) ?> Ar</span>
                                 <?php else: ?>
-                                    <input type="number" step="0.01" name="vente" class="form-control" placeholder="Prix de vente" required>
+                                    <input type="number" step="50" name="vente" class="form-control" placeholder="Prix de vente">
                                 <?php endif; ?>
                             </td>
 

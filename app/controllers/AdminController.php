@@ -7,6 +7,98 @@ use app\models\AdminModel;
 
 class AdminController
 {
+    public function insertPrixService()
+    {
+        $prix = $_POST['vente'] ?? null; // prise en compte du champ "vente"
+        $mois = $_POST['mois'] ?? null;
+        $annee = $_POST['annee'] ?? null;
+        $description = $_POST['description'] ?? 'Prix inséré';
+        $id_service = $_POST['id_item'] ?? null;
+
+
+        if ($prix && $mois && $annee && $id_service) {
+            Flight::adminModel()->insertPrixService($prix, $mois, $annee, $description, $id_service);
+        }
+
+        Flight::redirect('/admin/prix?type=service&id_item=' . $id_service . '&annee=' . $annee);
+    }
+
+    public function insertPrixProduit()
+    {
+        $prix = $_POST['vente'] ?? null; // prise en compte du champ "vente"
+        $mois = $_POST['mois'] ?? null;
+        $annee = $_POST['annee'] ?? null;
+        $description = $_POST['description'] ?? 'Prix inséré';
+        $id_produit = $_POST['id_item'] ?? null;
+
+        if ($prix && $mois && $annee && $id_produit) {
+            Flight::adminModel()->insertPrixProduit($prix, $mois, $annee, $description, $id_produit);
+        }
+
+        Flight::redirect('/admin/prix?type=produit&id_item=' . $id_produit . '&annee=' . $annee);
+    }
+
+    public function insertPrixAchatService()
+    {
+        $prix = $_POST['achat'] ?? null;
+        $mois = $_POST['mois'] ?? null;
+        $annee = $_POST['annee'] ?? null;
+        $etat = 1; // entier (pas string 'valide')
+        $id_service = $_POST['id_item'] ?? null;
+
+        if ($prix && $mois && $annee && $id_service) {
+            Flight::adminModel()->insertPrixAchatService($mois, $annee, $prix, $etat, $id_service);
+        }
+
+        Flight::redirect('/admin/prix?type=service&id_item=' . $id_service . '&annee=' . $annee);
+    }
+
+    public function insertPrixAchatProduit()
+    {
+        $prix = $_POST['achat'] ?? null;
+        $mois = $_POST['mois'] ?? null;
+        $annee = $_POST['annee'] ?? null;
+        $etat = 1; // entier
+        $id_produit = $_POST['id_item'] ?? null;
+
+        if ($prix && $mois && $annee && $id_produit) {
+            Flight::adminModel()->insertPrixAchatProduit($mois, $annee, $prix, $etat, $id_produit);
+        }
+
+        Flight::redirect('/admin/prix?type=produit&id_item=' . $id_produit . '&annee=' . $annee);
+    }
+
+    public function validerPrix()
+    {
+        $type = $_POST['type'] ?? null;
+        $achat = $_POST['achat'] ?? null;
+        $vente = $_POST['vente'] ?? null;
+
+        // Vérifier que au moins un des deux champs est rempli
+        if (empty($achat) && empty($vente)) {
+            Flight::redirect('/admin/prix?type=' . $_POST['type'] . '&id_item=' . $_POST['id_item'] . '&annee=' . $_POST['annee'] . '&erreur=1');
+            return;
+        }
+
+        if ($type === 'produit') {
+            if (!empty($_POST['achat'])) {
+                $this->insertPrixAchatProduit();
+            }
+            if (!empty($_POST['vente'])) {
+                $this->insertPrixProduit();
+            }
+        } elseif ($type === 'service') {
+            if (!empty($_POST['achat'])) {
+                $this->insertPrixAchatService();
+            }
+            if (!empty($_POST['vente'])) {
+                $this->insertPrixService();
+            }
+        }
+    }
+
+
+
     public function showCrudPrix()
     {
         $page = 'admin/crud_prix';

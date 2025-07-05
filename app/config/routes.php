@@ -121,3 +121,5 @@ $histo = new HistoConnexController();
 $router->get('/connexion/historique', [$histo, 'showHistorique']);
 
 $router->get('/admin/prix', [$AdminController, 'showCrudPrix']);
+
+$router->post('/admin/prix/valider', [$AdminController, 'validerPrix']);

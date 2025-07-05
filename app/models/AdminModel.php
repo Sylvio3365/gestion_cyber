@@ -25,6 +25,7 @@ class AdminModel
 
     public function insertPrixAchatService($mois, $annee, $prix, $etat, $id_service)
     {
+        
         $sql = "INSERT INTO prix_achat_service (mois, date_modification, annee, prix, etat, id_service)
                 VALUES (:mois, NOW(), :annee, :prix, :etat, :id_service)";
 
