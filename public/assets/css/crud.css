@@ -179,6 +179,7 @@ h1::after {
 
 /* Tableau moderne avec glassmorphism */
 table {
+    table-layout: fixed; /* Stabilise la largeur des colonnes */
     width: 100%;
     background: white;
     border: 1px solid var(--border-color);
@@ -236,12 +237,18 @@ tbody tr:last-child td {
     border-bottom: none;
 }
 
+th:last-child, td:last-child {
+    width: 160px; /* Largeur fixe pour la colonne Actions */
+    text-align: center;
+}
+
 /* Boutons d'action avec icônes modernes */
 .action-buttons {
     display: flex;
     gap: 0.5rem;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: center; /* Centre les boutons horizontalement */
+    flex-wrap: nowrap; /* Empêche le retour à la ligne des boutons */
 }
 
 .btn-icon {
@@ -310,14 +317,19 @@ tbody tr:last-child td {
 
 /* Formulaires d'édition inline */
 .inline-edit {
-    display: flex;
-    gap: 0.75rem;
-    align-items: center;
-    flex-wrap: wrap;
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    right: 0;
     background: var(--secondary-color);
     padding: 1rem;
     border-radius: var(--radius-md);
     border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-lg);
+    margin-top: 0.5rem;
+    width: max-content;
+    max-width: calc(100vw - 4rem);
 }
 
 .inline-edit input,
@@ -463,13 +475,19 @@ table {
     }
     
     .action-buttons {
-        flex-direction: column;
-        gap: 0.5rem;
+        flex-direction: row; /* Garder les boutons en ligne même en petit écran */
+        justify-content: center;
+        gap: 0.25rem;
     }
     
     .inline-edit {
-        flex-direction: column;
-        align-items: stretch;
+        left: -50%; /* Ajuster la position du formulaire d'édition */
+        right: -50%;
+        margin: 0 auto;
+    }
+
+    th:last-child, td:last-child {
+        width: 110px;
     }
 }
 
