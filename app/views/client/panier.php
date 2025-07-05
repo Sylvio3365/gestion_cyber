@@ -269,31 +269,6 @@
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    // Script pour les interactions du menu
-    document.addEventListener('DOMContentLoaded', function() {
-        const menuToggle = document.getElementById('menu-toggle');
-        const sidebar = document.getElementById('sidebar');
-        const contentWrapper = document.getElementById('content-wrapper');
-
-        function toggleSidebar() {
-            sidebar.classList.toggle('collapsed');
-            contentWrapper.classList.toggle('expanded');
-        }
-        if (menuToggle) {
-            menuToggle.addEventListener('click', toggleSidebar);
-        }
-    });
-
-    function scrollToSection(sectionId) {
-        const section = document.getElementById(sectionId);
-        if (section) {
-            section.scrollIntoView({
-                behavior: 'smooth'
-            });
-        }
-    }
-</script>
-<script>
     document.addEventListener('DOMContentLoaded', function() {
         const form = document.querySelector('form[action="/panier/valider"]');
         const errorPopup = document.getElementById('error-popup');
