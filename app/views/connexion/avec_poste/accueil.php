@@ -22,19 +22,17 @@
     <div class="main-content">
         <div class="pc-management">
             <!-- Header Section -->
-            <div class="pc-management-header mb-4">
-                <div class="d-flex justify-content-between align-items-center flex-wrap">
-                    <div>
-                        <?php if ($estNouveauJour) { ?>
-                            <form method="get" action="/poste/demarrerSession">
-                                <input type="hidden" name="action" value="demarrer">
-                                <button type="submit" class="btn btn-success btn-icon-text">
-                                    <i class="bi bi-play-fill"></i>
-                                    Démarrer
-                                </button>
-                            </form>
-                        <?php } ?>
-                    </div>
+            <div class="pc-management-header mb-2">
+                <div class="d-flex justify-content-end align-items-center gap-2 flex-wrap">
+                    <?php if ($estNouveauJour): ?>
+                        <form method="get" action="/poste/demarrerSession" class="m-0">
+                            <input type="hidden" name="action" value="demarrer">
+                            <button type="submit" class="btn btn-success btn-sm d-flex align-items-center">
+                                <i class="bi bi-play-fill me-1"></i>
+                                Démarrer
+                            </button>
+                        </form>
+                    <?php endif; ?>
                 </div>
             </div>
 

@@ -13,6 +13,41 @@ class PosteModel
         $this->db = $db;
     }
 
+    public function getHistoEtatPoste($idPoste, $dateDebut, $dateFin)
+    {
+        $sql = "SELECT 
+                pe.id_poste_etat,
+                pe.id_poste,
+                p.numero_poste,
+                pe.date_debut,
+                pe.date_fin,
+                e.nom AS etat_nom,
+                CONCAT(cl.nom, ' ', cl.prenom) AS client_nom_complet
+            FROM poste_etat pe
+            JOIN poste p ON pe.id_poste = p.id_poste
+            JOIN etat e ON pe.id_etat = e.id_etat
+            LEFT JOIN historique_connexion hc 
+                ON hc.id_poste = pe.id_poste
+                AND hc.date_debut <= pe.date_debut
+                AND (hc.date_fin >= pe.date_debut OR hc.date_fin IS NULL)
+                AND pe.id_etat = 2
+            LEFT JOIN client cl ON hc.id_client = cl.id_client
+            WHERE pe.id_poste = :id_poste
+              AND pe.date_debut >= :date_debut
+              AND (pe.date_fin <= :date_fin OR pe.date_fin IS NULL)
+            ORDER BY pe.date_debut ASC";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([
+            'id_poste' => $idPoste,
+            'date_debut' => $dateDebut,
+            'date_fin' => $dateFin
+        ]);
+
+        return $stmt->fetchAll();
+    }
+
+
     public function getAll()
     {
         $query = "SELECT * FROM poste";

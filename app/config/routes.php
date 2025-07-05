@@ -74,6 +74,7 @@ $router->post('/admin/type_mouvement/edit', [$AdminController, 'editTypeMouvemen
 $router->post('/admin/type_mouvement/delete', [$AdminController, 'deleteTypeMouvement']);
 
 
+
 $router->get('/panier', [$PanierController, 'afficherPanier']);
 $router->post('/panier/creer', [$PanierController, 'creerPanier']);
 $router->post('/panier/ajouter-produit', [$PanierController, 'ajouterProduit']);
@@ -103,6 +104,7 @@ $router->post('/poste/demarrerSessionPoste', [$PosteController, 'demarrerSession
 $router->post('/poste/arreterSessionPoste', [$PosteController, 'arreterSessionPoste']);
 $router->post('/poste/mettreEnMaintenance', [$PosteController, 'mettreEnMaintenance']);
 $router->post('/poste/rendreDisponible', [$PosteController, 'rendreDisponible']);
+$router->get('/poste/historique', [$PosteController, 'showHistoEtat']);
 
 $ConnexionController = new ConnexionController();
 $router->get('/connexion/sansposte', [$ConnexionController, 'showGestionConnexionCLientSansPoste']);
@@ -117,3 +119,7 @@ $router->get('/admin/stats/', [$stat, 'apiStats']);
 
 $histo = new HistoConnexController();
 $router->get('/connexion/historique', [$histo, 'showHistorique']);
+
+$router->get('/admin/prix', [$AdminController, 'showCrudPrix']);
+
+$router->post('/admin/prix/valider', [$AdminController, 'validerPrix']);
