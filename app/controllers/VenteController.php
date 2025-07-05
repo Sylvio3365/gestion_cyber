@@ -5,11 +5,13 @@ namespace app\controllers;
 use Flight;
 use app\models\VenteModel;
 
-class VenteController {
+class VenteController
+{
 
     public function __construct() {}
 
-    public function afficherBenefice() {
+    public function afficherBenefice()
+    {
         $request = Flight::request()->data;
 
         $date = $request['date'] ?? null;
@@ -35,14 +37,13 @@ class VenteController {
             ];
         }
 
-        // Passage des données à la vue
-        Flight::view()->set('benefice', $beneficeFormate);
-
-        Flight::render('benefice');
+        // Passage des données à la vue via render
+        Flight::render('index', ['benefice' => $beneficeFormate, 'page' => 'Statistique/benefice']);
     }
+
 
     public function showBenefice()
     {
-        Flight::render('benefice');
+        Flight::render('index', ['page' => 'Statistique/benefice']);
     }
 }

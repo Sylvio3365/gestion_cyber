@@ -3,13 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Gestion des Marques</title>
-    <style>
-        table { border-collapse: collapse; width: 80%; margin: 20px auto; }
-        th, td { border: 1px solid #333; padding: 8px; text-align: center; }
-        form { display: inline; }
-        .container { width: 80%; margin: auto; }
-        .form-section { background: #f9f9f9; padding: 10px; margin-bottom: 20px; border: 1px solid #ccc; }
-    </style>
+    <link rel="stylesheet" href="/assets/css/crud.css">
 </head>
 <body>
 <div class="container">
@@ -25,7 +19,11 @@
 
     <table>
         <thead>
-            <tr><th>ID</th><th>Nom</th><th>Actions</th></tr>
+            <tr>
+                <th>ID</th>
+                <th>Nom</th>
+                <th>Actions</th>
+            </tr>
         </thead>
         <tbody>
         <?php if (!empty($marques)): ?>
@@ -34,25 +32,60 @@
                     <td><?= $m['id_marque'] ?></td>
                     <td><?= htmlspecialchars($m['nom']) ?></td>
                     <td>
-                        <form method="post" action="/admin/marque/edit">
-                            <input type="hidden" name="id_marque" value="<?= $m['id_marque'] ?>">
-                            <input type="text" name="nom" value="<?= htmlspecialchars($m['nom']) ?>" required>
-                            <button type="submit">Modifier</button>
-                        </form>
-                        <form method="post" action="/admin/marque/delete" onsubmit="return confirm('Supprimer cette marque ?');">
-                            <input type="hidden" name="id_marque" value="<?= $m['id_marque'] ?>">
-                            <button type="submit">Supprimer</button>
-                        </form>
+                        <div class="action-buttons">
+                            <form method="post" action="/admin/marque/edit" class="inline-edit" style="display: none;">
+                                <input type="hidden" name="id_marque" value="<?= $m['id_marque'] ?>">
+                                <input type="text" name="nom" value="<?= htmlspecialchars($m['nom']) ?>" required>
+                                <button type="submit" class="btn-save">
+                                    <i class="fas fa-check"></i> Sauvegarder
+                                </button>
+                            </form>
+                            
+                            <button class="btn-icon btn-edit" onclick="toggleEdit(this)" title="Modifier">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            
+                            <form method="post" action="/admin/marque/delete" onsubmit="return confirm('Supprimer cette marque ?');" style="display: inline;">
+                                <input type="hidden" name="id_marque" value="<?= $m['id_marque'] ?>">
+                                <button type="submit" class="btn-icon btn-delete" title="Supprimer">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        </div>
                     </td>
                 </tr>
             <?php endforeach; ?>
         <?php else: ?>
-            <tr><td colspan="3">Aucune marque trouvée.</td></tr>
+            <tr>
+                <td colspan="3">
+                    <div class="empty-state">
+                        <i class="fas fa-trademark"></i>
+                        <p>Aucune marque trouvée.</p>
+                    </div>
+                </td>
+            </tr>
         <?php endif; ?>
         </tbody>
     </table>
-
-    <p><a href="/dashboard">Retour au Dashboard</a></p>
 </div>
+
+<script>
+function toggleEdit(button) {
+    const row = button.closest('tr');
+    const form = row.querySelector('.inline-edit');
+    const isEditing = form.style.display !== 'none';
+    
+    if (isEditing) {
+        form.style.display = 'none';
+        button.innerHTML = '<i class="fas fa-edit"></i>';
+        button.title = 'Modifier';
+    } else {
+        form.style.display = 'flex';
+        button.innerHTML = '<i class="fas fa-times"></i>';
+        button.title = 'Annuler';
+    }
+}
+</script>
+
 </body>
 </html>

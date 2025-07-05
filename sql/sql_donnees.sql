@@ -72,10 +72,10 @@ VALUES
 INSERT INTO
     produit (nom, description, id_marque, id_categorie)
 VALUES
-    ('Stylo bleu', 'Stylo bille classique', 1, 1),
-    ('Crayon à papier', 'Crayon graphite HB', 1, 1),
-    ('Papier A4', '500 feuilles', 2, 1),
-    ('Classeur', 'Classeur cartonné', 2, 1);
+    ('Stylo bleu', 'Stylo bille classique', 1, 2),
+    ('Crayon à papier', 'Crayon graphite HB', 1, 2),
+    ('Papier A4', '500 feuilles', 2, 2),
+    ('Classeur', 'Classeur cartonné', 2, 2);
 
 -- Insérer des valeurs dans type_mouvement
 INSERT INTO
@@ -118,9 +118,9 @@ VALUES
 INSERT INTO
     service (nom, description, id_categorie)
 VALUES
-    ('Photocopie', 'Par page A4', 2),
-    ('Impression', 'Par page A4', 2),
-    ('Scan', 'Par page', 2);
+    ('Photocopie', 'Par page A4', 3),
+    ('Impression', 'Par page A4', 3),
+    ('Scan', 'Par page', 3);
 
 -- Insérer des valeurs dans prix_service
 INSERT INTO
@@ -137,12 +137,26 @@ VALUES
     (NOW (), 400, 6, 2025, 'Tarif standard', 2), -- Impression couleur
     (NOW (), 300, 6, 2025, 'Tarif standard', 3);
 
+INSERT INTO
+    prix_service (
+        date_modification,
+        prix,
+        mois,
+        annee,
+        description,
+        id_service
+    )
+VALUES
+    (NOW (), 100, 7, 2025, 'Tarif standard', 1), -- Photocopie NB
+    (NOW (), 400, 7, 2025, 'Tarif standard', 2), -- Impression couleur
+    (NOW (), 300, 7, 2025, 'Tarif standard', 3);
+
 -- Scan
 -- Insérer des valeurs dans type_de_payement
 INSERT INTO
     type_de_payement (nom)
 VALUES
-    ('Espèces'),
+    ('Especes'),
     ('Mobile Money');
 
 -- Insérer des valeurs dans service_produit
@@ -153,4 +167,39 @@ VALUES
     (2, 3, 1), -- Impression consomme 1 papier A4 par service
     (3, 3, 1);
 
--- Scan consomme 1 papier A4 par service (si applicable)
+ALTER TABLE historique_connexion ADD statut INT NOT NULL DEFAULT 0;
+
+ALTER TABLE historique_connexion MODIFY COLUMN id_historique_connection INT NOT NULL AUTO_INCREMENT,
+DROP PRIMARY KEY,
+ADD PRIMARY KEY (id_historique_connection);
+
+INSERT INTO
+    poste (numero_poste)
+VALUES
+    ('P001'),
+    ('P002'),
+    ('P003'),
+    ('P004'),
+    ('P005');
+
+-- Insertion d'états (nécessaire pour poste_etat)
+INSERT INTO
+    etat (nom)
+VALUES
+    ('Disponible'),
+    ('Occupé'),
+    ('En maintenance');
+
+-- Insertion de 3 clients
+INSERT INTO
+    client (nom, prenom, added_at)
+VALUES
+    ('Dupont', 'Jean', CURRENT_TIMESTAMP()),
+    ('Martin', 'Sophie', CURRENT_TIMESTAMP()),
+    ('Bernard', 'Pierre', CURRENT_TIMESTAMP());
+
+INSERT INTO service (description, nom, id_categorie) 
+VALUES ('Service dédié à la connexion réseau', 'connexion', 1);
+
+INSERT INTO prix_service (date_modification, prix, mois, annee, description, id_service) 
+VALUES (NOW(), 500, 7, 2025, 'Prix pour le connexion 15 minutes', 4);
