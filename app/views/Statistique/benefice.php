@@ -3,137 +3,83 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calcul du Bénéfice</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 30px;
-            background-color: #f5f5f5;
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        form {
-            margin-bottom: 30px;
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 8px;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-            color: #555;
-        }
-
-        input[type="date"],
-        input[type="number"] {
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            width: 200px;
-        }
-
-        input[type="submit"] {
-            padding: 10px 20px;
-            background: #007bff;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        input[type="submit"]:hover {
-            background: #0056b3;
-        }
-
-        .result {
-            font-weight: bold;
-            margin: 20px 0;
-            color: green;
-            background: #e8f5e8;
-            padding: 15px;
-            border-radius: 8px;
-            text-align: center;
-        }
-
-        .charts-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin-top: 30px;
-        }
-
-        .chart-wrapper {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        .chart-title {
-            text-align: center;
-            margin-bottom: 20px;
-            color: #333;
-            font-size: 18px;
-            font-weight: bold;
-        }
-
-        canvas {
-            max-width: 100%;
-            height: 400px !important;
-        }
-
-        @media (max-width: 768px) {
-            .charts-container {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="/assets/css/benef.css">
 </head>
 
 <body>
-
     <div class="container">
         <h2>Calcul du bénéfice</h2>
 
+        <div class="form-container">
         <form method="get" action="/benefice">
-            <div class="form-group">
-                <label for="date">Date exacte (YYYY-MM-DD) :</label>
-                <input type="date" name="date" id="date" class="form-control">
-            </div>
+    <div class="form-group mb-3">
+        <label for="filtre_type">Filtrer par :</label>
+        <select name="filtre_type" id="filtre_type" class="form-control">
+            <option value="">-- Sélectionner --</option>
+            <option value="jour">Date exacte</option>
+            <option value="mois">Mois + année</option>
+            <option value="annee">Année uniquement</option>
+        </select>
+    </div>
 
-            <div class="form-group">
-                <label for="mois">Mois :</label>
-                <input type="number" name="mois" min="1" max="12" id="mois" class="form-control">
-            </div>
+    <div id="filtre-jour" class="form-group mb-3" style="display: none;">
+        <label for="date">Date exacte :</label>
+        <input type="date" name="date" id="date" class="form-control" placeholder="YYYY-MM-DD">
+    </div>
 
-            <div class="form-group">
-                <label for="annee">Année :</label>
-                <input type="number" name="annee" min="2000" max="2100" id="annee" class="form-control">
-            </div>
+    <div id="filtre-mois" class="form-group mb-3" style="display: none;">
+        <label for="mois">Mois :</label>
+        <input type="number" name="mois" min="1" max="12" id="mois" class="form-control" placeholder="1-12">
+    </div>
 
-            <input type="submit" value="Calculer" class="btn btn-primary">
-        </form>
+    <div id="filtre-annee" class="form-group mb-3" style="display: none;">
+        <label for="annee">Année :</label>
+        <input type="number" name="annee" min="2000" max="2100" id="annee" class="form-control" placeholder="2000-2100">
+    </div>
+
+    <input type="submit" value="Calculer" class="btn btn-primary">
+</form>
+
+<script>
+    const filtreType = document.getElementById('filtre_type');
+    const filtreJour = document.getElementById('filtre-jour');
+    const filtreMois = document.getElementById('filtre-mois');
+    const filtreAnnee = document.getElementById('filtre-annee');
+
+    function afficherChamps() {
+        const type = filtreType.value;
+
+        // Réinitialiser tous les champs
+        filtreJour.style.display = 'none';
+        filtreMois.style.display = 'none';
+        filtreAnnee.style.display = 'none';
+
+        if (type === 'jour') {
+            filtreJour.style.display = 'block';
+        } else if (type === 'mois') {
+            filtreMois.style.display = 'block';
+            filtreAnnee.style.display = 'block';
+        } else if (type === 'annee') {
+            filtreAnnee.style.display = 'block';
+        }
+    }
+
+    filtreType.addEventListener('change', afficherChamps);
+
+    // Pour conserver l'affichage après rechargement si un type a déjà été sélectionné
+    window.addEventListener('DOMContentLoaded', afficherChamps);
+</script>
+
+
+        </div>
 
         <?php if (isset($benefice)): ?>
             <div class="result">
                 <h3>Bénéfice global :</h3>
-                <p style="font-size: 24px; margin: 10px 0;"><?php echo $benefice['total']; ?></p>
+                <p class="result-value"><?php echo $benefice['total']; ?></p>
             </div>
 
             <div class="charts-container">
