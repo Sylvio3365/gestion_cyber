@@ -226,27 +226,26 @@ class PanierModel
         $mois = date('n'); 
         $annee = date('Y'); 
         
-        $sql = "SELECT DISTINCT p.*, 
-                   pp.prix,
-                   (SELECT SUM(s.quantite)
-                    FROM stock s
-                    WHERE s.id_produit = p.id_produit) AS stock
+        $sql = "SELECT p.*, 
+                COALESCE(
+                    (SELECT pp1.prix FROM prix_produit pp1 
+                        WHERE pp1.id_produit = p.id_produit 
+                        AND pp1.mois = ? 
+                        AND pp1.annee = ?
+                        ORDER BY pp1.date_modification DESC LIMIT 1
+                    ),
+                    (SELECT pp2.prix FROM prix_produit pp2 
+                        WHERE pp2.id_produit = p.id_produit 
+                        ORDER BY pp2.date_modification DESC LIMIT 1
+                    )
+                ) AS prix,
+                (SELECT SUM(s.quantite) FROM stock s WHERE s.id_produit = p.id_produit) AS stock
             FROM produit p
-            LEFT JOIN prix_produit pp ON p.id_produit = pp.id_produit
-            AND pp.mois = :mois 
-            AND pp.annee = :annee
-            AND pp.date_modification = (
-                SELECT MAX(pp2.date_modification)
-                FROM prix_produit pp2
-                WHERE pp2.id_produit = p.id_produit
-                AND pp2.mois = :mois 
-                AND pp2.annee = :annee
-            )
             WHERE p.deleted_at IS NULL
             ORDER BY p.nom";
-    
+
         $stmt = $this->db->prepare($sql);
-        $stmt->execute(['mois' => $mois, 'annee' => $annee]);
+        $stmt->execute([$mois, $annee]);
         return $stmt->fetchAll();
     }
 
@@ -255,25 +254,26 @@ class PanierModel
         $mois = date('n');
         $annee = date('Y');
 
-        $sql = "SELECT DISTINCT s.*, 
-                   ps.prix
-            FROM service s 
-            LEFT JOIN prix_service ps ON s.id_service = ps.id_service
-            AND ps.mois = :mois 
-            AND ps.annee = :annee
-            AND ps.date_modification = (
-                SELECT MAX(ps2.date_modification)
-                FROM prix_service ps2
-                WHERE ps2.id_service = s.id_service
-                AND ps2.mois = :mois 
-                AND ps2.annee = :annee
-            )
+        $sql = "SELECT s.*, 
+                COALESCE(
+                    (SELECT ps1.prix FROM prix_service ps1 
+                        WHERE ps1.id_service = s.id_service 
+                        AND ps1.mois = ? 
+                        AND ps1.annee = ?
+                        ORDER BY ps1.date_modification DESC LIMIT 1
+                    ),
+                    (SELECT ps2.prix FROM prix_service ps2 
+                        WHERE ps2.id_service = s.id_service 
+                        ORDER BY ps2.date_modification DESC LIMIT 1
+                    )
+                ) AS prix
+            FROM service s
             WHERE s.deleted_at IS NULL 
             AND s.nom != 'connexion'
             ORDER BY s.nom";
-    
+
         $stmt = $this->db->prepare($sql);
-        $stmt->execute(['mois' => $mois, 'annee' => $annee]);
+        $stmt->execute([$mois, $annee]);
         return $stmt->fetchAll();
     }
 

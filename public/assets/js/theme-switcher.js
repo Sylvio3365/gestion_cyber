@@ -2,6 +2,29 @@ document.addEventListener('DOMContentLoaded', function() {
     const themeToggleBtn = document.getElementById('theme-toggle-btn');
     const themeIcon = themeToggleBtn.querySelector('i');
     
+    // AJOUTER LA GESTION DU MENU TOGGLE
+    const menuToggle = document.getElementById('menu-toggle');
+    const sidebar = document.getElementById('sidebar');
+    const contentWrapper = document.getElementById('content-wrapper');
+
+    function toggleSidebar() {
+        sidebar.classList.toggle('collapsed');
+        contentWrapper.classList.toggle('expanded');
+    }
+    if (menuToggle) {
+        menuToggle.addEventListener('click', toggleSidebar);
+    }
+
+    // AJOUTER LA FONCTION scrollToSection AU SCOPE GLOBAL
+    window.scrollToSection = function(sectionId) {
+        const section = document.getElementById(sectionId);
+        if (section) {
+            section.scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+    };
+    
     // Vérifier si l'utilisateur a déjà choisi un thème
     const currentTheme = localStorage.getItem('theme');
     
