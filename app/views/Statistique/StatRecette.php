@@ -8,38 +8,43 @@
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- CSS personnalisé -->
+    <link rel="stylesheet" href="/assets/css/stat.css">
 </head>
 
 <body>
     <div class="container">
-        <h1 class="text-center mb-4">Statistiques de vente</h1>
+        <h1><i class="fas fa-chart-line me-3"></i>Statistiques de vente</h1>
 
         <!-- Filtres -->
-        <div class="filters mb-4">
+        <div class="filters">
             <!-- Sélection de la période -->
-            <div class="btn-group mb-3 d-flex justify-content-center">
+            <div class="btn-group d-flex justify-content-center">
                 <a href="?period=jour&date=<?= date('Y-m-d') ?>"
                     class="btn btn-<?= $period === 'jour' ? 'primary' : 'secondary' ?>">
-                    Jour
+                    <i class="fas fa-calendar-day me-2"></i>Jour
                 </a>
                 <a href="?period=mois&date=<?= date('Y-m-d') ?>"
                     class="btn btn-<?= $period === 'mois' ? 'primary' : 'secondary' ?>">
-                    Mois
+                    <i class="fas fa-calendar-alt me-2"></i>Mois
                 </a>
                 <a href="?period=annee&date=<?= date('Y-m-d') ?>"
                     class="btn btn-<?= $period === 'annee' ? 'primary' : 'secondary' ?>">
-                    Année
+                    <i class="fas fa-calendar me-2"></i>Année
                 </a>
             </div>
 
             <!-- Sélection de la date -->
-            <form method="get" class="row g-3 justify-content-center mb-3">
+            <form method="get" class="row g-3 justify-content-center">
                 <input type="hidden" name="period" value="<?= $period ?>">
-
                 <div class="col-auto">
-                    <label for="dateSelect" class="col-form-label">Date:</label>
+                    <label for="dateSelect" class="form-label">
+                        <i class="fas fa-calendar-check me-2"></i>Date:
+                    </label>
                 </div>
                 <div class="col-auto">
                     <input type="date" class="form-control" id="dateSelect" name="date"
@@ -47,21 +52,23 @@
                         <?= $period === 'annee' ? 'pattern="\d{4}"' : '' ?>>
                 </div>
                 <div class="col-auto">
-                    <button type="submit" class="btn btn-primary">Appliquer</button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-search me-2"></i>Appliquer
+                    </button>
                 </div>
             </form>
         </div>
 
-        <h2 class="text-center mb-4">Période: <?= $periodLabels[$period] ?> (<?= $date ?>)</h2>
+        <h2><i class="fas fa-calendar-check me-2"></i>Période: <?= $periodLabels[$period] ?> (<?= $date ?>)</h2>
 
         <!-- Cartes de statistiques -->
         <div class="row">
             <?php
             // Préparer les données pour chaque type
             $types = [
-                'produit' => ['label' => 'Fourniture', 'color' => 'success'],
-                'multi' => ['label' => 'Multi Service', 'color' => 'info'],
-                'connexion' => ['label' => 'Connexion', 'color' => 'warning']
+                'produit' => ['label' => 'Fourniture', 'color' => 'success', 'icon' => 'fas fa-box'],
+                'multi' => ['label' => 'Multi Service', 'color' => 'info', 'icon' => 'fas fa-cogs'],
+                'connexion' => ['label' => 'Connexion', 'color' => 'warning', 'icon' => 'fas fa-wifi']
             ];
 
             // Récupérer les données pour chaque type et calculer le total
@@ -79,6 +86,7 @@
                         'type' => $typeKey,
                         'label' => $typeData['label'],
                         'color' => $typeData['color'],
+                        'icon' => $typeData['icon'],
                         'ca' => $ca
                     ];
                     $totalCA += $ca;
@@ -89,9 +97,9 @@
 
                     // Définir les couleurs correspondantes
                     $colorMap = [
-                        'success' => 'rgba(40, 167, 69, 0.7)',   // Vert
-                        'info' => 'rgba(23, 162, 184, 0.7)',     // Bleu clair
-                        'warning' => 'rgba(255, 193, 7, 0.7)'    // Jaune
+                        'success' => 'rgba(40, 167, 69, 0.7)',
+                        'info' => 'rgba(23, 162, 184, 0.7)',
+                        'warning' => 'rgba(255, 193, 7, 0.7)'
                     ];
                     $backgroundColors[] = $colorMap[$typeData['color']];
                 } catch (Exception $e) {
@@ -110,10 +118,14 @@
                 <div class="col-md-4 mb-4">
                     <div class="card border-<?= $stat['color'] ?>">
                         <div class="card-header bg-<?= $stat['color'] ?> text-white">
-                            <h3 class="card-title text-center"><?= $stat['label'] ?></h3>
+                            <h3 class="card-title text-center">
+                                <i class="<?= $stat['icon'] ?> me-2"></i><?= $stat['label'] ?>
+                            </h3>
                         </div>
                         <div class="card-body text-center">
-                            <h4 class="card-text"><?= number_format($stat['ca'], 0, ',', ' ') ?> Ar</h4>
+                            <h4 class="card-text">
+                                <i class="fas fa-coins me-2"></i><?= number_format($stat['ca'], 0, ',', ' ') ?> Ar
+                            </h4>
                             <?php if ($totalCA > 0): ?>
                                 <div class="progress mt-3">
                                     <div class="progress-bar bg-<?= $stat['color'] ?>"
@@ -134,11 +146,10 @@
 
         <!-- Graphiques -->
         <div class="row mt-4">
-            <!-- Barres -->
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
-                        <h3>Comparaison par catégorie</h3>
+                        <h3><i class="fas fa-chart-bar me-2"></i>Comparaison par catégorie</h3>
                     </div>
                     <div class="card-body">
                         <div class="chart-container">
@@ -152,38 +163,60 @@
         <!-- Tableau récapitulatif -->
         <div class="card mt-4">
             <div class="card-header">
-                <h3>Récapitulatif</h3>
+                <h3><i class="fas fa-table me-2"></i>Récapitulatif</h3>
             </div>
             <div class="card-body">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Type</th>
-                            <th>Chiffre d'affaires</th>
-                            <th>Pourcentage</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($allStats as $stat): ?>
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead>
                             <tr>
-                                <td><?= $stat['label'] ?></td>
-                                <td><?= number_format($stat['ca'], 0, ',', ' ') ?> Ar</td>
+                                <th><i class="fas fa-tag me-2"></i>Type</th>
+                                <th><i class="fas fa-money-bill-wave me-2"></i>Chiffre d'affaires</th>
+                                <th><i class="fas fa-percentage me-2"></i>Pourcentage</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($allStats as $stat): ?>
+                                <tr>
+                                    <td>
+                                        <i class="<?= $stat['icon'] ?> me-2"></i><?= $stat['label'] ?>
+                                    </td>
+                                    <td>
+                                        <strong><?= number_format($stat['ca'], 0, ',', ' ') ?> Ar</strong>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="progress me-2" style="width: 100px;">
+                                                <div class="progress-bar bg-<?= $stat['color'] ?>"
+                                                    role="progressbar"
+                                                    style="width: <?= $totalCA > 0 ? ($stat['ca'] / $totalCA) * 100 : 0 ?>%">
+                                                </div>
+                                            </div>
+                                            <span class="badge bg-<?= $stat['color'] ?>">
+                                                <?php if ($totalCA > 0): ?>
+                                                    <?= number_format(($stat['ca'] / $totalCA) * 100, 1) ?>%
+                                                <?php else: ?>
+                                                    0%
+                                                <?php endif; ?>
+                                            </span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                            <tr class="table-primary fw-bold">
                                 <td>
-                                    <?php if ($totalCA > 0): ?>
-                                        <?= number_format(($stat['ca'] / $totalCA) * 100, 1) ?>%
-                                    <?php else: ?>
-                                        0%
-                                    <?php endif; ?>
+                                    <i class="fas fa-calculator me-2"></i><strong>TOTAL</strong>
+                                </td>
+                                <td>
+                                    <strong><?= number_format($totalCA, 0, ',', ' ') ?> Ar</strong>
+                                </td>
+                                <td>
+                                    <span class="badge bg-primary">100%</span>
                                 </td>
                             </tr>
-                        <?php endforeach; ?>
-                        <tr class="table-primary fw-bold">
-                            <td>TOTAL</td>
-                            <td><?= number_format($totalCA, 0, ',', ' ') ?> Ar</td>
-                            <td>100%</td>
-                        </tr>
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -191,31 +224,8 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        // Script Chart.js inchangé
         document.addEventListener('DOMContentLoaded', function() {
-            const periodLinks = document.querySelectorAll('.btn-group a[href*="period="]');
-            const dateInput = document.getElementById('dateSelect');
-            const periodInput = document.querySelector('input[name="period"]');
-
-            periodLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    const url = new URL(this.href);
-                    const period = url.searchParams.get('period');
-
-                    // Mise à jour du champ caché period
-                    periodInput.value = period;
-
-                    // Adaptation du type de input date
-                    if (period === 'annee') {
-                        dateInput.type = 'number';
-                        dateInput.min = '2000';
-                        dateInput.max = '<?= date('Y') + 5 ?>';
-                        dateInput.value = '<?= date('Y') ?>';
-                    } else {
-                        dateInput.type = 'date';
-                    }
-                });
-            });
-
             const labels = <?= json_encode($labels) ?>;
             const dataValues = <?= json_encode($dataValues) ?>;
             const backgroundColors = [

@@ -236,9 +236,9 @@ body.dark-mode .submenu li a.active {
 /* Icônes alignées */
 .sidebar-menu .bi {
   font-size: 1.25rem;
-  margin-right: 12px;
+  margin-right: 13px;
   opacity: 0.9;
-  width: 24px;
+  width: 26px;
   text-align: center;
 }
 
