@@ -135,7 +135,7 @@
                                 <span>Total:</span>
                                 <span id="total"><?= number_format($total, 0, ',', ' ') ?> Ar</span>
                             </div>
-                            <!-- Section client à ajouter dans le résumé du panier si elle manque-->
+                            <!-- Section client -->
                             <div class="client-section mt-3 mb-3">
                                 <h6>Client</h6>
                                 <div class="input-group mb-2">
@@ -223,10 +223,8 @@
                         </div>
                     </div>
 
-                    <!-- Champ caché pour le montant total -->
+                    <!-- Champs cachés -->
                     <input type="hidden" name="montant_total" id="montant_total" value="<?= $total ?>">
-
-                    <!-- AJOUTER CE CHAMP CACHÉ POUR L'ID CLIENT -->
                     <input type="hidden" name="id_client" id="payment-client-id" value="">
                 </div>
                 <div class="modal-footer">
@@ -267,33 +265,10 @@
         </div>
     </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const form = document.querySelector('form[action="/panier/valider"]');
-        const errorPopup = document.getElementById('error-popup');
-        const errorMessage = document.getElementById('error-message');
 
-        form.addEventListener('submit', async function(event) {
-            event.preventDefault();
+<!-- CSS spécifique pour le panier -->
+<link rel="stylesheet" href="/assets/css/panier.css">
 
-            const formData = new FormData(form);
-            const response = await fetch(form.action, {
-                method: 'POST',
-                body: formData
-            });
-
-            const result = await response.json();
-
-            if (result.error) {
-                errorMessage.textContent = result.error;
-                errorPopup.classList.remove('d-none');
-            } else {
-                window.location.href = '/panier'; // Redirige vers une page de succès
-            }
-        });
-    });
-</script>
 <script>
     function showPaymentModal() {
         const modal = new bootstrap.Modal(document.getElementById('paymentModal'));
@@ -346,7 +321,6 @@
 
     // Affichage du modal ajout client
     function showNewClientModal() {
-        // Réinitialise le formulaire et les messages à chaque ouverture
         const form = document.getElementById('new-client-form');
         form.reset();
         form.querySelectorAll('.alert').forEach(el => el.remove());
@@ -370,19 +344,13 @@
             }
 
             const result = await res.json();
-
-            // Nettoie les anciens messages
             this.querySelectorAll('.alert').forEach(el => el.remove());
 
             if (result.id_client) {
-                // Utiliser le système de notification plutôt qu'une alerte
                 showNotification('Client ajouté avec succès !', 'success');
-
-                // Remplit le champ recherche client et le champ caché dans le paiement
                 document.getElementById('client-search').value = formData.get('nom') + ' ' + formData.get('prenom');
                 document.getElementById('selected-client-id').value = result.id_client;
 
-                // Ferme le modal après un court délai
                 setTimeout(() => {
                     bootstrap.Modal.getInstance(document.getElementById('newClientModal')).hide();
                     this.reset();
@@ -396,33 +364,22 @@
         }
     });
 
-    // Remplacer le script d'initialisation du modal de paiement par :
+    // Initialisation du modal de paiement
     document.getElementById('paymentModal').addEventListener('show.bs.modal', function() {
-        // Récupérer le montant total du résumé de commande
         const totalValue = document.getElementById('total').textContent;
         const totalNumeric = parseFloat(totalValue.replace(/[^\d]/g, ''));
 
-        // Mettre à jour le montant dans le modal
         document.getElementById('payment-total').textContent = totalValue;
-
-        // Mettre à jour le champ caché avec le montant brut
         document.getElementById('montant_total').value = totalNumeric;
-
-        // Préremplir le montant reçu avec le même montant
         document.getElementById('montant-recu').value = totalNumeric;
 
-        // AJOUTER CETTE LIGNE : Transférer l'id_client sélectionné vers le modal
         const selectedClientId = document.getElementById('selected-client-id').value;
         document.getElementById('payment-client-id').value = selectedClientId;
 
-        // Réinitialiser les messages d'erreur
         const errorElements = document.querySelectorAll('.payment-error');
         errorElements.forEach(el => el.remove());
     });
 </script>
-<!-- Système de notifications -->
-<script src="/assets/js/notification-system.js"></script>
-<!-- Panier dynamique -->
+
+<!-- Scripts spécifiques au panier -->
 <script src="/assets/js/panier-dynamic.js"></script>
-<!-- Script sidebar/menu/theme -->
-<script src="/assets/js/theme-switcher.js"></script>
