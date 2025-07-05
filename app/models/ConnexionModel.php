@@ -59,23 +59,49 @@ class ConnexionModel
     public function getHisto()
     {
         $query = "
-            SELECT 
-                h.id_historique_connection, 
-                c.id_client, 
-                c.nom, 
-                c.prenom, 
-                h.date_debut, 
-                h.date_fin, 
-                h.id_poste
-            FROM client c
-            JOIN historique_connexion h ON c.id_client = h.id_client
-            WHERE h.statut = 0 
-            AND h.date_fin IS NOT NULL
-            AND DATE(h.date_debut) = CURDATE()
-        ";
+        SELECT 
+            h.id_historique_connection, 
+            c.id_client, 
+            c.nom, 
+            c.prenom, 
+            h.date_debut, 
+            h.date_fin, 
+            h.id_poste
+        FROM client c
+        JOIN historique_connexion h ON c.id_client = h.id_client
+        WHERE h.statut = 0 
+        AND h.date_fin IS NOT NULL
+        AND DATE(h.date_debut) = CURDATE()
+    ";
+
+        $tarif_par_15min = $this->getPrixServiceActuel();
+        if ($tarif_par_15min === false) {
+            return 'Erreur lors de la récupération du prix.';
+        }
+
+        $tarif_par_minute = $tarif_par_15min / 15;
+
         $stmt = $this->db->prepare($query);
         $stmt->execute();
-        return $stmt->fetchAll();
+        $resultats_bruts = $stmt->fetchAll();
+
+        $resultats_final = [];
+
+        foreach ($resultats_bruts as $connexion) {
+            
+            $date_debut = new \DateTime($connexion['date_debut']);
+            $date_fin = new \DateTime($connexion['date_fin']);
+
+            $interval = $date_debut->diff($date_fin);
+            $duree_minutes = ($interval->h * 60) + $interval->i;
+
+            $connexion['duree_minutes'] = $duree_minutes;
+            $connexion['montant_a_payer'] = round($duree_minutes * $tarif_par_minute, 2);
+
+            $resultats_final[] = $connexion;
+        }
+
+        return $resultats_final;
     }
 
     public function creerVente($id_user, $id_client, $id_service, $quantite, $prix_unitaire)
