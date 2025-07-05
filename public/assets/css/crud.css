@@ -24,6 +24,24 @@
     --radius-xl: 1rem;
 }
 
+/* Variables pour le mode sombre */
+body.dark-mode {
+    --primary-color: #4f46e5;
+    --primary-hover: #4338ca;
+    --secondary-color: #161b22;
+    --success-color: #238636;
+    --warning-color: #ffc107;
+    --danger-color: #f85149;
+    --text-primary: #e6edf3;
+    --text-secondary: #7d8590;
+    --text-muted: #656c76;
+    --border-color: #30363d;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.3);
+}
+
 /* Reset et styles globaux */
 * {
     margin: 0;
@@ -37,6 +55,12 @@ body {
     min-height: 100vh;
     color: var(--text-primary);
     line-height: 1.6;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.dark-mode {
+    background: #0d1117;
+    color: #e6edf3;
 }
 
 .container {
@@ -77,6 +101,11 @@ h1::after {
     box-shadow: var(--shadow-xl);
     position: relative;
     overflow: hidden;
+}
+
+body.dark-mode .form-section {
+    background: #161b22;
+    color: #e6edf3;
 }
 
 .form-section::before {
@@ -132,6 +161,17 @@ h1::after {
     transition: all 0.3s ease;
     background: white;
     font-family: inherit;
+    color: var(--text-primary);
+}
+
+body.dark-mode .form-section input,
+body.dark-mode .form-section select {
+    background: #0d1117;
+    color: #e6edf3;
+}
+
+body.dark-mode .form-section input::placeholder {
+    color: #7d8590;
 }
 
 .form-section input:focus,
@@ -140,6 +180,11 @@ h1::after {
     border-color: var(--primary-color);
     box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
     transform: translateY(-1px);
+}
+
+body.dark-mode .form-section input:focus,
+body.dark-mode .form-section select:focus {
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.3);
 }
 
 .form-section button {
@@ -179,7 +224,7 @@ h1::after {
 
 /* Tableau moderne avec glassmorphism */
 table {
-    table-layout: fixed; /* Stabilise la largeur des colonnes */
+    table-layout: fixed;
     width: 100%;
     background: white;
     border: 1px solid var(--border-color);
@@ -188,6 +233,11 @@ table {
     box-shadow: var(--shadow-xl);
     border-collapse: separate;
     border-spacing: 0;
+}
+
+body.dark-mode table {
+    background: #161b22;
+    color: #e6edf3;
 }
 
 thead {
@@ -203,6 +253,7 @@ th {
     text-transform: uppercase;
     letter-spacing: 0.05em;
     position: relative;
+    color: white;
 }
 
 th::after {
@@ -218,10 +269,16 @@ th::after {
 td {
     padding: 1.5rem;
     vertical-align: middle;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid var(--border-color);
     font-size: 0.875rem;
     color: var(--text-primary);
     position: relative;
+    background: white;
+}
+
+body.dark-mode td {
+    background: #161b22;
+    color: #e6edf3;
 }
 
 tbody tr {
@@ -233,12 +290,16 @@ tbody tr:hover {
     background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(16, 185, 129, 0.05));
 }
 
+body.dark-mode tbody tr:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
 tbody tr:last-child td {
     border-bottom: none;
 }
 
 th:last-child, td:last-child {
-    width: 160px; /* Largeur fixe pour la colonne Actions */
+    width: 160px;
     text-align: center;
 }
 
@@ -247,8 +308,8 @@ th:last-child, td:last-child {
     display: flex;
     gap: 0.5rem;
     align-items: center;
-    justify-content: center; /* Centre les boutons horizontalement */
-    flex-wrap: nowrap; /* Empêche le retour à la ligne des boutons */
+    justify-content: center;
+    flex-wrap: nowrap;
 }
 
 .btn-icon {
@@ -294,7 +355,7 @@ th:last-child, td:last-child {
 }
 
 .btn-delete {
-    background: linear-gradient(135deg, #ef4444, #dc2626);
+    background: linear-gradient(135deg, var(--danger-color), #dc2626);
     color: white;
     box-shadow: var(--shadow-md);
 }
@@ -315,21 +376,28 @@ th:last-child, td:last-child {
     box-shadow: var(--shadow-lg);
 }
 
-/* Formulaires d'édition inline */
+/* Formulaires d'édition inline - CORRIGÉ */
 .inline-edit {
-    position: absolute;
-    z-index: 10;
-    top: 0;
-    left: 0;
-    right: 0;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
     background: var(--secondary-color);
     padding: 1rem;
     border-radius: var(--radius-md);
     border: 1px solid var(--border-color);
     box-shadow: var(--shadow-lg);
     margin-top: 0.5rem;
-    width: max-content;
-    max-width: calc(100vw - 4rem);
+    width: 100%;
+    position: relative;
+    z-index: 10;
+}
+
+body.dark-mode .inline-edit {
+    background: #0d1117;
+    color: #e6edf3;
+    border-color: #30363d;
 }
 
 .inline-edit input,
@@ -341,6 +409,16 @@ th:last-child, td:last-child {
     min-width: 120px;
     background: white;
     transition: all 0.3s ease;
+    color: var(--text-primary);
+    flex: 1;
+    max-width: 200px;
+}
+
+body.dark-mode .inline-edit input,
+body.dark-mode .inline-edit select {
+    background: #161b22;
+    color: #e6edf3;
+    border-color: #30363d;
 }
 
 .inline-edit input:focus,
@@ -348,6 +426,11 @@ th:last-child, td:last-child {
     outline: none;
     border-color: var(--primary-color);
     box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.1);
+}
+
+body.dark-mode .inline-edit input:focus,
+body.dark-mode .inline-edit select:focus {
+    box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.3);
 }
 
 .inline-edit button {
@@ -358,101 +441,46 @@ th:last-child, td:last-child {
     font-weight: 500;
     cursor: pointer;
     transition: all 0.3s ease;
+    white-space: nowrap;
 }
 
-/* Badges de statut */
-.status-badge {
-    padding: 0.375rem 0.75rem;
-    border-radius: 9999px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    border: 1px solid currentColor;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.25rem;
-}
-
-.status-badge.critique {
-    background: linear-gradient(135deg, #fee2e2, #fecaca);
-    color: #dc2626;
-}
-
-.status-badge.bon {
-    background: linear-gradient(135deg, #dcfce7, #bbf7d0);
-    color: #16a34a;
-}
-
-.status-badge.faible {
-    background: linear-gradient(135deg, #fef3c7, #fde68a);
-    color: #d97706;
-}
-
-/* Lien de retour moderne */
-p a {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: var(--primary-color);
-    text-decoration: none;
-    font-weight: 500;
-    margin-top: 2rem;
-    padding: 0.75rem 1.5rem;
-    background: white;
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-md);
-    transition: all 0.3s ease;
-}
-
-p a:hover {
-    background: var(--primary-color);
-    color: white;
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-lg);
-}
-
-/* État vide avec animation */
-.empty-state {
+/* Améliorer la largeur des colonnes pour accommoder les formulaires d'édition */
+th:last-child, td:last-child {
+    width: 200px;
     text-align: center;
-    padding: 3rem 2rem;
-    color: var(--text-muted);
+}
+
+/* Correction pour les cellules contenant les actions */
+.action-buttons {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    position: relative;
+}
+
+/* Assurer que la ligne du tableau s'ajuste quand le formulaire d'édition est affiché */
+tbody tr {
+    transition: background-color 0.3s ease;
+    position: relative;
+}
+
+tbody tr:hover {
     background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(16, 185, 129, 0.05));
-    border-radius: var(--radius-lg);
-    margin: 2rem 0;
 }
 
-.empty-state i {
-    font-size: 4rem;
-    color: var(--text-muted);
-    margin-bottom: 1rem;
-    animation: bounce 2s infinite;
+body.dark-mode tbody tr:hover {
+    background: rgba(255, 255, 255, 0.05);
 }
 
-@keyframes bounce {
-    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-    40% { transform: translateY(-10px); }
-    60% { transform: translateY(-5px); }
+/* Améliorer la cellule actions pour qu'elle s'étende verticalement */
+td:last-child {
+    vertical-align: top;
+    padding: 1rem;
 }
 
-/* Animations d'apparition */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.form-section,
-table {
-    animation: fadeInUp 0.6s ease-out;
-}
-
-/* Responsive design */
+/* Responsive design amélioré */
 @media (max-width: 768px) {
     .container {
         padding: 1rem;
@@ -475,19 +503,29 @@ table {
     }
     
     .action-buttons {
-        flex-direction: row; /* Garder les boutons en ligne même en petit écran */
-        justify-content: center;
-        gap: 0.25rem;
+        flex-direction: column;
+        gap: 0.5rem;
     }
     
     .inline-edit {
-        left: -50%; /* Ajuster la position du formulaire d'édition */
-        right: -50%;
-        margin: 0 auto;
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .inline-edit input,
+    .inline-edit select {
+        max-width: none;
+        width: 100%;
+        margin-bottom: 0.5rem;
     }
 
     th:last-child, td:last-child {
-        width: 110px;
+        width: 100%;
+    }
+    
+    /* Forcer l'affichage en mode mobile pour les tableaux */
+    table {
+        font-size: 0.875rem;
     }
 }
 
@@ -504,6 +542,10 @@ table {
     
     th, td {
         padding: 0.75rem 0.5rem;
+    }
+    
+    .inline-edit {
+        padding: 0.75rem;
     }
 }
 
@@ -528,11 +570,23 @@ table {
     border-radius: 4px;
 }
 
+body.dark-mode ::-webkit-scrollbar-track {
+    background: #0d1117;
+}
+
 ::-webkit-scrollbar-thumb {
     background: linear-gradient(135deg, var(--primary-color), var(--success-color));
     border-radius: 4px;
 }
 
+body.dark-mode ::-webkit-scrollbar-thumb {
+    background: #30363d;
+}
+
 ::-webkit-scrollbar-thumb:hover {
     background: linear-gradient(135deg, var(--primary-hover), var(--success-color));
+}
+
+body.dark-mode ::-webkit-scrollbar-thumb:hover {
+    background: #484f58;
 }
