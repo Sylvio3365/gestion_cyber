@@ -223,30 +223,59 @@ class PanierModel
 
     public function getProduits()
     {
-        $sql = "SELECT p.*, pp.prix,
-                (SELECT SUM(s.quantite)
+        $mois = date('n'); 
+        $annee = date('Y'); 
+        
+        $sql = "SELECT DISTINCT p.*, 
+                   pp.prix,
+                   (SELECT SUM(s.quantite)
                     FROM stock s
                     WHERE s.id_produit = p.id_produit) AS stock
             FROM produit p
             LEFT JOIN prix_produit pp ON p.id_produit = pp.id_produit
+            AND pp.mois = :mois 
+            AND pp.annee = :annee
+            AND pp.date_modification = (
+                SELECT MAX(pp2.date_modification)
+                FROM prix_produit pp2
+                WHERE pp2.id_produit = p.id_produit
+                AND pp2.mois = :mois 
+                AND pp2.annee = :annee
+            )
             WHERE p.deleted_at IS NULL
-            ORDER BY pp.date_modification DESC";
-        $stmt = $this->db->query($sql);
+            ORDER BY p.nom";
+    
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute(['mois' => $mois, 'annee' => $annee]);
         return $stmt->fetchAll();
     }
 
     public function getServices()
     {
-        $sql = "SELECT s.*, ps.prix 
-                FROM service s 
-                LEFT JOIN prix_service ps ON s.id_service = ps.id_service 
-                WHERE s.deleted_at IS NULL 
-                AND s.nom != 'connexion'
-                ORDER BY ps.date_modification DESC";
-        $stmt = $this->db->query($sql);
+        $mois = date('n');
+        $annee = date('Y');
+
+        $sql = "SELECT DISTINCT s.*, 
+                   ps.prix
+            FROM service s 
+            LEFT JOIN prix_service ps ON s.id_service = ps.id_service
+            AND ps.mois = :mois 
+            AND ps.annee = :annee
+            AND ps.date_modification = (
+                SELECT MAX(ps2.date_modification)
+                FROM prix_service ps2
+                WHERE ps2.id_service = s.id_service
+                AND ps2.mois = :mois 
+                AND ps2.annee = :annee
+            )
+            WHERE s.deleted_at IS NULL 
+            AND s.nom != 'connexion'
+            ORDER BY s.nom";
+    
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute(['mois' => $mois, 'annee' => $annee]);
         return $stmt->fetchAll();
     }
-
 
     public function getTypesPaiement()
     {
