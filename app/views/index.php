@@ -30,22 +30,27 @@
                             <span class="menu-text">Dashboard</span>
                         </a>
                     </li>
-                    <li class="nav-item has-submenu">
-                        <a class="nav-link submenu-toggle" href="#">
-                            <i class="bi bi-gear"></i>
-                            <span class="menu-text">Gestion</span>
-                            <i class="bi bi-chevron-down submenu-indicator"></i>
-                        </a>
-                        <ul class="submenu collapse">
-                            <li><a href="/admin/branche"><i class="bi bi-archive"></i> Branche</a></li>
-                            <li><a href="/admin/categorie"><i class="bi bi-clipboard"></i> Categorie</a></li>
-                            <li><a href="/admin/marque"><i class="bi bi-tag"></i> Marque</a></li>
-                            <li><a href="/admin/produit"><i class="bi bi-box"></i> Produit</a></li>
-                            <li><a href="/admin/service"><i class="bi bi-wrench"></i> Service</a></li>
-                            <li><a href="/admin/stock"><i class="bi bi-box"></i> Stock</a></li>
-                            <li><a href="/admin/prix"><i class="bi bi-currency-dollar"></i> Prix</a></li>
-                        </ul>
-                    </li>
+
+                    <?php if (isset($_SESSION['u']) && $_SESSION['u']['account_type_name'] == 'admin') : ?>
+                        <li class="nav-item has-submenu">
+                            <a class="nav-link submenu-toggle" href="#">
+                                <i class="bi bi-gear"></i>
+                                <span class="menu-text">Gestion</span>
+                                <i class="bi bi-chevron-down submenu-indicator"></i>
+                            </a>
+                            <ul class="submenu collapse">
+                                <li><a href="/admin/branche"><i class="bi bi-archive"></i> Branche</a></li>
+                                <li><a href="/admin/categorie"><i class="bi bi-clipboard"></i> Catégorie</a></li>
+                                <li><a href="/admin/marque"><i class="bi bi-tag"></i> Marque</a></li>
+                                <li><a href="/admin/produit"><i class="bi bi-box"></i> Produit</a></li>
+                                <li><a href="/admin/service"><i class="bi bi-wrench"></i> Service</a></li>
+                                <li><a href="/admin/stock"><i class="bi bi-box"></i> Stock</a></li>
+                                <li><a href="/admin/prix"><i class="bi bi-currency-dollar"></i> Prix</a></li>
+                            </ul>
+                        </li>
+                    <?php endif; ?>
+
+
                     <li class="nav-item">
                         <a class="nav-link" href="/interface-client">
                             <i class="bi bi-laptop"></i>
@@ -73,18 +78,20 @@
                             <span class="menu-text">Clients</span>
                         </a>
                     </li>
-                    <li class="nav-item has-submenu">
-                        <a class="nav-link submenu-toggle" href="#">
-                            <i class="bi bi-bar-chart-line"></i> <!-- Corrected to represent Statistics -->
-                            <span class="menu-text">Statistique</span>
-                            <i class="bi bi-chevron-down submenu-indicator"></i>
-                        </a>
-                        <ul class="submenu collapse">
-                            <li><a href="/recette/branche"><i class="bi bi-cash-stack"></i>Recette par branche</a></li> <!-- Updated to cash-stack -->
-                            <li><a href="/stat"><i class="bi bi-pie-chart"></i>Vente</a></li> <!-- Updated to pie-chart -->
-                            <li><a href="/benef_form"><i class="bi bi-graph-up-arrow"></i> Bénéfice</a></li>
-                        </ul>
-                    </li>
+                    <?php if (isset($_SESSION['u']) && $_SESSION['u']['account_type_name'] == 'admin') { ?>
+                        <li class="nav-item has-submenu">
+                            <a class="nav-link submenu-toggle" href="#">
+                                <i class="bi bi-bar-chart-line"></i> <!-- Corrected to represent Statistics -->
+                                <span class="menu-text">Statistique</span>
+                                <i class="bi bi-chevron-down submenu-indicator"></i>
+                            </a>
+                            <ul class="submenu collapse">
+                                <li><a href="/recette/branche"><i class="bi bi-cash-stack"></i>Recette par branche</a></li> <!-- Updated to cash-stack -->
+                                <li><a href="/stat"><i class="bi bi-pie-chart"></i>Vente</a></li> <!-- Updated to pie-chart -->
+                                <li><a href="/benef_form"><i class="bi bi-graph-up-arrow"></i> Bénéfice</a></li>
+                            </ul>
+                        </li>
+                    <?php } ?>
                 </ul>
                 <ul class="nav flex-column sidebar-menu sidebar-footer">
                     <li class="nav-item">
