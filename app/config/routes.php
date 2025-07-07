@@ -19,7 +19,7 @@ $UserController = new UserController();
 $PanierController = new PanierController();
 $VenteController = new VenteController();
 $StatController = new StatistiqueController();
-
+$factureController = new FactureController();
 $AdminController = new AdminController();
 
 $router->get('/', [$UserController, 'showLoginForm']);
@@ -86,3 +86,4 @@ $router->post('/interface-client/ajouter-panier', [$PanierController, 'ajouterAu
 $router->get('/api/clients', [$PanierController, 'apiClients']);
 $router->get('/panier/recapitulatif-json', [$PanierController, 'recapitulatifJson']);
 $router->get('/stat', [$StatController, 'topProduitParBranche']);
+$router->get('/facture/voir', [$factureController, 'voirFacture']);
