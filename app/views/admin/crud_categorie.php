@@ -1,12 +1,5 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Gestion des Catégories</title>
-    <link rel="stylesheet" href="/assets/css/crud.css">
+<link rel="stylesheet" href="/assets/css/crud.css">
 
-</head>
-<body>
 <div class="container">
     <h1>Gestion des Catégories</h1>
 
@@ -100,5 +93,3 @@ function toggleEdit(button) {
 }
 </script>
 
-</body>
-</html>
