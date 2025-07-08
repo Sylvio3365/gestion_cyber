@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Gestion des Branches</title>
-    <link rel="stylesheet" href="/assets/css/crud.css">
-</head>
-<body>
+<link rel="stylesheet" href="/assets/css/crud.css">
 
 <div class="container">
     <h1>Gestion des Branches</h1>
@@ -92,5 +85,3 @@ function toggleEdit(button) {
 }
 </script>
 
-</body>
-</html>

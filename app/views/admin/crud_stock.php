@@ -1,13 +1,6 @@
-<!DOCTYPE html>
-<html lang="fr">
+<link rel="stylesheet" href="/assets/css/crud.css">
 
-<head>
-    <meta charset="UTF-8">
-    <title>Gestion des Stocks</title>
-    <link rel="stylesheet" href="/assets/css/crud.css">
-</head>
-
-<body>
+    <div class="container">
 
     <div class="container">
         <h1>Gestion des Stocks</h1>
@@ -59,7 +52,3 @@
             </tbody>
         </table>
     </div>
-
-</body>
-
-</html>
