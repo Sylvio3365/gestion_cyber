@@ -38,8 +38,10 @@
                         </div>
                         <div class="col-md-6">
                             <h6 class="fw-bold text-primary">Client</h6>
-                            <p class="mb-1"><?= htmlspecialchars($vente['client_prenom'] . ' ' . $vente['client_nom']) ?></p>
+                            <p class="mb-1"><strong>Nom :</strong> <?= htmlspecialchars($vente['client_nom']) ?></p>
+                            <p class="mb-1"><strong>Prénom :</strong> <?= htmlspecialchars($vente['client_prenom']) ?></p>
                         </div>
+
                     </div>
 
                     <!-- Tableau des produits -->
