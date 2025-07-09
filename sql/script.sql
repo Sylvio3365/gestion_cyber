@@ -264,7 +264,6 @@ CREATE TABLE parametre_wifi (
 INSERT INTO parametre_wifi (mdp) 
 VALUES ('MonMotDePasseSecret');
 
-
 CREATE OR REPLACE VIEW vue_produits_services_branche AS
 SELECT
     b.id_branche,
