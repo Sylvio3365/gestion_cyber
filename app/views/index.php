@@ -58,6 +58,13 @@
                             <span class="menu-text">Bureautique et services</span>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/facture/voir">
+                            <i class="bi bi-receipt"></i>
+                            <span class="menu-text">Factures & Historique des achats</span>
+                        </a>
+                    </li>
+
                     <li class="nav-item has-submenu">
                         <a class="nav-link submenu-toggle" href="#">
                             <i class="bi bi-link"></i>
