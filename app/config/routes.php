@@ -11,9 +11,13 @@ use app\controllers\HistoConnexController;
 use app\controllers\ParametreController;
 use app\controllers\PosteController;
 use app\controllers\StatRecetteController;
+use app\controllers\StatistiqueController;
+use app\controllers\FactureController;
+
 use flight\Engine;
 use flight\net\Router;
 //use Flight;
+use app\models\FactureModel;
 
 /** 
  * @var Router $router 
@@ -23,8 +27,8 @@ use flight\net\Router;
 $UserController = new UserController();
 $PanierController = new PanierController();
 $VenteController = new VenteController();
-$StatController = new StatController();
-
+$StatController = new StatistiqueController();
+$factureController = new FactureController();
 $AdminController = new AdminController();
 
 $router->get('/', [$UserController, 'showLoginForm']);

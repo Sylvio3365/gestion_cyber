@@ -1,5 +1,7 @@
 <?php
 
+// ... après vérification des infos client
+
 namespace app\controllers;
 
 use Flight;
