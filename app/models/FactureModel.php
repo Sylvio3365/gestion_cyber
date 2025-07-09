@@ -63,5 +63,37 @@ public function getDetailsVente($id_vente)
     $stmt->execute(['id' => $id_vente]);
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+public function getVentesByUserAndDate($id_user, $date)
+{
+    $sql = "
+        SELECT v.*, c.nom AS client_nom, c.prenom AS client_prenom
+        FROM vente v
+        JOIN vente_draft vd ON vd.id_vente_draft = v.id_vente_draft
+        JOIN client c ON c.id_client = vd.id_client
+        WHERE vd.id_user = :id_user 
+          AND v.date_vente BETWEEN :start_date AND :end_date
+        ORDER BY v.date_vente DESC
+    ";
+
+    // Construction de la plage de la journée entière
+    $startDate = $date . " 00:00:00";
+    $endDate = $date . " 23:59:59";
+
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->execute([
+        'id_user' => $id_user,
+        'start_date' => $startDate,
+        'end_date' => $endDate,
+    ]);
+
+    $ventes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    // Ajouter les détails pour chaque vente
+    foreach ($ventes as &$vente) {
+        $vente['details'] = $this->getDetailsVente($vente['id_vente']);
+    }
+
+    return $ventes;
+}
 
 }

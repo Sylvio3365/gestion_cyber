@@ -18,7 +18,13 @@ class FactureController
     // === Affichage de la facture à l'écran ===
  public function voirFacture($id_user)
 {
-    $ventes = $this->model->getVentesByUser($id_user);
+    $date = $_GET['date'] ?? null;
+
+    if ($date) {
+        $ventes = $this->model->getVentesByUserAndDate($id_user, $date);
+    } else {
+        $ventes = $this->model->getVentesByUser($id_user);
+    }
 
     if (empty($ventes)) {
         Flight::halt(404, "Aucune facture trouvée");
@@ -31,9 +37,11 @@ class FactureController
     }
 
     Flight::render('Facture/facture_liste.php', [
-        'ventes' => $ventes
+        'ventes' => $ventes,
+        'selected_date' => $date // pour réafficher la date sélectionnée dans le formulaire
     ]);
 }
+
 
 
 

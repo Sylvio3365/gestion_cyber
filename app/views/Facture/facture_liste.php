@@ -135,6 +135,22 @@
     
     <div class="container my-5">
         <center><h2 class="mb-4 fw-bold text-primary text-center">Historique des Factures</h2></center>
+        <div class="text-center mb-4">
+    <center>
+        <div class="text-center mb-4">
+    <form method="get" class="form-inline d-flex justify-content-center align-items-center gap-2">
+        <label for="filtre_date" class="fw-bold me-2">Filtrer par date :</label>
+       <input type="date" id="filtre_date" name="date" class="form-control"
+    value="<?= htmlspecialchars($selected_date ?? '') ?>">
+
+        <button type="submit" class="btn btn-primary">Appliquer</button>
+        <?php if (!empty($_GET['date'])): ?>
+            <a href="/facture/voir/<?= $_SESSION['user']['id_user'] ?>" class="btn btn-secondary">Réinitialiser</a>
+        <?php endif; ?>
+    </form>
+</div>
+
+    </center>
         
         <?php foreach ($ventes as $vente): ?>
             <div class="d-flex justify-content-center">
