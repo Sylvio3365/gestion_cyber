@@ -261,6 +261,10 @@ CREATE TABLE parametre_wifi (
     date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
+INSERT INTO parametre_wifi (mdp) 
+VALUES ('MonMotDePasseSecret');
+
+
 CREATE OR REPLACE VIEW vue_produits_services_branche AS
 SELECT
     b.id_branche,
