@@ -4,7 +4,7 @@ namespace app\controllers;
 
 use Flight;
 
-class StatController
+class StatistiqueController
 {
     private $model;
 

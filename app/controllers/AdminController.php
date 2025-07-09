@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Flight;
 use app\models\AdminModel;
+use app\models\UserModel;
 
 class AdminController
 {
@@ -148,7 +149,10 @@ class AdminController
             }
         }
 
+        $usermodel = new UserModel(Flight::db());
+        $user = $usermodel->getUserById1($_SESSION['user']['id_user']);
         Flight::render('index', [
+            'user' => $user,
             'page' => $page,
             'produits' => $produits,
             'services' => $services,
@@ -160,8 +164,15 @@ class AdminController
     public function manageBranches()
     {
         $branches = Flight::adminModel()->getAllBranches();
-        $page = 'admin/crud_branche';  // Notez qu'on ne met pas /views/ ici, Flight gère ça pour vous
-        Flight::render('index', ['branches' => $branches, 'page' => $page]);
+        $page = 'admin/crud_branche';
+
+        $usermodel = new UserModel(Flight::db());
+        $user = $usermodel->getUserById1($_SESSION['user']['id_user']);
+        Flight::render('index', [
+            'user' => $user,
+            'branches' => $branches,
+            'page' => $page
+        ]);
     }
 
     public function addBranch()
@@ -227,7 +238,14 @@ class AdminController
     {
         $page = 'admin/crud_marque';  // Notez qu'on ne met pas /views/ ici, Flight gère ça pour vous
         $marques = Flight::adminModel()->getAllMarques();
-        Flight::render('index', ['marques' => $marques, 'page' => $page]);
+
+        $usermodel = new UserModel(Flight::db());
+        $user = $usermodel->getUserById1($_SESSION['user']['id_user']);
+        Flight::render('index', [
+            'user' => $user,
+            'marques' => $marques,
+            'page' => $page
+        ]);
     }
     public function addMarque()
     {
@@ -287,7 +305,11 @@ class AdminController
         $categories = Flight::adminModel()->getAllCategories();
         $branches = Flight::adminModel()->getAllBranches(); // pour liste déroulante dans le formulaire
         $page = 'admin/crud_categorie';
+
+        $usermodel = new UserModel(Flight::db());
+        $user = $usermodel->getUserById1($_SESSION['user']['id_user']);
         Flight::render('index', [
+            'user' => $user,
             'categories' => $categories,
             'branches' => $branches,
             'page' => $page
@@ -359,7 +381,10 @@ class AdminController
         $marques = Flight::adminModel()->getAllMarques();
         $categories = Flight::adminModel()->getAllCategories();
 
+        $usermodel = new UserModel(Flight::db());
+        $user = $usermodel->getUserById1($_SESSION['user']['id_user']);
         Flight::render('index', [
+            'user' => $user,
             'produits' => $produits,
             'marques' => $marques,
             'categories' => $categories,
@@ -438,7 +463,15 @@ class AdminController
         $services = Flight::adminModel()->getAllServices();
         $categories = Flight::adminModel()->getAllCategories();
 
-        Flight::render('index', ['services' => $services, 'categories' => $categories, 'page' => 'admin/crud_service']);
+
+        $usermodel = new UserModel(Flight::db());
+        $user = $usermodel->getUserById1($_SESSION['user']['id_user']);
+        Flight::render('index', [
+            'user' => $user,
+            'services' => $services,
+            'categories' => $categories,
+            'page' => 'admin/crud_service'
+        ]);
     }
 
     public function addService()
@@ -482,7 +515,11 @@ class AdminController
         $produits = Flight::adminModel()->getAllProduits();
         $types = Flight::adminModel()->getAllTypesMouvement();
 
+
+        $usermodel = new UserModel(Flight::db());
+        $user = $usermodel->getUserById1($_SESSION['user']['id_user']);
         Flight::render('index', [
+            'user' => $user,
             'page' => 'admin/crud_stock',
             'stocks' => $stocks,
             'produits' => $produits,
@@ -532,8 +569,16 @@ class AdminController
     //type_mouvement
     public function manageTypeMouvements()
     {
+        $page = 'admin/crud_type_mouvement';
         $types = Flight::adminModel()->getAllTypeMouvements();
-        Flight::render('admin/crud_type_mouvement', ['types' => $types]);
+        
+        $usermodel = new UserModel(Flight::db());
+        $user = $usermodel->getUserById1($_SESSION['user']['id_user']);
+        Flight::render('index', [
+            'user' => $user,
+            'types' => $types,
+            'page' => $page
+        ]);
     }
 
     public function addTypeMouvement()

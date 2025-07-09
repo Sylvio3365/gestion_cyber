@@ -10,17 +10,10 @@ class StatRecetteController
 
     public function showStats()
     {
-        $type = Flight::request()->query['type'] ?? 'produit';
         $period = Flight::request()->query['period'] ?? 'jour';
         $date = Flight::request()->query['date'] ?? date('Y-m-d');
 
-        // Validate inputs
-        if (!in_array($type, ['produit', 'multi', 'connexion'])) {
-            Flight::json(['error' => 'Type de statistique invalide'], 400);
-            return;
-        }
-
-        if (!in_array($period, ['jour', 'mois', 'annee'])) {
+        if (!in_array($period, ['jour', 'semaine', 'mois', 'annee'])) {
             Flight::json(['error' => 'Période invalide'], 400);
             return;
         }
@@ -31,22 +24,16 @@ class StatRecetteController
         }
 
         try {
-            $stats = Flight::statModel()->getStats($type, $period, $date);
-            $aggregated = Flight::statModel()->getAggregatedStats($type, $period, $date);
+            $stats = Flight::statModel()->getStatsParBranche($period, $date);
+            $aggregated = Flight::statModel()->getStatsParBrancheAggregated($period, $date);
 
             $page = 'Statistique/StatRecette';
             Flight::render('index', [
                 'page' => $page,
-                'type' => $type,
                 'period' => $period,
                 'date' => $date,
                 'stats' => $stats,
                 'aggregated' => $aggregated,
-                'typeLabels' => [
-                    'produit' => 'Fourniture',
-                    'multi' => 'Multi Service',
-                    'connexion' => 'Connexion'
-                ],
                 'periodLabels' => [
                     'jour' => 'Jour',
                     'semaine' => 'Semaine',
@@ -64,15 +51,8 @@ class StatRecetteController
 
     public function apiStats()
     {
-        $type = Flight::request()->query['type'] ?? 'produit';
         $period = Flight::request()->query['period'] ?? 'jour';
         $date = Flight::request()->query['date'] ?? date('Y-m-d');
-
-        // Validate inputs
-        if (!in_array($type, ['produit', 'multi', 'connexion'])) {
-            Flight::json(['error' => 'Type de statistique invalide'], 400);
-            return;
-        }
 
         if (!in_array($period, ['jour', 'semaine', 'mois', 'annee'])) {
             Flight::json(['error' => 'Période invalide'], 400);
@@ -85,12 +65,11 @@ class StatRecetteController
         }
 
         try {
-            $stats = Flight::statModel()->getStats($type, $period, $date);
-            $aggregated = Flight::statModel()->getAggregatedStats($type, $period, $date);
+            $stats = Flight::statModel()->getStatsParBranche($period, $date);
+            $aggregated = Flight::statModel()->getStatsParBrancheAggregated($period, $date);
 
             Flight::json([
                 'success' => true,
-                'type' => $type,
                 'period' => $period,
                 'date' => $date,
                 'data' => $stats,

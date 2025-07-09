@@ -1,17 +1,21 @@
 <?php
 
+// ... après vérification des infos client
+
 namespace app\controllers;
 
 use Flight;
 use app\models\UserModel;
 
-class UserController {
+class UserController
+{
 
 
     public function __construct() {}
 
-    public function login() {
-        
+    public function login()
+    {
+
         $request = Flight::request()->data;
 
         // Vérifie que les champs requis sont présents
@@ -24,7 +28,6 @@ class UserController {
         }
         $model = new UserModel(Flight::db());
 
-
         $identifiant = $request['identifiant'];
         $password = $request['password'];
 
@@ -32,8 +35,9 @@ class UserController {
 
         if ($user) {
             $_SESSION['user'] = $user;
-
-             Flight::redirect('/dashboard');
+            $usermodel = new UserModel(Flight::db());
+            $_SESSION['u'] = $usermodel->getUserById1($_SESSION['user']['id_user']);
+            Flight::redirect('/dashboard');
         } else {
             Flight::json([
                 'status' => 'error',
@@ -42,26 +46,26 @@ class UserController {
         }
     }
 
-    public function logout() {
+    public function logout()
+    {
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
-    
+
         // Détruit toutes les données de session
         session_unset();
         session_destroy();
-    
+
         // Redirige vers la page de login
         Flight::render('login_form');
-
     }
-    
+
 
     public function showLoginForm()
     {
         Flight::render('login_form', null);
     }
-    
+
 
     public function home()
     {

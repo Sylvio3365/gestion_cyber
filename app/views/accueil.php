@@ -41,7 +41,7 @@ $accountType = strtolower($user['role_name']); // 'Admin' ou 'Employé' (depuis 
                     ['url' => '/admin/branche', 'icon' => 'bi-archive', 'title' => 'Branches', 'desc' => 'Sections de l\'entreprise'],
                     ['url' => '/admin/stock', 'icon' => 'bi-boxes', 'title' => 'Stock', 'desc' => 'Gestion d\'inventaire'],
                     ['url' => '/admin/type_mouvement', 'icon' => 'bi-arrow-repeat', 'title' => 'Mouvements', 'desc' => 'Types de transactions'],
-                    ['url' => '/benef_form', 'icon' => 'bi-graph-up', 'title' => 'Bénéfices', 'desc' => 'Voir les benefices'],
+                    ['url' => '/admin/prix', 'icon' => 'bi-currency-dollar', 'title' => 'Prix', 'desc' => 'Voir les Prix'],
                 ];
                 
                 foreach ($adminFeatures as $feature): ?>
