@@ -569,8 +569,16 @@ class AdminController
     //type_mouvement
     public function manageTypeMouvements()
     {
+        $page = 'admin/crud_type_mouvement';
         $types = Flight::adminModel()->getAllTypeMouvements();
-        Flight::render('admin/crud_type_mouvement', ['types' => $types]);
+        
+        $usermodel = new UserModel(Flight::db());
+        $user = $usermodel->getUserById1($_SESSION['user']['id_user']);
+        Flight::render('index', [
+            'user' => $user,
+            'types' => $types,
+            'page' => $page
+        ]);
     }
 
     public function addTypeMouvement()

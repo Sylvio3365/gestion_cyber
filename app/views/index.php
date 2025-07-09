@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CyberCafé Pro</title>
+    <title>Cyber Pro</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="/assets/css/interface-client.css">
@@ -19,8 +19,8 @@
         <!-- Sidebar -->
         <nav class="sidebar" id="sidebar">
             <div class="logo-container">
-                <div class="logo"><span>CB</span></div>
-                <div class="brand-name">CyBer</div>
+                <div class="logo"><span>e-C</span></div>
+                <div class="brand-name">e-Cyber</div>
             </div>
             <div class="sidebar-content">
                 <ul class="nav flex-column sidebar-menu">
@@ -46,6 +46,7 @@
                                 <li><a href="/admin/service"><i class="bi bi-wrench"></i> Service</a></li>
                                 <li><a href="/admin/stock"><i class="bi bi-box"></i> Stock</a></li>
                                 <li><a href="/admin/prix"><i class="bi bi-currency-dollar"></i> Prix</a></li>
+                                <li><a href="/admin/type_mouvement"><i class="bi bi-arrow-repeat"></i> Mouvement</a></li>
                             </ul>
                         </li>
                     <?php endif; ?>
@@ -71,12 +72,6 @@
                             <li><a href="/connexion/historique"><i class="bi bi-clock-history"></i> Historique</a></li>
                         </ul>
 
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="bi bi-person-circle"></i>
-                            <span class="menu-text">Clients</span>
-                        </a>
                     </li>
                     <?php if (isset($_SESSION['u']) && $_SESSION['u']['account_type_name'] == 'admin') { ?>
                         <li class="nav-item has-submenu">
