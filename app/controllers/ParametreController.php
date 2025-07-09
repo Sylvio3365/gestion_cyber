@@ -26,7 +26,7 @@ class ParametreController
         Flight::render('index', [
             'mdp'    => $mdp,
             'qrFile' => $qrFile,
-            'page=>' => 'parametre/index'
+            'page' => 'parametre/index'
         ]);
     }
 
