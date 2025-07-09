@@ -5,15 +5,14 @@ use app\controllers\VenteController;
 use app\controllers\PanierController;
 use app\controllers\AdminController;
 use app\controllers\TemplateController;
-use app\controllers\StatController;
+use app\controllers\StatistiqueController;
 use app\controllers\ConnexionController;
 use app\controllers\HistoConnexController;
 use app\controllers\ParametreController;
 use app\controllers\PosteController;
 use app\controllers\StatRecetteController;
-use app\controllers\StatistiqueController;
 use app\controllers\FactureController;
-
+use app\controllers\StatController;
 use flight\Engine;
 use flight\net\Router;
 //use Flight;
