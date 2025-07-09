@@ -55,7 +55,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/interface-client">
                             <i class="bi bi-laptop"></i>
-                            <span class="menu-text">Bureautique et services</span>
+                            <span class="menu-text">Ventes de service et produit</span>
                         </a>
                     </li>
                     <li class="nav-item">

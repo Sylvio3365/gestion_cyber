@@ -260,3 +260,58 @@ CREATE TABLE parametre_wifi (
     mdp VARCHAR(255) NOT NULL,
     date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE OR REPLACE VIEW vue_produits_services_branche AS
+SELECT 
+    b.id_branche,
+    b.nom AS nom_branche,
+    'produit' AS type,
+    p.id_produit AS id,
+    p.nom,
+    p.description,
+    c.nom AS categorie,
+    COALESCE(
+        (SELECT pp1.prix FROM prix_produit pp1 
+            WHERE pp1.id_produit = p.id_produit 
+            AND pp1.mois = MONTH(CURDATE()) 
+            AND pp1.annee = YEAR(CURDATE())
+            ORDER BY pp1.date_modification DESC LIMIT 1
+        ),
+        (SELECT pp2.prix FROM prix_produit pp2 
+            WHERE pp2.id_produit = p.id_produit 
+            ORDER BY pp2.date_modification DESC LIMIT 1
+        )
+    ) AS prix,
+    (SELECT SUM(s.quantite) FROM stock s WHERE s.id_produit = p.id_produit) AS stock
+FROM produit p
+INNER JOIN categorie c ON c.id_categorie = p.id_categorie
+INNER JOIN branche b ON b.id_branche = c.id_branche
+WHERE p.deleted_at IS NULL AND b.nom != 'Connexion'
+
+UNION
+
+SELECT 
+    b.id_branche,
+    b.nom AS nom_branche,
+    'service' AS type,
+    s.id_service AS id,
+    s.nom,
+    s.description,
+    c.nom AS categorie,
+    COALESCE(
+        (SELECT ps1.prix FROM prix_service ps1 
+            WHERE ps1.id_service = s.id_service 
+            AND ps1.mois = MONTH(CURDATE())
+            AND ps1.annee = YEAR(CURDATE())
+            ORDER BY ps1.date_modification DESC LIMIT 1
+        ),
+        (SELECT ps2.prix FROM prix_service ps2 
+            WHERE ps2.id_service = s.id_service 
+            ORDER BY ps2.date_modification DESC LIMIT 1
+        )
+    ) AS prix,
+    NULL AS stock
+FROM service s
+INNER JOIN categorie c ON c.id_categorie = s.id_categorie
+INNER JOIN branche b ON b.id_branche = c.id_branche
+WHERE s.deleted_at IS NULL AND b.nom != 'Connexion';

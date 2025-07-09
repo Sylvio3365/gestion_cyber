@@ -1,51 +1,47 @@
 <div class="client-interface">
     <!-- Bienvenue Banner -->
-    <div class="welcome-banner">
+    <div class="welcome-banner text-center mb-5">
         <h1>Bienvenue au e-Cyber</h1>
-        <p>Choisissez vos services et produits</p>
-        <div class="info-badges">
-            <div class="info-badge">
-                <button class="btn btn-transparent btn-lg" onclick="scrollToSection('services-section')">
-                    <i class="bi bi-printer me-2"></i>
-                    Services
-                </button>
-            </div>
-            <div class="info-badge">
-                <button class="btn btn-transparent btn-lg" onclick="scrollToSection('fournitures-section')">
-                    <i class="bi bi-basket me-2"></i>
-                    Fournitures
-                </button>
-            </div>
-        </div>
+        <p>Choisissez vos services et produits selon votre besoin</p>
     </div>
-    <!-- Services Bureautiques Section -->
-    <div class="service-section" id="services-section">
-        <div class="service-header">
-            <i class="bi bi-printer"></i>
-            <h2>Services Bureautiques</h2>
-            <p>Impression, scan, photocopie et plus</p>
-        </div>
-        <div class="services-grid">
+
+    <!-- Affichage par branche -->
+    <?php foreach ($branches as $branche): ?>
+        <div class="service-section mb-5" id="<?= strtolower(str_replace(' ', '-', $branche['nom_branche'])) ?>-section">
+            <div class="service-header">
+                <h2><i class="bi bi-diagram-3 me-2"></i><?= htmlspecialchars($branche['nom_branche']) ?></h2>
+            </div>
+
             <div class="row">
-                <?php foreach ($services as $service): ?>
+                <?php foreach ($branche['articles'] as $article): ?>
                     <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="service-item">
-                            <div class="service-icon purple">
-                                <i class="bi bi-printer"></i>
+                        <div class="item-box p-3 shadow rounded">
+                            <div class="d-flex align-items-center mb-2">
+                                <i class="bi <?= $article['type'] === 'produit' ? 'bi-basket' : 'bi-printer' ?> me-2 fs-4"></i>
+                                <h4 class="m-0"><?= htmlspecialchars($article['nom']) ?></h4>
                             </div>
-                            <div class="service-info">
-                                <h4><?= htmlspecialchars($service['nom']) ?></h4>
-                                <p><?= htmlspecialchars($service['description'] ?? '') ?></p>
-                                <?php if ($service['prix'] !== null): ?>
-                                    <div class="price"><?= number_format($service['prix'], 0, ',', ' ') ?> Ar</div>
+                            <p><?= htmlspecialchars($article['description'] ?? '') ?></p>
+                            <div class="price mb-2">
+                                <?php if ($article['prix'] === null): ?>
+                                    <span class="text-muted">Aucun prix défini</span>
+                                <?php else: ?>
+                                    <?= number_format($article['prix'], 0, ',', ' ') ?> Ar
                                 <?php endif; ?>
-                                <div class="unit">par <?= htmlspecialchars($service['unite'] ?? 'unité') ?></div>
                             </div>
-                            <form method="post" action="/interface-client/ajouter-panier" class="quantity-control">
-                                <input type="hidden" name="id_service" value="<?= $service['id_service'] ?>">
-                                <input type="hidden" name="prix_unitaire" value="<?= $service['prix'] ?>">
-                                <input type="number" name="quantite" min="1" value="1" class="form-control form-control-sm">
-                                <button type="submit" class="btn btn-sm btn-purple">
+
+                            <?php if ($article['type'] === 'produit'): ?>
+                                <div class="mb-2">Stock : <?= htmlspecialchars($article['stock'] ?? '-') ?></div>
+                            <?php endif; ?>
+
+                            <form method="post" action="/interface-client/ajouter-panier" class="d-flex gap-2 align-items-center">
+                                <?php if ($article['type'] === 'produit'): ?>
+                                    <input type="hidden" name="id_produit" value="<?= $article['id'] ?>">
+                                <?php else: ?>
+                                    <input type="hidden" name="id_service" value="<?= $article['id'] ?>">
+                                <?php endif; ?>
+                                <input type="hidden" name="prix_unitaire" value="<?= $article['prix'] ?>">
+                                <input type="number" name="quantite" min="1" value="1" class="form-control form-control-sm w-25">
+                                <button type="submit" class="btn btn-sm <?= $article['type'] === 'produit' ? 'btn-orange' : 'btn-purple' ?>">
                                     <i class="bi bi-cart-plus"></i> Ajouter
                                 </button>
                             </form>
@@ -54,39 +50,5 @@
                 <?php endforeach; ?>
             </div>
         </div>
-    </div>
-
-    <!-- Fournitures Section -->
-    <div class="service-section" id="fournitures-section">
-        <div class="service-header">
-            <i class="bi bi-basket"></i>
-            <h2>Fournitures Bureautiques</h2>
-            <p>Papeterie et accessoires de bureau</p>
-        </div>
-        <div class="supplies-grid">
-            <div class="row">
-                <?php foreach ($produits as $produit): ?>
-                    <div class="col-lg-3 col-md-6 mb-4">
-                        <div class="supply-item">
-                            <div class="supply-icon">
-                                <i class="bi bi-basket"></i>
-                            </div>
-                            <div class="supply-info">
-                                <h4><?= htmlspecialchars($produit['nom']) ?></h4>
-                                <p>Stock: <?= htmlspecialchars($produit['stock'] ?? '-') ?></p>
-                                <div class="price"><?= number_format($produit['prix'], 0, ',', ' ') ?> Ar</div>
-                                <div class="unit">par <?= htmlspecialchars($produit['unite'] ?? 'pièce') ?></div>
-                            </div>
-                            <form method="post" action="/interface-client/ajouter-panier" class="quantity-control">
-                                <input type="hidden" name="id_produit" value="<?= $produit['id_produit'] ?>">
-                                <input type="hidden" name="prix_unitaire" value="<?= $produit['prix'] ?>">
-                                <input type="number" name="quantite" min="1" value="1" class="form-control form-control-sm">
-                                <button type="submit" class="btn btn-sm btn-orange">Acheter</button>
-                            </form>
-                        </div>
-                    </div>
-                <?php endforeach; ?>
-            </div>
-        </div>
-    </div>
+    <?php endforeach; ?>
 </div>

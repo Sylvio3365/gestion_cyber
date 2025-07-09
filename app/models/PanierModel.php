@@ -223,9 +223,9 @@ class PanierModel
 
     public function getProduits()
     {
-        $mois = date('n'); 
-        $annee = date('Y'); 
-        
+        $mois = date('n');
+        $annee = date('Y');
+
         $sql = "SELECT p.*, 
                 COALESCE(
                     (SELECT pp1.prix FROM prix_produit pp1 
@@ -276,6 +276,14 @@ class PanierModel
         $stmt->execute([$mois, $annee]);
         return $stmt->fetchAll();
     }
+
+    public function getProduitsEtServicesParBranche()
+    {
+        $sql = "SELECT * FROM vue_produits_services_branche ORDER BY nom_branche, type, nom";
+        $stmt = $this->db->query($sql);
+        return $stmt->fetchAll();
+    }
+
 
     public function getTypesPaiement()
     {
