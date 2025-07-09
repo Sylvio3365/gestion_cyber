@@ -8,6 +8,7 @@ use app\controllers\TemplateController;
 use app\controllers\StatController;
 use app\controllers\ConnexionController;
 use app\controllers\HistoConnexController;
+use app\controllers\ParametreController;
 use app\controllers\PosteController;
 use app\controllers\StatRecetteController;
 use flight\Engine;
@@ -123,3 +124,6 @@ $router->get('/connexion/historique', [$histo, 'showHistorique']);
 $router->get('/admin/prix', [$AdminController, 'showCrudPrix']);
 
 $router->post('/admin/prix/valider', [$AdminController, 'validerPrix']);
+
+Flight::route('GET /parametre/mdp', [ParametreController::class, 'getMdp']);
+Flight::route('POST /parametre/mdp', [ParametreController::class, 'setMdp']);

@@ -1,0 +1,1 @@
+2025-07-09 04:31:38: GD library is not available. Enable php-gd extension.2025-07-09 04:34:42: GD library is not available. Enable php-gd extension.2025-07-09 04:34:48: GD library is not available. Enable php-gd extension.
