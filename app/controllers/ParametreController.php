@@ -2,12 +2,8 @@
 
 namespace app\controllers;
 
-// Ajuster le chemin vers votre librairie QRcode
-require_once dirname(__DIR__, 1) . '/lib/phpqrcode/qrlib.php';
-
 use Flight;
 use app\models\ParametreModel;
-use QRcode;
 
 class ParametreController
 {
@@ -22,10 +18,12 @@ class ParametreController
     {
         $mdp    = $this->model->getMdp();
         $qrFile = $mdp ? '/assets/img/qr_' . md5($mdp) . '.png' : null;
+        // 2. Génère l’URL du QR Code via goqr.me
+        $qrUrl = 'https://api.qrserver.com/v1/create-qr-code/?data=' . urlencode($mdp) . '&size=300x300&margin=1';
 
         Flight::render('index', [
             'mdp'    => $mdp,
-            'qrFile' => $qrFile,
+            'qrUrl'   => $qrUrl,
             'page' => 'parametre/index'
         ]);
     }
