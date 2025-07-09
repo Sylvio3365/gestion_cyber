@@ -8,17 +8,14 @@
     <!-- CSS & JS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="/assets/css/stat.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
     <div class="container py-4">
         <!-- En-tête principale -->
-        <div class="card shadow mb-4">
-            <div class="card-body text-center">
-                <h1 class="mb-0"><i class="fas fa-chart-line me-2"></i>Statistiques de vente</h1>
-            </div>
-        </div>
+        <h1 class="stat-page-title"><i class="fas fa-chart-line me-2"></i>Statistiques de vente</h1>
 
         <!-- Filtres -->
         <div class="card shadow mb-4">

@@ -71,244 +71,47 @@ body {
     padding: 2rem;
 }
 
-/* Titres - AMÉLIORÉS POUR MODE SOMBRE */
-h1 {
+.stat-page-title {
     font-size: 2.5rem;
     font-weight: 700;
-    color: var(--stat-text-primary);
-    margin-bottom: 2rem;
+    color: var(--stat-primary);
+    margin: 1.5rem 0 2rem;
     text-align: center;
-    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
 }
 
-/* Fix pour le gradient text qui pose problème en mode sombre */
-body:not(.dark-mode) h1 {
+.stat-page-title i {
+    color: var(--stat-primary);
+}
+
+body:not(.dark-mode) .stat-page-title {
     background: linear-gradient(135deg, var(--stat-primary), var(--stat-success));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
 }
 
-body.dark-mode h1 {
+body.dark-mode .stat-page-title {
     color: var(--stat-text-primary) !important;
     background: none !important;
     -webkit-background-clip: unset !important;
     -webkit-text-fill-color: unset !important;
 }
 
-h1::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100px;
-    height: 4px;
-    background: linear-gradient(90deg, var(--stat-primary), var(--stat-success));
-    border-radius: 2px;
-}
-
-h2 {
-    font-size: 1.875rem;
-    font-weight: 600;
-    color: var(--stat-text-primary);
-    margin-bottom: 1.5rem;
-    text-align: center;
-}
-
-h3 {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: var(--stat-text-primary);
-    margin-bottom: 1rem;
-}
-
-/* Section des filtres */
-.filters {
-    background: var(--stat-bg-primary);
-    border: 1px solid var(--stat-border);
-    border-radius: var(--stat-radius-xl);
-    padding: 2rem;
-    margin-bottom: 2rem;
-    box-shadow: var(--stat-shadow-lg);
-    position: relative;
-    overflow: hidden;
-}
-
-.filters::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, var(--stat-primary), var(--stat-success), var(--stat-info));
-}
-
-/* Container pour dashboard */
-.dashboard-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem;
-}
-
-/* Section de filtrage */
-.filter-section {
-    background: var(--stat-bg-primary);
-    border: 1px solid var(--stat-border);
-    border-radius: var(--stat-radius-xl);
-    padding: 2rem;
-    margin-bottom: 2rem;
-    box-shadow: var(--stat-shadow-lg);
-    position: relative;
-    overflow: hidden;
-}
-
-.filter-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, var(--stat-primary), var(--stat-success));
-}
-
-/* Groupe de boutons */
-.btn-group {
-    display: flex;
-    gap: 0.5rem;
-    margin-bottom: 1.5rem;
-    flex-wrap: wrap;
-    justify-content: center;
-    border-radius: var(--stat-radius);
-    overflow: hidden;
-    box-shadow: var(--stat-shadow-md);
-}
-
-.btn-group .btn {
-    border-radius: 0;
-    border: none;
-    padding: 0.875rem 1.5rem;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    position: relative;
-    overflow: hidden;
-}
-
-.btn-group .btn:first-child {
-    border-radius: var(--stat-radius) 0 0 var(--stat-radius);
-}
-
-.btn-group .btn:last-child {
-    border-radius: 0 var(--stat-radius) var(--stat-radius) 0;
-}
-
-.btn-primary {
-    background: linear-gradient(135deg, var(--stat-primary), var(--stat-primary-hover));
-    color: white !important;
-    box-shadow: var(--stat-shadow-md);
-}
-
-.btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--stat-shadow-lg);
-    background: linear-gradient(135deg, var(--stat-primary-hover), #3730a3);
-    color: white !important;
-}
-
-.btn-secondary {
-    background: var(--stat-bg-primary);
-    color: var(--stat-text-secondary);
-    border: 1px solid var(--stat-border);
-}
-
-.btn-secondary:hover {
-    background: var(--stat-gray-50);
-    border-color: var(--stat-primary);
-    color: var(--stat-primary);
-    transform: translateY(-1px);
-}
-
-body.dark-mode .btn-secondary {
-    background: var(--stat-bg-tertiary);
-    color: var(--stat-text-secondary);
-    border-color: var(--stat-border);
-}
-
-body.dark-mode .btn-secondary:hover {
-    background: var(--stat-bg-secondary);
+h4 {
+    font-size: 1.5rem;
+    font-weight: 700;
     color: var(--stat-text-primary);
 }
 
-/* Formulaires - AMÉLIORÉS */
-.form-group {
-    margin-bottom: 1.5rem;
-}
-
-.form-label {
-    display: block;
-    font-weight: 500;
-    color: var(--stat-text-primary);
-    margin-bottom: 0.5rem;
-}
-
-.form-control, .form-select {
-    width: 100%;
-    padding: 0.75rem 1rem;
-    border: 2px solid var(--stat-border);
-    border-radius: var(--stat-radius);
-    font-size: 1rem;
-    background: var(--stat-bg-primary);
-    color: var(--stat-text-primary);
-    transition: all 0.3s ease;
-}
-
-.form-control:focus, .form-select:focus {
-    outline: none;
-    border-color: var(--stat-primary);
-    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
-}
-
-body.dark-mode .form-control:focus, 
-body.dark-mode .form-select:focus {
-    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.3);
-}
-
-.form-control::placeholder {
-    color: var(--stat-text-muted);
-}
-
-/* Boutons */
-.btn {
-    padding: 0.75rem 1.5rem;
-    border-radius: var(--stat-radius);
-    font-weight: 500;
-    transition: all 0.3s ease;
-    border: none;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    text-decoration: none;
-    font-size: 1rem;
-}
-
-.btn:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--stat-shadow-lg);
-}
-
-/* Cartes - AMÉLIORÉES */
 .card {
     background: var(--stat-bg-primary);
-    border: 1px solid var(--stat-border);
-    border-radius: var(--stat-radius-xl);
-    box-shadow: var(--stat-shadow-lg);
+    border: 1px solid var(--stat-border) !important;
+    border-radius: var(--stat-radius-xl) !important;
+    box-shadow: var(--stat-shadow-lg) !important;
     transition: all 0.3s ease;
     overflow: hidden;
     margin-bottom: 1.5rem;
@@ -316,14 +119,16 @@ body.dark-mode .form-select:focus {
 
 .card:hover {
     transform: translateY(-5px);
-    box-shadow: var(--stat-shadow-xl);
+    box-shadow: var(--stat-shadow-xl) !important;
 }
 
 .card-header {
-    background: linear-gradient(135deg, var(--stat-bg-secondary), var(--stat-bg-primary));
-    border-bottom: 1px solid var(--stat-border);
-    padding: 1.5rem;
+    background: var(--stat-bg-primary) !important;
+    border-bottom: 1px solid var(--stat-border) !important;
+    padding: 1.5rem !important;
     position: relative;
+    font-weight: 600;
+    color: var(--stat-text-primary);
 }
 
 .card-header::before {
@@ -336,347 +141,288 @@ body.dark-mode .form-select:focus {
     background: linear-gradient(90deg, var(--stat-primary), var(--stat-success));
 }
 
-.card-title {
-    font-size: 1.125rem;
-    font-weight: 600;
-    color: var(--stat-text-primary);
-    margin: 0;
-}
-
 .card-body {
-    padding: 1.5rem;
+    padding: 1.5rem !important;
 }
 
-.card-text {
-    font-size: 2rem;
-    font-weight: 700;
-    margin: 0;
-    color: var(--stat-text-primary);
+.border-primary, .border-success, .border-info,
+.border-warning, .border-danger, .border-secondary {
+    border-width: 2px !important;
 }
 
-/* TABLEAUX - CORRECTIONS PRINCIPALES POUR LA LISIBILITÉ */
-.table-responsive {
+.bg-primary, .bg-success, .bg-info,
+.bg-warning, .bg-danger, .bg-secondary {
+    position: relative;
+    overflow: hidden;
+}
+
+.bg-primary::after, .bg-success::after, .bg-info::after,
+.bg-warning::after, .bg-danger::after, .bg-secondary::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        to bottom right,
+        rgba(255, 255, 255, 0.2) 0%,
+        rgba(255, 255, 255, 0) 80%
+    );
+    transform: rotate(45deg);
+    pointer-events: none;
+}
+
+.btn-group {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
     border-radius: var(--stat-radius);
     overflow: hidden;
     box-shadow: var(--stat-shadow-md);
 }
 
+.btn-group .btn {
+    border-radius: 0 !important;
+    border: none !important;
+    padding: 0.875rem 1.5rem !important;
+    font-weight: 500 !important;
+    transition: all 0.3s ease !important;
+}
+
+.btn-group .btn:first-child {
+    border-radius: var(--stat-radius) 0 0 var(--stat-radius) !important;
+}
+
+.btn-group .btn:last-child {
+    border-radius: 0 var(--stat-radius) var(--stat-radius) 0 !important;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--stat-primary), var(--stat-primary-hover)) !important;
+    color: white !important;
+    box-shadow: var(--stat-shadow-md);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--stat-shadow-lg);
+    background: linear-gradient(135deg, var(--stat-primary-hover), #3730a3) !important;
+}
+
+.btn-secondary {
+    background: var(--stat-bg-primary) !important;
+    color: var(--stat-text-secondary) !important;
+    border: 1px solid var(--stat-border) !important;
+}
+
+.btn-secondary:hover {
+    background: var(--stat-gray-50) !important;
+    border-color: var(--stat-primary) !important;
+    color: var(--stat-primary) !important;
+    transform: translateY(-1px);
+}
+
+.btn-outline-primary {
+    color: var(--stat-primary) !important;
+    border-color: var(--stat-primary) !important;
+    background: transparent !important;
+    padding: 0.75rem 1.5rem !important;
+    border-radius: var(--stat-radius) !important;
+    font-weight: 500 !important;
+    transition: all 0.3s ease !important;
+}
+
+.btn-outline-primary:hover {
+    background: var(--stat-primary) !important;
+    color: white !important;
+    transform: translateY(-2px) !important;
+    box-shadow: var(--stat-shadow-md) !important;
+}
+
+input[type="date"] {
+    padding: 0.75rem 1rem !important;
+    border: 2px solid var(--stat-border) !important;
+    border-radius: var(--stat-radius) !important;
+    font-size: 1rem !important;
+    background: var(--stat-bg-primary) !important;
+    color: var(--stat-text-primary) !important;
+    transition: all 0.3s ease !important;
+}
+
+input[type="date"]:focus {
+    outline: none !important;
+    border-color: var(--stat-primary) !important;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1) !important;
+}
+
+/* Progress bars */
+.progress {
+    height: 0.6rem !important;
+    background: var(--stat-gray-200) !important;
+    border-radius: 1rem !important;
+    overflow: hidden !important;
+    margin-top: 0.75rem !important;
+}
+
+body.dark-mode .progress {
+    background: var(--stat-bg-tertiary) !important;
+}
+
+.progress-bar {
+    border-radius: 1rem !important;
+    font-weight: 600 !important;
+    font-size: 0.7rem !important;
+    line-height: 0.6rem !important;
+    text-shadow: 0 0 3px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Tables */
+.table-responsive {
+    border-radius: var(--stat-radius) !important;
+    overflow: hidden !important;
+    box-shadow: var(--stat-shadow-md) !important;
+}
+
 .table {
-    margin: 0;
-    color: var(--stat-text-primary);
+    margin: 0 !important;
+    color: var(--stat-text-primary) !important;
 }
 
 .table th {
-    background: linear-gradient(135deg, var(--stat-bg-secondary), var(--stat-bg-primary));
+    background: linear-gradient(135deg, var(--stat-bg-secondary), var(--stat-bg-primary)) !important;
     color: var(--stat-text-primary) !important;
-    font-weight: 600;
-    border-bottom: 2px solid var(--stat-border);
-    padding: 1rem;
-    position: sticky;
-    top: 0;
-    z-index: 10;
+    font-weight: 600 !important;
+    border-bottom: 2px solid var(--stat-border) !important;
+    padding: 1rem !important;
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 10 !important;
 }
 
-/* Correction spéciale pour les en-têtes en mode sombre */
 body.dark-mode .table th {
     background: linear-gradient(135deg, var(--stat-bg-tertiary), var(--stat-bg-secondary)) !important;
     color: var(--stat-text-primary) !important;
-    border-bottom-color: var(--stat-border);
+    border-bottom-color: var(--stat-border) !important;
 }
 
 .table td {
-    padding: 1rem;
-    border-bottom: 1px solid var(--stat-border);
-    vertical-align: middle;
+    padding: 1rem !important;
+    border-bottom: 1px solid var(--stat-border) !important;
+    vertical-align: middle !important;
     color: var(--stat-text-primary) !important;
 }
 
-/* Correction spéciale pour les cellules en mode sombre */
 body.dark-mode .table td {
     color: var(--stat-text-primary) !important;
-    background-color: var(--stat-bg-primary);
 }
 
 .table-striped tbody tr:nth-of-type(odd) {
-    background: var(--stat-bg-secondary);
+    background: var(--stat-bg-secondary) !important;
 }
 
 body.dark-mode .table-striped tbody tr:nth-of-type(odd) {
     background: var(--stat-bg-secondary) !important;
 }
 
-body.dark-mode .table-striped tbody tr:nth-of-type(odd) td {
-    background: var(--stat-bg-secondary) !important;
-    color: var(--stat-text-primary) !important;
-}
-
 .table-hover tbody tr:hover {
-    background: var(--stat-gray-50);
-    transform: scale(1.01);
-    transition: all 0.2s ease;
+    background: var(--stat-gray-50) !important;
+    transform: scale(1.01) !important;
+    transition: all 0.2s ease !important;
 }
 
 body.dark-mode .table-hover tbody tr:hover {
     background: var(--stat-bg-tertiary) !important;
 }
 
-body.dark-mode .table-hover tbody tr:hover td {
-    background: var(--stat-bg-tertiary) !important;
-    color: var(--stat-text-primary) !important;
+/* Badges */
+.badge {
+    padding: 0.4rem 0.8rem !important;
+    border-radius: var(--stat-radius) !important;
+    font-weight: 500 !important;
+    font-size: 0.875rem !important;
 }
 
-.table-primary {
-    background: rgba(79, 70, 229, 0.1) !important;
-    color: var(--stat-text-primary) !important;
+.badge.bg-primary, .badge.bg-success, .badge.bg-info,
+.badge.bg-warning, .badge.bg-danger, .badge.bg-secondary {
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.3) !important;
 }
 
-body.dark-mode .table-primary {
-    background: rgba(79, 70, 229, 0.2) !important;
-    color: var(--stat-text-primary) !important;
+#barChart {
+    max-height: 400px !important;
 }
 
-body.dark-mode .table-primary td {
-    background: rgba(79, 70, 229, 0.2) !important;
-    color: var(--stat-text-primary) !important;
-}
-
-/* ICÔNES ET BADGES - CORRECTIONS */
 body.dark-mode .fas,
 body.dark-mode .fa,
 body.dark-mode i {
     color: var(--stat-text-primary) !important;
 }
 
-/* Correction spéciale pour les icônes dans les en-têtes */
-body.dark-mode th i,
-body.dark-mode .card-title i {
+body.dark-mode .card {
+    background-color: var(--stat-bg-primary) !important;
+}
+
+body.dark-mode .card-header {
+    background-color: var(--stat-bg-secondary) !important;
+}
+
+body.dark-mode input[type="date"] {
+    background-color: var(--stat-bg-tertiary) !important;
     color: var(--stat-text-primary) !important;
+    border-color: var(--stat-border) !important;
 }
 
-/* Cartes colorées */
-.border-success {
-    border-color: var(--stat-success) !important;
-}
-
-.border-info {
-    border-color: var(--stat-info) !important;
-}
-
-.border-warning {
-    border-color: var(--stat-warning) !important;
-}
-
-.bg-success {
-    background: linear-gradient(135deg, var(--stat-success), #059669) !important;
-    color: white !important;
-}
-
-.bg-info {
-    background: linear-gradient(135deg, var(--stat-info), #0891b2) !important;
-    color: white !important;
-}
-
-.bg-warning {
-    background: linear-gradient(135deg, var(--stat-warning), #d97706) !important;
-    color: white !important;
-}
-
-.text-success {
-    color: var(--stat-success) !important;
-}
-
-.text-info {
-    color: var(--stat-info) !important;
-}
-
-.text-warning {
-    color: var(--stat-warning) !important;
-}
-
-.text-danger {
-    color: var(--stat-danger) !important;
-}
-
-/* Badges - AMÉLIORÉS */
-.badge {
-    padding: 0.4rem 0.8rem;
-    border-radius: var(--stat-radius);
-    font-weight: 500;
-    font-size: 0.875rem;
-    display: inline-block;
-}
-
-.badge.bg-success {
-    background: linear-gradient(135deg, var(--stat-success), #059669) !important;
-    color: white !important;
-}
-
-.badge.bg-info {
-    background: linear-gradient(135deg, var(--stat-info), #0891b2) !important;
-    color: white !important;
-}
-
-.badge.bg-warning {
-    background: linear-gradient(135deg, var(--stat-warning), #d97706) !important;
-    color: white !important;
-}
-
-.badge.bg-primary {
-    background: linear-gradient(135deg, var(--stat-primary), var(--stat-primary-hover)) !important;
-    color: white !important;
-}
-
-/* États vides et résultats - AMÉLIORÉS */
-.no-data {
-    text-align: center;
-    padding: 4rem 2rem;
-    color: var(--stat-text-muted);
-    background: var(--stat-bg-primary);
-    border-radius: var(--stat-radius-xl);
-    box-shadow: var(--stat-shadow-lg);
-}
-
-.no-data i {
-    font-size: 4rem;
-    margin-bottom: 1rem;
-    opacity: 0.5;
-    color: var(--stat-text-muted) !important;
-}
-
-.no-data h4 {
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
+/* Correction pour l'affichage du texte dans les cartes de statistiques */
+.card-header, 
+.card-body h2, 
+.card-body h3, 
+.card-body h4,
+.card-body strong,
+.card-body span,
+.card-title {
     color: var(--stat-text-primary) !important;
+    -webkit-text-fill-color: initial !important;
 }
 
-.no-data p {
-    color: var(--stat-text-secondary) !important;
+/* Spécifiquement pour le petit div de résumé */
+.card-body .text-center,
+.card [class*="icon-"] {
+    color: var(--stat-text-primary) !important;
+    -webkit-text-fill-color: initial !important;
 }
 
-/* Section de résultats */
-.result {
-    background: linear-gradient(135deg, var(--stat-success), #059669);
-    color: white !important;
-    padding: 2rem;
-    border-radius: var(--stat-radius-xl);
-    margin-bottom: 2rem;
-    text-align: center;
-    box-shadow: var(--stat-shadow-xl);
-    position: relative;
-    overflow: hidden;
-}
-
-.result h3 {
-    font-size: 1.5rem;
+/* Pour le nom de la branche (Bureautique) */
+.card-body .text-center::before,
+.card-body .branch-name {
+    color: var(--stat-text-primary) !important;
+    -webkit-text-fill-color: initial !important;
     font-weight: 600;
-    margin-bottom: 1rem;
-    color: white !important;
+    margin-bottom: 0.5rem;
+    display: block;
 }
 
-.result p {
-    font-size: 2rem;
+/* Style pour le montant (800 Ar) */
+.card-body .text-center h2,
+.card-body .text-center h3,
+.card-body .text-center h4,
+.card-body .amount {
+    font-size: 1.8rem;
     font-weight: 700;
-    margin: 0;
-    position: relative;
-    z-index: 1;
-    color: white !important;
+    color: var(--stat-primary) !important;
+    -webkit-text-fill-color: initial !important;
+    margin-bottom: 0.5rem;
 }
 
-/* Container des graphiques */
-.chart-container {
-    position: relative;
-    height: 400px;
-    margin-top: 1rem;
+/* Pour tous les éléments texte des petites cartes */
+.card .card-body * {
+    -webkit-background-clip: initial !important;
+    background-clip: initial !important;
 }
 
-.chart-wrapper {
-    background: var(--stat-bg-primary);
-    border: 1px solid var(--stat-border);
-    border-radius: var(--stat-radius-xl);
-    padding: 1.5rem;
-    box-shadow: var(--stat-shadow-lg);
-    position: relative;
-    overflow: hidden;
-}
-
-.chart-wrapper::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, var(--stat-primary), var(--stat-success));
-}
-
-.chart-title {
-    font-size: 1.125rem;
-    font-weight: 600;
-    color: var(--stat-text-primary);
-    margin-bottom: 1rem;
-    text-align: center;
-}
-
-.charts-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-    gap: 2rem;
-    margin-top: 2rem;
-}
-
-/* Barres de progression */
-.progress {
-    height: 8px;
-    background: var(--stat-gray-200);
-    border-radius: 4px;
-    overflow: hidden;
-}
-
-body.dark-mode .progress {
-    background: var(--stat-bg-tertiary);
-}
-
-.progress-bar {
-    transition: width 0.6s ease;
-}
-
-.progress-bar.bg-success {
-    background: linear-gradient(90deg, var(--stat-success), #059669) !important;
-}
-
-.progress-bar.bg-info {
-    background: linear-gradient(90deg, var(--stat-info), #0891b2) !important;
-}
-
-.progress-bar.bg-warning {
-    background: linear-gradient(90deg, var(--stat-warning), #d97706) !important;
-}
-
-/* Animations */
-@keyframes shimmer {
-    0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-    100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
-}
-
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.card {
-    animation: fadeInUp 0.6s ease-out;
-}
-
-/* Responsive Design */
 @media (max-width: 768px) {
-    .container, .dashboard-container {
+    .container {
         padding: 1rem;
     }
     
@@ -694,30 +440,23 @@ body.dark-mode .progress {
         margin-bottom: 0.5rem;
     }
     
-    .charts-container {
-        grid-template-columns: 1fr;
+    #barChart {
+        height: 300px !important;
     }
     
-    .chart-container {
-        height: 300px;
-    }
-    
-    .result p {
-        font-size: 1.5rem;
-    }
-    
-    .card-text {
-        font-size: 1.5rem;
+    .card-header,
+    .card-body {
+        padding: 1rem !important;
     }
     
     .table th,
     .table td {
-        padding: 0.75rem 0.5rem;
+        padding: 0.75rem 0.5rem !important;
     }
 }
 
 @media (max-width: 480px) {
-    .container, .dashboard-container {
+    .container {
         padding: 0.5rem;
     }
     
@@ -725,21 +464,36 @@ body.dark-mode .progress {
         font-size: 1.75rem;
     }
     
-    .filter-section,
-    .filters {
-        padding: 1rem;
-    }
-    
-    .chart-container {
-        height: 250px;
-    }
-    
-    .result {
-        padding: 1.5rem;
+    #barChart {
+        height: 250px !important;
     }
     
     .card-header,
     .card-body {
-        padding: 1rem;
+        padding: 0.75rem !important;
     }
+    
+    .table th,
+    .table td {
+        font-size: 0.9rem !important;
+    }
+    
+    .badge {
+        font-size: 0.75rem !important;
+        padding: 0.3rem 0.6rem !important;
+    }
+}
+
+body, 
+.card, 
+.btn,
+input[type="date"],
+.table,
+.progress,
+.badge {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+body.dark-mode .theme-toggle {
+    background: var(--stat-bg-tertiary);
 }
