@@ -256,7 +256,7 @@ class AdminModel
         $sql = "SELECT 
                     p.id_produit,
                     p.nom AS produit_nom,
-                    SUM(CASE WHEN t.type = 'entrée' THEN s.quantite ELSE 0 END) -
+                    SUM(CASE WHEN t.type = 'entrée' THEN s.quantite ELSE 0 END) +
                     SUM(CASE WHEN t.type = 'sortie' THEN s.quantite ELSE 0 END) AS stock_restant
                 FROM stock s
                 JOIN produit p ON s.id_produit = p.id_produit
