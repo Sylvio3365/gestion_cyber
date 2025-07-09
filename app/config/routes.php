@@ -129,3 +129,6 @@ $router->post('/admin/prix/valider', [$AdminController, 'validerPrix']);
 $parametreController = new ParametreController();
 $router->post('/parametre/mdp',[$parametreController,'setMdp']);
 $router->get('/parametre/mdp',[$parametreController,'getMdp']);
+$router->get('/facture/voir/@id', [$factureController, 'voirFacture']);
+$router->get('/facture/pdf/@id', [$factureController, 'genererFacturePDF']);
+
