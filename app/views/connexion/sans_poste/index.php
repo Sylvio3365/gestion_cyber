@@ -18,19 +18,6 @@
 
 <body class="bg-light">
     <div class="container-fluid py-4">
-        <!-- En-tête -->
-        <div class="row mb-4">
-            <div class="col-12">
-                <div class="d-flex justify-content-between align-items-center">
-                    <h2 class="text-primary fw-bold mb-0">
-                        <i class="fas fa-wifi me-2"></i> Gestion des connexions WiFi
-                    </h2>
-                    <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#qrModal">
-                        <i class="fas fa-qrcode me-1"></i> Afficher le QR Code
-                    </button>
-                </div>
-            </div>
-        </div>
 
         <!-- QR Code WiFi -->
         <div class="card mb-4 shadow-sm border-0">
