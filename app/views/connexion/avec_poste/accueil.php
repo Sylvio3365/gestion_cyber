@@ -102,46 +102,50 @@
                                     <span class="status-badge <?= $status_class ?> me-2">
                                         <?= $poste['etat_nom'] === 'Occupé' ? 'Occupé' : htmlspecialchars($poste['etat_nom']) ?>
                                     </span>
-                                    <div class="dropdown">
-                                        <button class="btn btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="bi bi-three-dots-vertical"></i>
-                                        </button>
-                                        <ul class="dropdown-menu dropdown-menu-end">
-                                            <li>
-                                                <a class="dropdown-item" href="modifier_poste.php?id=<?= $poste['numero_poste'] ?>">
-                                                    <i class="bi bi-pencil me-2"></i>Modifier
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class="dropdown-item text-danger" href="supprimer_poste.php?id=<?= $poste['numero_poste'] ?>" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce poste ?')">
-                                                    <i class="bi bi-trash me-2"></i>Supprimer
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <hr class="dropdown-divider">
-                                            </li>
-                                            <?php if ($poste['etat_nom'] !== 'En maintenance') { ?>
+                                    <?php if (isset($_SESSION['u']) && $_SESSION['u']['account_type_name'] == 'admin') { ?>
+
+                                        <div class="dropdown">
+                                            <button class="btn btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="bi bi-three-dots-vertical"></i>
+                                            </button>
+                                            <ul class="dropdown-menu dropdown-menu-end">
                                                 <li>
-                                                    <form method="post" action="/poste/mettreEnMaintenance" class="d-inline">
-                                                        <input type="hidden" name="poste_id" value="<?= $poste['id_poste'] ?>">
-                                                        <button type="submit" class="dropdown-item" style="background: none; border: none; width: 100%; text-align: left;">
-                                                            <i class="bi bi-tools me-2"></i>Mettre en maintenance
-                                                        </button>
-                                                    </form>
+                                                    <a class="dropdown-item" href="modifier_poste.php?id=<?= $poste['numero_poste'] ?>">
+                                                        <i class="bi bi-pencil me-2"></i>Modifier
+                                                    </a>
                                                 </li>
-                                            <?php } else { ?>
                                                 <li>
-                                                    <form method="post" action="/poste/rendreDisponible" class="w-100">
-                                                        <input type="hidden" name="action" value="marquer_disponible">
-                                                        <input type="hidden" name="poste_id" value="<?= $poste['id_poste'] ?>">
-                                                        <button type="submit" class="dropdown-item" style="background: none; border: none; width: 100%; text-align: left;">
-                                                            <i class="bi bi-tools me-2"></i>Marquer disponible
-                                                        </button>
-                                                    </form>
+                                                    <a class="dropdown-item text-danger" href="supprimer_poste.php?id=<?= $poste['numero_poste'] ?>" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce poste ?')">
+                                                        <i class="bi bi-trash me-2"></i>Supprimer
+                                                    </a>
                                                 </li>
-                                            <?php } ?>
-                                        </ul>
-                                    </div>
+                                                <li>
+                                                    <hr class="dropdown-divider">
+                                                </li>
+                                                <?php if ($poste['etat_nom'] !== 'En maintenance') { ?>
+                                                    <li>
+                                                        <form method="post" action="/poste/mettreEnMaintenance" class="d-inline">
+                                                            <input type="hidden" name="poste_id" value="<?= $poste['id_poste'] ?>">
+                                                            <button type="submit" class="dropdown-item" style="background: none; border: none; width: 100%; text-align: left;">
+                                                                <i class="bi bi-tools me-2"></i>Mettre en maintenance
+                                                            </button>
+                                                        </form>
+                                                    </li>
+                                                <?php } else { ?>
+                                                    <li>
+                                                        <form method="post" action="/poste/rendreDisponible" class="w-100">
+                                                            <input type="hidden" name="action" value="marquer_disponible">
+                                                            <input type="hidden" name="poste_id" value="<?= $poste['id_poste'] ?>">
+                                                            <button type="submit" class="dropdown-item" style="background: none; border: none; width: 100%; text-align: left;">
+                                                                <i class="bi bi-tools me-2"></i>Marquer disponible
+                                                            </button>
+                                                        </form>
+                                                    </li>
+                                                <?php } ?>
+                                            </ul>
+
+                                        </div>
+                                    <?php } ?>
                                 </div>
                             </div>
                             <div class="pc-card-body">
