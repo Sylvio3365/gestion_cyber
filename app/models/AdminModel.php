@@ -25,7 +25,7 @@ class AdminModel
 
     public function insertPrixAchatService($mois, $annee, $prix, $etat, $id_service)
     {
-        
+
         $sql = "INSERT INTO prix_achat_service (mois, date_modification, annee, prix, etat, id_service)
                 VALUES (:mois, NOW(), :annee, :prix, :etat, :id_service)";
 
@@ -254,19 +254,18 @@ class AdminModel
     public function getStockRestantParProduit()
     {
         $sql = "SELECT 
-                    p.id_produit,
-                    p.nom AS produit_nom,
-                    SUM(CASE WHEN t.type = 'entrée' THEN s.quantite ELSE 0 END) +
-                    SUM(CASE WHEN t.type = 'sortie' THEN s.quantite ELSE 0 END) AS stock_restant
-                FROM stock s
-                JOIN produit p ON s.id_produit = p.id_produit
-                JOIN type_mouvement t ON s.id_mouvement = t.id_mouvement
-                GROUP BY p.id_produit, p.nom
-                ORDER BY p.nom ASC";
+                p.id_produit,
+                p.nom AS produit_nom,
+                SUM(s.quantite) AS stock_restant
+            FROM stock s
+            JOIN produit p ON s.id_produit = p.id_produit
+            GROUP BY p.id_produit, p.nom
+            ORDER BY p.nom ASC";
 
         $stmt = $this->db->query($sql);
         return $stmt->fetchAll();
     }
+
 
     //stock
     public function getAllStocks()
