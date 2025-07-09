@@ -1,7 +1,7 @@
 <div class="client-interface">
     <!-- Bienvenue Banner -->
     <div class="welcome-banner">
-        <h1>Bienvenue au CyBer</h1>
+        <h1>Bienvenue au e-Cyber</h1>
         <p>Choisissez vos services et produits</p>
         <div class="info-badges">
             <div class="info-badge">
