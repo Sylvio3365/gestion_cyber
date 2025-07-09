@@ -5,10 +5,12 @@ use app\controllers\VenteController;
 use app\controllers\PanierController;
 use app\controllers\AdminController;
 use app\controllers\StatistiqueController;
+use app\controllers\FactureController;
 
 use flight\Engine;
 use flight\net\Router;
 //use Flight;
+use app\models\FactureModel;
 
 /** 
  * @var Router $router 
@@ -86,4 +88,6 @@ $router->post('/interface-client/ajouter-panier', [$PanierController, 'ajouterAu
 $router->get('/api/clients', [$PanierController, 'apiClients']);
 $router->get('/panier/recapitulatif-json', [$PanierController, 'recapitulatifJson']);
 $router->get('/stat', [$StatController, 'topProduitParBranche']);
-$router->get('/facture/voir', [$factureController, 'voirFacture']);
+$router->get('/facture/voir/@id', [$factureController, 'voirFacture']);
+$router->get('/facture/pdf/@id', [$factureController, 'genererFacturePDF']);
+

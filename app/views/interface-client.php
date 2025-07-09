@@ -1,3 +1,12 @@
+<?php
+
+
+    $userFirstname = $_SESSION['user']['id_user'] ?? 'not found';
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -56,6 +65,13 @@
                             <span class="menu-text">Clients</span>
                         </a>
                     </li>
+                        <li class="nav-item">
+       <a class="nav-link" href="/facture/voir/<?php echo $_SESSION['user']['id_user']; ?>">
+            <i class="bi bi-receipt"></i>
+            <span class="menu-text">Facturation</span>
+        </a>
+    </li>
+
                     <li class="nav-item">
                         <a class="nav-link" href="#">
                             <i class="bi bi-graph-up"></i>
@@ -240,7 +256,13 @@
             </div>
         </div>
     </div>
+                                    <script>
+// Passe la valeur PHP vers JS
+const userFirstname = <?= json_encode($userFirstname) ?>;
 
+// Affiche dans la console du navigateur
+console.log("Utilisateur connecté :", userFirstname);
+</script>
     <!-- JS Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Script sidebar/menu/theme -->

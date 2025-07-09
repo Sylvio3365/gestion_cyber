@@ -6,6 +6,7 @@ use flight\debug\database\PdoQueryCapture;
 use Tracy\Debugger;
 use app\models\StatistiqueModel;
 use app\models\AdminModel;
+use app\models\FactureModel;
 
 /** 
  * @var array $config This comes from the returned array at the bottom of the config.php file
@@ -36,4 +37,7 @@ Flight::map('statistiqueModel', function () {
 });
 Flight::map('adminModel', function () {
     return new AdminModel(Flight::db());
+});
+Flight::map('factureModel', function () {
+    return new FactureModel(Flight::db());
 });
