@@ -15,8 +15,6 @@ use app\controllers\FactureController;
 use app\controllers\StatController;
 use flight\Engine;
 use flight\net\Router;
-//use Flight;
-use app\models\FactureModel;
 
 /** 
  * @var Router $router 
