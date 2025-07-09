@@ -3,7 +3,7 @@
 namespace app\controllers;
 
 // Ajuster le chemin vers votre librairie QRcode
-require_once __DIR__ . '/phpqrcode/qrlib.php';
+require_once dirname(__DIR__, 1) . '/lib/phpqrcode/qrlib.php';
 
 use Flight;
 use app\models\ParametreModel;
@@ -23,9 +23,10 @@ class ParametreController
         $mdp    = $this->model->getMdp();
         $qrFile = $mdp ? '/assets/img/qr_' . md5($mdp) . '.png' : null;
 
-        Flight::render('parametre/index', [
+        Flight::render('index', [
             'mdp'    => $mdp,
             'qrFile' => $qrFile,
+            'page=>' => 'parametre/index'
         ]);
     }
 
@@ -34,39 +35,28 @@ class ParametreController
         $data = Flight::request()->data->getData();
 
         if (empty($data['mdp'])) {
-            Flight::render('parametre/index', [
+            Flight::render('index', [
                 'error'  => 'Le paramètre "mdp" est requis',
                 'mdp'    => $this->model->getMdp(),
-                'qrFile' => null,
+                'qrUrl'  => null,
+                'page' => 'parametre/index'
             ]);
             return;
         }
 
-        // Enregistrement en base
+        // 1. Enregistre en base
         $this->model->setMdp($data['mdp']);
         $mdp = $this->model->getMdp();
 
-        // Nom de fichier
-        $filename = 'qr_' . md5($mdp) . '.png';
+        // 2. Génère l’URL du QR Code via goqr.me
+        $qrUrl = 'https://api.qrserver.com/v1/create-qr-code/?data=' . urlencode($mdp) . '&size=300x300&margin=1';
 
-        // Chemin absolu vers public/assets/img
-        $publicImgDir = realpath(__DIR__ . '/../../public/assets/img');
-        if ($publicImgDir === false) {
-            // fallback si realpath échoue
-            $publicImgDir = dirname(__DIR__, 2) . '/public/assets/img';
-        }
-
-        // Création du dossier si nécessaire
-        if (!is_dir($publicImgDir)) {
-            mkdir($publicImgDir, 0755, true);
-        }
-
-        $qrFile = '/assets/img/' . $filename;
-
-        Flight::render('parametre/index', [
-            'message' => 'Mot de passe enregistré et QR-code généré',
+        // 3. Rend la vue
+        Flight::render('index', [
+            'message' => 'Mot de passe enregistré et QR-Code généré',
             'mdp'     => $mdp,
-            'qrFile'  => $qrFile,
+            'qrUrl'   => $qrUrl,
+            'page' => 'parametre/index',
         ]);
     }
 }

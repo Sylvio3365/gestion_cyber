@@ -90,7 +90,7 @@
                 </ul>
                 <ul class="nav flex-column sidebar-menu sidebar-footer">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="/parametre/mdp">
                             <i class="bi bi-gear"></i>
                             <span class="menu-text">Paramètres</span>
                         </a>
