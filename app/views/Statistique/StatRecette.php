@@ -3,9 +3,9 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Statistiques de vente</title>
+    <title>Statistiques de vente par branche</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Bootstrap + FontAwesome + Chart.js -->
+    <!-- CSS & JS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -13,33 +13,48 @@
 
 <body>
     <div class="container py-4">
-        <h1><i class="fas fa-chart-line me-3"></i>Statistiques de vente</h1>
-
-        <!-- Filtres -->
-        <div class="my-4">
-            <div class="btn-group mb-3">
-                <?php foreach (['jour' => 'Jour', 'mois' => 'Mois', 'annee' => 'Année'] as $key => $label): ?>
-                    <a href="?period=<?= $key ?>&date=<?= date('Y-m-d') ?>"
-                        class="btn btn-<?= $period === $key ? 'primary' : 'secondary' ?>">
-                        <?= $label ?>
-                    </a>
-                <?php endforeach; ?>
+        <!-- En-tête principale -->
+        <div class="card shadow mb-4">
+            <div class="card-body text-center">
+                <h1 class="mb-0"><i class="fas fa-chart-line me-2"></i>Statistiques de vente</h1>
             </div>
-            <form method="get" class="row g-2">
-                <input type="hidden" name="period" value="<?= $period ?>">
-                <div class="col-auto">
-                    <input type="date" name="date" class="form-control" value="<?= $date ?>">
-                </div>
-                <div class="col-auto">
-                    <button class="btn btn-primary"><i class="fas fa-search me-1"></i>Filtrer</button>
-                </div>
-            </form>
         </div>
 
-        <h4 class="mb-4"><i class="fas fa-calendar-check me-2"></i>Période : <?= $periodLabels[$period] ?> (<?= $date ?>)</h4>
+        <!-- Filtres -->
+        <div class="card shadow mb-4">
+            <div class="card-header"><i class="fas fa-filter me-2"></i>Filtres</div>
+            <div class="card-body">
+                <div class="btn-group mb-3">
+                    <?php foreach (['jour' => 'Jour', 'mois' => 'Mois', 'annee' => 'Année'] as $key => $label): ?>
+                        <a href="?period=<?= $key ?>&date=<?= date('Y-m-d') ?>"
+                            class="btn btn-<?= $period === $key ? 'primary' : 'secondary' ?>">
+                            <?= $label ?>
+                        </a>
+                    <?php endforeach; ?>
+                </div>
+                <div class="text-center">
+                    <form method="get" class="row g-2 justify-content-center align-items-center">
+                        <input type="hidden" name="period" value="<?= $period ?>">
+                        <div class="col-auto">
+                            <input type="date" name="date" class="form-control" value="<?= $date ?>">
+                        </div>
+                        <div class="col-auto">
+                            <button class="btn btn-outline-primary">
+                                <i class="fas fa-search me-1"></i>Appliquer
+                            </button>
+                        </div>
+                    </form>
+                    <div class="mt-2">
+                        <strong><i class="fas fa-calendar-check me-1"></i>Période :</strong>
+                        <?= $periodLabels[$period] ?> (<?= $date ?>)
+                    </div>
+                </div>
+
+            </div>
+        </div>
 
         <?php
-        // Traitement PHP pour regroupement dynamique
+        // Traitement des données
         $grouped = [];
         $totalCA = 0;
         $labels = [];
@@ -48,8 +63,8 @@
         $borderColors = [];
 
         $colors = ['primary', 'success', 'info', 'warning', 'danger', 'secondary'];
-        $colorBg = ['rgba(0, 123, 255, 0.7)', 'rgba(40, 167, 69, 0.7)', 'rgba(23, 162, 184, 0.7)', 'rgba(255, 193, 7, 0.7)', 'rgba(220, 53, 69, 0.7)', 'rgba(108, 117, 125, 0.7)'];
-        $colorBorder = ['rgba(0, 123, 255, 1)', 'rgba(40, 167, 69, 1)', 'rgba(23, 162, 184, 1)', 'rgba(255, 193, 7, 1)', 'rgba(220, 53, 69, 1)', 'rgba(108, 117, 125, 1)'];
+        $colorBg = ['rgba(0,123,255,0.7)', 'rgba(40,167,69,0.7)', 'rgba(23,162,184,0.7)', 'rgba(255,193,7,0.7)', 'rgba(220,53,69,0.7)', 'rgba(108,117,125,0.7)'];
+        $colorBorder = ['rgba(0,123,255,1)', 'rgba(40,167,69,1)', 'rgba(23,162,184,1)', 'rgba(255,193,7,1)', 'rgba(220,53,69,1)', 'rgba(108,117,125,1)'];
 
         $i = 0;
         foreach ($stats as $row) {
@@ -80,18 +95,18 @@
         usort($grouped, fn($a, $b) => $b['ca'] <=> $a['ca']);
         ?>
 
-        <!-- Cartes -->
+        <!-- Cartes par branche -->
         <div class="row">
             <?php foreach ($grouped as $stat): ?>
-                <div class="col-md-4 mb-4">
-                    <div class="card border-<?= $stat['color'] ?>">
-                        <div class="card-header bg-<?= $stat['color'] ?> text-white">
-                            <h5 class="mb-0 text-center"><i class="fas fa-store me-2"></i><?= $stat['nom_branche'] ?></h5>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card border-<?= $stat['color'] ?> shadow h-100">
+                        <div class="card-header bg-<?= $stat['color'] ?> text-white text-center">
+                            <i class="fas fa-store me-1"></i><?= $stat['nom_branche'] ?>
                         </div>
                         <div class="card-body text-center">
-                            <h4><?= number_format($stat['ca'], 0, ',', ' ') ?> Ar</h4>
+                            <h4 class="mb-2"><?= number_format($stat['ca'], 0, ',', ' ') ?> Ar</h4>
                             <?php if ($totalCA > 0): ?>
-                                <div class="progress mt-3">
+                                <div class="progress">
                                     <div class="progress-bar bg-<?= $stat['color'] ?>"
                                         style="width: <?= ($stat['ca'] / $totalCA) * 100 ?>%">
                                         <?= number_format(($stat['ca'] / $totalCA) * 100, 1) ?>%
@@ -105,9 +120,9 @@
         </div>
 
         <!-- Graphique -->
-        <div class="card mt-4">
+        <div class="card mt-4 shadow">
             <div class="card-header">
-                <h5><i class="fas fa-chart-bar me-2"></i>Chiffre d'affaires par branche</h5>
+                <i class="fas fa-chart-bar me-2"></i>Chiffre d'affaires par branche
             </div>
             <div class="card-body">
                 <canvas id="barChart" height="100"></canvas>
@@ -115,12 +130,12 @@
         </div>
 
         <!-- Tableau -->
-        <div class="card mt-4">
+        <div class="card mt-4 shadow">
             <div class="card-header">
-                <h5><i class="fas fa-table me-2"></i>Récapitulatif</h5>
+                <i class="fas fa-table me-2"></i>Tableau récapitulatif
             </div>
             <div class="card-body table-responsive">
-                <table class="table table-striped table-hover">
+                <table class="table table-striped table-hover align-middle">
                     <thead>
                         <tr>
                             <th>Branche</th>
@@ -158,7 +173,7 @@
         </div>
     </div>
 
-    <!-- JS Charts -->
+    <!-- Chart.js -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const ctx = document.getElementById('barChart').getContext('2d');
