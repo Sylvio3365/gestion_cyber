@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Flight;
 use app\models\ConnexionModel;
+use app\models\ParametreModel;
 
 class ConnexionController
 {
@@ -48,15 +49,27 @@ class ConnexionController
         }
     }
 
+    private function generateWifiQrCode(string $mdp): string
+    {
+        $ssid = 'wifi_5g';      // Nom du réseau WiFi
+        $securite = 'WPA'; 
+        $wifiString = "WIFI:T:{$securite};S:{$ssid};P:{$mdp};;";
+        return 'https://api.qrserver.com/v1/create-qr-code/?data=' . urlencode($wifiString) . '&size=300x300&margin=1';
+    }
+
     public function showGestionConnexionCLientSansPoste()
     {
         $clients = Flight::ConnexionModel()->getAllClient();
         $clientConnecter = Flight::ConnexionModel()->getClientConnectee();
         $page = 'connexion/sans_poste/index';
+        $pm = new ParametreModel(Flight::db());
+        $mdp = $pm->getMdp();
+        $qrUrl = $this->generateWifiQrCode($mdp);
         $data = [
             'page' => $page,
             'clients' => $clients,
-            'clientConnecter' => $clientConnecter
+            'clientConnecter' => $clientConnecter,
+            'qrUrl' => $qrUrl,
         ];
         Flight::render('index', $data);
     }

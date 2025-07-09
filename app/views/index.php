@@ -61,7 +61,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/facture/voir">
                             <i class="bi bi-receipt"></i>
-                            <span class="menu-text">Factures & Historique des achats</span>
+                            <span class="menu-text">Factures & Historique des ventes</span>
                         </a>
                     </li>
 
