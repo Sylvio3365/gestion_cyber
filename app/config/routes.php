@@ -5,14 +5,16 @@ use app\controllers\VenteController;
 use app\controllers\PanierController;
 use app\controllers\AdminController;
 use app\controllers\TemplateController;
-use app\controllers\StatController;
+use app\controllers\StatistiqueController;
 use app\controllers\ConnexionController;
 use app\controllers\HistoConnexController;
+use app\controllers\ParametreController;
 use app\controllers\PosteController;
 use app\controllers\StatRecetteController;
+use app\controllers\FactureController;
+use app\controllers\StatController;
 use flight\Engine;
 use flight\net\Router;
-//use Flight;
 
 /** 
  * @var Router $router 
@@ -22,8 +24,8 @@ use flight\net\Router;
 $UserController = new UserController();
 $PanierController = new PanierController();
 $VenteController = new VenteController();
-$StatController = new StatController();
-
+$StatController = new StatistiqueController();
+$factureController = new FactureController();
 $AdminController = new AdminController();
 
 $router->get('/', [$UserController, 'showLoginForm']);
@@ -123,3 +125,10 @@ $router->get('/connexion/historique', [$histo, 'showHistorique']);
 $router->get('/admin/prix', [$AdminController, 'showCrudPrix']);
 
 $router->post('/admin/prix/valider', [$AdminController, 'validerPrix']);
+
+$parametreController = new ParametreController();
+$router->post('/parametre/mdp',[$parametreController,'setMdp']);
+$router->get('/parametre/mdp',[$parametreController,'getMdp']);
+$router->get('/facture/voir', [$factureController, 'voirFacture']);
+$router->get('/facture/pdf/@id', [$factureController, 'genererFacturePDF']);
+

@@ -320,20 +320,27 @@ class PanierController
             Flight::redirect('/');
             return;
         }
+
         $panierModel = new PanierModel(Flight::db());
-        $produits = $panierModel->getProduits();
-        $services = $panierModel->getServices();
+        $articles = $panierModel->getProduitsEtServicesParBranche(); // ✅ remplace les deux anciennes requêtes
+
         $panierCount = 0;
         if (isset($_SESSION['panier_id'])) {
             $panier = $panierModel->getPanier($_SESSION['panier_id']);
             $panierCount = (count($panier['produits'] ?? []) + count($panier['services'] ?? []));
         }
+
         $page = 'client/interface_client';
+        $branches = [];
+        foreach ($articles as $article) {
+            $branches[$article['nom_branche']]['nom_branche'] = $article['nom_branche'];
+            $branches[$article['nom_branche']]['articles'][] = $article;
+        }
         Flight::render('index', [
             'page' => $page,
-            'produits' => $produits,
-            'services' => $services,
-            'panierCount' => $panierCount
+            'articles' => $articles, // ✅ tous les produits/services dans une seule variable
+            'panierCount' => $panierCount,
+            'branches' => $branches,
         ]);
     }
 

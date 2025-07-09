@@ -68,10 +68,6 @@
         <?php endif; ?>
         </tbody>
     </table>
-
-    <p><a href="/dashboard">
-        <i class="fas fa-arrow-left"></i> Retour au Dashboard
-    </a></p>
 </div>
 
 <script>

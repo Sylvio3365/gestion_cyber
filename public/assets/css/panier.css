@@ -1,5 +1,10 @@
 /* ===== STYLES POUR LA PAGE PANIER ===== */
 
+body.dark-mode {
+    --cart-text-muted: #8b949e;
+    --cart-text-accent: #58a6ff;
+    --cart-shadow-dark: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+}
 /* Styles généraux pour la page panier */
 .cart-page {
     background-color: var(--gray-50);
@@ -169,6 +174,10 @@
 /* Mode sombre */
 body.dark-mode .cart-page {
     background-color: #1a1a1a;
+}
+
+body.dark-mode .text-muted {
+    color: var(--cart-text-muted) !important;
 }
 
 body.dark-mode .cart-items-section .card,

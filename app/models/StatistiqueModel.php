@@ -1,14 +1,18 @@
 <?php
+
 namespace app\models;
 
-class StatistiqueModel {
+class StatistiqueModel
+{
     private $db;
 
-    public function __construct($db) {
+    public function __construct($db)
+    {
         $this->db = $db;
     }
 
-    public function getTopProduitsParBranche($branche, $dateDebut, $dateFin) {
+    public function getTopProduitsParBranche($branche, $dateDebut, $dateFin)
+    {
         $sql = "
             SELECT p.nom AS produit, SUM(vdp.quantite) AS quantite_total
             FROM vente_draft vd
@@ -30,8 +34,8 @@ class StatistiqueModel {
         return $stmt->fetchAll();
     }
     public function getTopProduitsGlobal($date_debut, $date_fin)
-{
-    $sql = "
+    {
+        $sql = "
         SELECT p.nom AS produit, SUM(vdp.quantite) AS quantite_total
         FROM vente_draft_produit vdp
         JOIN produit p ON vdp.id_produit = p.id_produit
@@ -41,17 +45,17 @@ class StatistiqueModel {
         ORDER BY quantite_total DESC
     ";
 
-    $stmt = $this->db->prepare($sql);
-    $stmt->execute([
-        'date_debut' => $date_debut,
-        'date_fin' => $date_fin
-    ]);
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([
+            'date_debut' => $date_debut,
+            'date_fin' => $date_fin
+        ]);
 
-    return $stmt->fetchAll();
-}
-public function getTousProduitsAvecQuantite($date_debut, $date_fin)
-{
-    $sql = "
+        return $stmt->fetchAll();
+    }
+    public function getTousProduitsAvecQuantite($date_debut, $date_fin)
+    {
+        $sql = "
         SELECT p.nom AS produit, 
                IFNULL(SUM(vdp.quantite), 0) AS quantite_total
         FROM produit p
@@ -62,36 +66,36 @@ public function getTousProduitsAvecQuantite($date_debut, $date_fin)
         ORDER BY quantite_total DESC
     ";
 
-    $stmt = $this->db->prepare($sql);
-    $stmt->execute([
-        'date_debut' => $date_debut,
-        'date_fin' => $date_fin
-    ]);
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([
+            'date_debut' => $date_debut,
+            'date_fin' => $date_fin
+        ]);
 
-    return $stmt->fetchAll();
-}
-
-
-// Dans ton modèle, méthode pour récupérer toutes les branches actives (non supprimées)
-public function getAllBranches(): array
-{
-    $sql = "SELECT id_branche, nom FROM branche WHERE deleted_at IS NULL ORDER BY nom ASC";
-    $stmt = $this->db->query($sql);
-    return $stmt->fetchAll(\PDO::FETCH_ASSOC) ?: [];
-}
-
-// Fonction pour récupérer histogramme produits par branche et dates (avec jointures vente + vente_draft)
-public function getHistogrammeTousProduitsEtServicesParBranche(string $branche_id, string $date_debut, string $date_fin): array
-{
-    if (
-        strtotime($date_debut) === false ||
-        strtotime($date_fin) === false ||
-        strtotime($date_debut) > strtotime($date_fin)
-    ) {
-        return [];
+        return $stmt->fetchAll();
     }
 
-    $sql = "
+
+    // Dans ton modèle, méthode pour récupérer toutes les branches actives (non supprimées)
+    public function getAllBranches(): array
+    {
+        $sql = "SELECT id_branche, nom FROM branche WHERE deleted_at IS NULL ORDER BY nom ASC";
+        $stmt = $this->db->query($sql);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC) ?: [];
+    }
+
+    // Fonction pour récupérer histogramme produits par branche et dates (avec jointures vente + vente_draft)
+    public function getHistogrammeTousProduitsEtServicesParBranche(string $branche_id, string $date_debut, string $date_fin): array
+    {
+        if (
+            strtotime($date_debut) === false ||
+            strtotime($date_fin) === false ||
+            strtotime($date_debut) > strtotime($date_fin)
+        ) {
+            return [];
+        }
+
+        $sql = "
         SELECT nom_objet, SUM(quantite) AS quantite_total
         FROM (
             SELECT p.nom AS nom_objet, vdp.quantite, p.id_categorie
@@ -117,17 +121,13 @@ public function getHistogrammeTousProduitsEtServicesParBranche(string $branche_i
         ORDER BY quantite_total DESC
     ";
 
-    $stmt = $this->db->prepare($sql);
-    $stmt->execute([
-        ':branche_id' => $branche_id,
-        ':date_debut' => $date_debut,
-        ':date_fin' => $date_fin,
-    ]);
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([
+            ':branche_id' => $branche_id,
+            ':date_debut' => $date_debut,
+            ':date_fin' => $date_fin,
+        ]);
 
-    return $stmt->fetchAll(\PDO::FETCH_ASSOC) ?: [];
-}
-
-
-
-
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC) ?: [];
+    }
 }

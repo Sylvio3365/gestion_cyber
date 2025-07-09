@@ -1,0 +1,250 @@
+
+body.dark-mode {
+    background-color: #0d1117 !important;
+    color: #e6edf3 !important;
+}
+
+body.dark-mode.bg-light {
+    background-color: #0d1117 !important;
+}
+
+/* Mode sombre - Titres */
+body.dark-mode h2.text-primary {
+    color: #e6edf3 !important;
+}
+
+body.dark-mode h5 {
+    color: #e6edf3 !important;
+}
+
+body.dark-mode h6.card-title {
+    color: #e6edf3 !important;
+}
+
+/* Mode sombre - Cartes */
+body.dark-mode .card {
+    background-color: #21262d !important;
+    border-color: #30363d !important;
+    color: #e6edf3 !important;
+}
+
+body.dark-mode .card-header {
+    background-color: #161b22 !important;
+    border-color: #30363d !important;
+    color: #e6edf3 !important;
+}
+
+body.dark-mode .card-header.bg-white {
+    background-color: #161b22 !important;
+}
+
+body.dark-mode .card-body {
+    background-color: #21262d !important;
+    color: #e6edf3 !important;
+}
+
+/* Mode sombre - Badges */
+body.dark-mode .badge.bg-primary {
+    background-color: #4f46e5 !important;
+    color: white !important;
+}
+
+body.dark-mode .badge.bg-warning {
+    background-color: #ffc107 !important;
+    color: #000 !important;
+}
+
+/* Mode sombre - Avatars */
+body.dark-mode .bg-primary {
+    background-color: #4f46e5 !important;
+    color: white !important;
+}
+
+/* Mode sombre - Zone de durée */
+body.dark-mode .bg-light {
+    background-color: #161b22 !important;
+    color: #e6edf3 !important;
+}
+
+body.dark-mode .p-2.bg-light.rounded {
+    background-color: #161b22 !important;
+    border: 1px solid #30363d !important;
+}
+
+/* Mode sombre - Textes */
+body.dark-mode .text-muted {
+    color: #c7d0da !important;
+}
+
+body.dark-mode .text-primary {
+    color: #4f46e5 !important;
+}
+
+body.dark-mode .text-warning {
+    color: #ffc107 !important;
+}
+
+body.dark-mode .text-danger {
+    color: #f85149 !important;
+}
+
+/* Mode sombre - Boutons */
+body.dark-mode .btn-primary {
+    background-color: #4f46e5 !important;
+    border-color: #4f46e5 !important;
+    color: white !important;
+}
+
+body.dark-mode .btn-primary:hover {
+    background-color: #4338ca !important;
+    border-color: #4338ca !important;
+    color: white !important;
+}
+
+body.dark-mode .btn-outline-danger {
+    border-color: #f85149 !important;
+    color: #f85149 !important;
+    background-color: transparent !important;
+}
+
+body.dark-mode .btn-outline-danger:hover {
+    background-color: #f85149 !important;
+    border-color: #f85149 !important;
+    color: white !important;
+}
+
+/* Mode sombre - Pagination */
+body.dark-mode .page-link {
+    background-color: #21262d !important;
+    border-color: #30363d !important;
+    color: #e6edf3 !important;
+}
+
+body.dark-mode .page-link:hover {
+    background-color: #4f46e5 !important;
+    border-color: #4f46e5 !important;
+    color: white !important;
+}
+
+body.dark-mode .page-item.active .page-link {
+    background-color: #4f46e5 !important;
+    border-color: #4f46e5 !important;
+    color: white !important;
+}
+
+/* Mode sombre - État vide */
+body.dark-mode .text-center.py-5 {
+    color: #8b949e !important;
+}
+
+body.dark-mode .text-center.py-5 .fas.fa-wifi {
+    color: #8b949e !important;
+}
+
+body.dark-mode .text-center.py-5 h5.text-muted {
+    color: #c3c9d0 !important;
+}
+
+body.dark-mode .text-center.py-5 p.text-muted {
+    color: #c3c9d0 !important;
+}
+
+/* Mode sombre - Bordures spéciales */
+body.dark-mode .border-start.border-primary {
+    border-left-color: #4f46e5 !important;
+}
+
+body.dark-mode .border-start.border-warning {
+    border-left-color: #ffc107 !important;
+}
+
+/* Mode sombre - Modal (si applicable) */
+body.dark-mode .modal-content {
+    background-color: #21262d !important;
+    border-color: #30363d !important;
+    color: #e6edf3 !important;
+}
+
+body.dark-mode .modal-header {
+    background-color: #161b22 !important;
+    border-color: #30363d !important;
+    color: #e6edf3 !important;
+}
+
+body.dark-mode .modal-body {
+    background-color: #21262d !important;
+    color: #e6edf3 !important;
+}
+
+body.dark-mode .modal-footer {
+    background-color: #21262d !important;
+    border-color: #30363d !important;
+}
+
+body.dark-mode .modal-title {
+    color: #e6edf3 !important;
+}
+
+/* Mode sombre - Form controls */
+body.dark-mode .form-control,
+body.dark-mode .form-select {
+    background-color: #161b22 !important;
+    border-color: #30363d !important;
+    color: #e6edf3 !important;
+}
+
+body.dark-mode .form-control:focus,
+body.dark-mode .form-select:focus {
+    background-color: #161b22 !important;
+    border-color: #4f46e5 !important;
+    color: #e6edf3 !important;
+    box-shadow: 0 0 0 0.2rem rgba(79, 70, 229, 0.25) !important;
+}
+
+body.dark-mode .form-label {
+    color: #e6edf3 !important;
+}
+
+/* Mode sombre - Alerts */
+body.dark-mode .alert-info {
+    background-color: rgba(8, 145, 178, 0.1) !important;
+    border-color: #0891b2 !important;
+    color: #0891b2 !important;
+}
+
+/* Mode sombre - Select2 */
+body.dark-mode .select2-container--bootstrap-5 .select2-selection {
+    background-color: #161b22 !important;
+    border-color: #30363d !important;
+    color: #e6edf3 !important;
+}
+
+body.dark-mode .select2-dropdown {
+    background-color: #21262d !important;
+    border-color: #30363d !important;
+}
+
+body.dark-mode .select2-results__option {
+    background-color: #21262d !important;
+    color: #e6edf3 !important;
+}
+
+body.dark-mode .select2-results__option--highlighted {
+    background-color: #4f46e5 !important;
+    color: white !important;
+}
+
+/* Mode sombre - Btn close */
+body.dark-mode .btn-close {
+    filter: invert(1) grayscale(100%) brightness(200%);
+}
+
+/* Mode sombre - Animations et transitions */
+body.dark-mode .card:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3) !important;
+}
+
+body.dark-mode .btn:hover {
+    transform: translateY(-1px);
+    transition: all 0.2s ease;
+}

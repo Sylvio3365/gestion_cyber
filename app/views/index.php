@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CyberCafé Pro</title>
+    <title>e-Cyber</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="/assets/css/interface-client.css">
@@ -19,8 +19,8 @@
         <!-- Sidebar -->
         <nav class="sidebar" id="sidebar">
             <div class="logo-container">
-                <div class="logo"><span>CB</span></div>
-                <div class="brand-name">CyBer</div>
+                <div class="logo"><span>e-C</span></div>
+                <div class="brand-name">e-Cyber</div>
             </div>
             <div class="sidebar-content">
                 <ul class="nav flex-column sidebar-menu">
@@ -30,28 +30,41 @@
                             <span class="menu-text">Dashboard</span>
                         </a>
                     </li>
-                    <li class="nav-item has-submenu">
-                        <a class="nav-link submenu-toggle" href="#">
-                            <i class="bi bi-gear"></i>
-                            <span class="menu-text">Gestion</span>
-                            <i class="bi bi-chevron-down submenu-indicator"></i>
-                        </a>
-                        <ul class="submenu collapse">
-                            <li><a href="/admin/branche"><i class="bi bi-archive"></i> Branche</a></li>
-                            <li><a href="/admin/categorie"><i class="bi bi-clipboard"></i> Categorie</a></li>
-                            <li><a href="/admin/marque"><i class="bi bi-tag"></i> Marque</a></li>
-                            <li><a href="/admin/produit"><i class="bi bi-box"></i> Produit</a></li>
-                            <li><a href="/admin/service"><i class="bi bi-wrench"></i> Service</a></li>
-                            <li><a href="/admin/stock"><i class="bi bi-box"></i> Stock</a></li>
-                            <li><a href="/admin/prix"><i class="bi bi-currency-dollar"></i> Prix</a></li>
-                        </ul>
-                    </li>
+
+                    <?php if (isset($_SESSION['u']) && $_SESSION['u']['account_type_name'] == 'admin') : ?>
+                        <li class="nav-item has-submenu">
+                            <a class="nav-link submenu-toggle" href="#">
+                                <i class="bi bi-gear"></i>
+                                <span class="menu-text">Gestion</span>
+                                <i class="bi bi-chevron-down submenu-indicator"></i>
+                            </a>
+                            <ul class="submenu collapse">
+                                <li><a href="/admin/branche"><i class="bi bi-archive"></i> Branche</a></li>
+                                <li><a href="/admin/categorie"><i class="bi bi-clipboard"></i> Catégorie</a></li>
+                                <li><a href="/admin/marque"><i class="bi bi-tag"></i> Marque</a></li>
+                                <li><a href="/admin/produit"><i class="bi bi-box"></i> Produit</a></li>
+                                <li><a href="/admin/service"><i class="bi bi-wrench"></i> Service</a></li>
+                                <li><a href="/admin/stock"><i class="bi bi-box"></i> Stock</a></li>
+                                <li><a href="/admin/prix"><i class="bi bi-currency-dollar"></i> Prix</a></li>
+                                <li><a href="/admin/type_mouvement"><i class="bi bi-arrow-repeat"></i> Mouvement</a></li>
+                            </ul>
+                        </li>
+                    <?php endif; ?>
+
+
                     <li class="nav-item">
                         <a class="nav-link" href="/interface-client">
                             <i class="bi bi-laptop"></i>
-                            <span class="menu-text">Bureautique et services</span>
+                            <span class="menu-text">Ventes de service et produit</span>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/facture/voir">
+                            <i class="bi bi-receipt"></i>
+                            <span class="menu-text">Factures & Historique des ventes</span>
+                        </a>
+                    </li>
+
                     <li class="nav-item has-submenu">
                         <a class="nav-link submenu-toggle" href="#">
                             <i class="bi bi-link"></i>
@@ -67,32 +80,30 @@
                         </ul>
 
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="bi bi-person-circle"></i>
-                            <span class="menu-text">Clients</span>
-                        </a>
-                    </li>
-                    <li class="nav-item has-submenu">
-                        <a class="nav-link submenu-toggle" href="#">
-                            <i class="bi bi-bar-chart-line"></i> <!-- Corrected to represent Statistics -->
-                            <span class="menu-text">Statistique</span>
-                            <i class="bi bi-chevron-down submenu-indicator"></i>
-                        </a>
-                        <ul class="submenu collapse">
-                            <li><a href="/recette/branche"><i class="bi bi-cash-stack"></i>Recette par branche</a></li> <!-- Updated to cash-stack -->
-                            <li><a href="/stat"><i class="bi bi-pie-chart"></i>Vente</a></li> <!-- Updated to pie-chart -->
-                            <li><a href="/benef_form"><i class="bi bi-graph-up-arrow"></i> Bénéfice</a></li>
-                        </ul>
-                    </li>
+                    <?php if (isset($_SESSION['u']) && $_SESSION['u']['account_type_name'] == 'admin') { ?>
+                        <li class="nav-item has-submenu">
+                            <a class="nav-link submenu-toggle" href="#">
+                                <i class="bi bi-bar-chart-line"></i> <!-- Corrected to represent Statistics -->
+                                <span class="menu-text">Statistique</span>
+                                <i class="bi bi-chevron-down submenu-indicator"></i>
+                            </a>
+                            <ul class="submenu collapse">
+                                <li><a href="/recette/branche"><i class="bi bi-cash-stack"></i>Recette par branche</a></li> <!-- Updated to cash-stack -->
+                                <li><a href="/stat"><i class="bi bi-pie-chart"></i>Vente</a></li> <!-- Updated to pie-chart -->
+                                <li><a href="/benef_form"><i class="bi bi-graph-up-arrow"></i> Bénéfice</a></li>
+                            </ul>
+                        </li>
+                    <?php } ?>
                 </ul>
                 <ul class="nav flex-column sidebar-menu sidebar-footer">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="bi bi-gear"></i>
-                            <span class="menu-text">Paramètres</span>
-                        </a>
-                    </li>
+                    <?php if (isset($_SESSION['u']) && $_SESSION['u']['account_type_name'] == 'admin') { ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/parametre/mdp">
+                                <i class="bi bi-gear"></i>
+                                <span class="menu-text">Paramètres</span>
+                            </a>
+                        </li>
+                    <?php } ?>
                     <li class="nav-item">
                         <a class="nav-link" href="/logout">
                             <i class="bi bi-box-arrow-right"></i>
@@ -165,6 +176,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Script sidebar/menu/theme -->
     <script src="/assets/js/theme-switcher.js"></script>
+    <!-- Navigation active -->
+    <script src="/assets/js/active-navigation.js"></script>
     <!-- Système de notifications -->
     <script src="/assets/js/notification-system.js"></script>
     <!-- Interface client dynamique -->
@@ -172,17 +185,18 @@
     <script>
         // Script pour les interactions du menu
         document.addEventListener('DOMContentLoaded', function() {
-            const menuToggle = document.getElementById('menu-toggle');
-            const sidebar = document.getElementById('sidebar');
-            const contentWrapper = document.getElementById('content-wrapper');
+            // SUPPRIMER CE BLOC - il est déjà géré par theme-switcher.js
+            // const menuToggle = document.getElementById('menu-toggle');
+            // const sidebar = document.getElementById('sidebar');
+            // const contentWrapper = document.getElementById('content-wrapper');
 
-            function toggleSidebar() {
-                sidebar.classList.toggle('collapsed');
-                contentWrapper.classList.toggle('expanded');
-            }
-            if (menuToggle) {
-                menuToggle.addEventListener('click', toggleSidebar);
-            }
+            // function toggleSidebar() {
+            //     sidebar.classList.toggle('collapsed');
+            //     contentWrapper.classList.toggle('expanded');
+            // }
+            // if (menuToggle) {
+            //     menuToggle.addEventListener('click', toggleSidebar);
+            // }
         });
 
         function scrollToSection(sectionId) {

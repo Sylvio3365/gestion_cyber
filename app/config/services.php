@@ -7,6 +7,7 @@ use Tracy\Debugger;
 use app\models\StatistiqueModel;
 use app\models\AdminModel;
 use app\models\ConnexionModel;
+use app\models\FactureModel;
 use app\models\HistoConnexModel;
 use app\models\PosteModel;
 use app\models\StatRecetteModel;
@@ -55,4 +56,8 @@ Flight::map('statModel', function () {
 
 Flight::map('historiqueModel', function () {
     return new HistoConnexModel(Flight::db());
+});
+
+Flight::map('factureModel', function () {
+    return new FactureModel(Flight::db());
 });

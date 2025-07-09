@@ -3,125 +3,109 @@
 
 <head>
     <meta charset="UTF-8">
+    <title>Statistiques de vente par branche</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Statistiques de vente</title>
-
-    <!-- Bootstrap CSS -->
+    <!-- CSS & JS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Chart.js -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="/assets/css/stat.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
-    <div class="container">
-        <h1 class="text-center mb-4">Statistiques de vente</h1>
+    <div class="container py-4">
+        <!-- En-tête principale -->
+        <h1 class="stat-page-title"><i class="fas fa-chart-line me-2"></i>Statistiques de vente</h1>
 
         <!-- Filtres -->
-        <div class="filters mb-4">
-            <!-- Sélection de la période -->
-            <div class="btn-group mb-3 d-flex justify-content-center">
-                <a href="?period=jour&date=<?= date('Y-m-d') ?>"
-                    class="btn btn-<?= $period === 'jour' ? 'primary' : 'secondary' ?>">
-                    Jour
-                </a>
-                <a href="?period=mois&date=<?= date('Y-m-d') ?>"
-                    class="btn btn-<?= $period === 'mois' ? 'primary' : 'secondary' ?>">
-                    Mois
-                </a>
-                <a href="?period=annee&date=<?= date('Y-m-d') ?>"
-                    class="btn btn-<?= $period === 'annee' ? 'primary' : 'secondary' ?>">
-                    Année
-                </a>
+        <div class="card shadow mb-4">
+            <div class="card-header"><i class="fas fa-filter me-2"></i>Filtres</div>
+            <div class="card-body">
+                <div class="btn-group mb-3">
+                    <?php foreach (['jour' => 'Jour', 'mois' => 'Mois', 'annee' => 'Année'] as $key => $label): ?>
+                        <a href="?period=<?= $key ?>&date=<?= date('Y-m-d') ?>"
+                            class="btn btn-<?= $period === $key ? 'primary' : 'secondary' ?>">
+                            <?= $label ?>
+                        </a>
+                    <?php endforeach; ?>
+                </div>
+                <div class="text-center">
+                    <form method="get" class="row g-2 justify-content-center align-items-center">
+                        <input type="hidden" name="period" value="<?= $period ?>">
+                        <div class="col-auto">
+                            <input type="date" name="date" class="form-control" value="<?= $date ?>">
+                        </div>
+                        <div class="col-auto">
+                            <button class="btn btn-outline-primary">
+                                <i class="fas fa-search me-1"></i>Appliquer
+                            </button>
+                        </div>
+                    </form>
+                    <div class="mt-2">
+                        <strong><i class="fas fa-calendar-check me-1"></i>Période :</strong>
+                        <?= $periodLabels[$period] ?> (<?= $date ?>)
+                    </div>
+                </div>
+
             </div>
-
-            <!-- Sélection de la date -->
-            <form method="get" class="row g-3 justify-content-center mb-3">
-                <input type="hidden" name="period" value="<?= $period ?>">
-
-                <div class="col-auto">
-                    <label for="dateSelect" class="col-form-label">Date:</label>
-                </div>
-                <div class="col-auto">
-                    <input type="date" class="form-control" id="dateSelect" name="date"
-                        value="<?= $date ?>"
-                        <?= $period === 'annee' ? 'pattern="\d{4}"' : '' ?>>
-                </div>
-                <div class="col-auto">
-                    <button type="submit" class="btn btn-primary">Appliquer</button>
-                </div>
-            </form>
         </div>
 
-        <h2 class="text-center mb-4">Période: <?= $periodLabels[$period] ?> (<?= $date ?>)</h2>
+        <?php
+        // Traitement des données
+        $grouped = [];
+        $totalCA = 0;
+        $labels = [];
+        $dataValues = [];
+        $backgroundColors = [];
+        $borderColors = [];
 
-        <!-- Cartes de statistiques -->
-        <div class="row">
-            <?php
-            // Préparer les données pour chaque type
-            $types = [
-                'produit' => ['label' => 'Fourniture', 'color' => 'success'],
-                'multi' => ['label' => 'Multi Service', 'color' => 'info'],
-                'connexion' => ['label' => 'Connexion', 'color' => 'warning']
-            ];
+        $colors = ['primary', 'success', 'info', 'warning', 'danger', 'secondary'];
+        $colorBg = ['rgba(0,123,255,0.7)', 'rgba(40,167,69,0.7)', 'rgba(23,162,184,0.7)', 'rgba(255,193,7,0.7)', 'rgba(220,53,69,0.7)', 'rgba(108,117,125,0.7)'];
+        $colorBorder = ['rgba(0,123,255,1)', 'rgba(40,167,69,1)', 'rgba(23,162,184,1)', 'rgba(255,193,7,1)', 'rgba(220,53,69,1)', 'rgba(108,117,125,1)'];
 
-            // Récupérer les données pour chaque type et calculer le total
-            $allStats = [];
-            $totalCA = 0;
-            $labels = [];
-            $dataValues = [];
-            $backgroundColors = [];
-
-            foreach ($types as $typeKey => $typeData) {
-                try {
-                    $stats = Flight::statModel()->getAggregatedStats($typeKey, $period, $date);
-                    $ca = $stats[0]['chiffre_affaires'] ?? 0;
-                    $allStats[] = [
-                        'type' => $typeKey,
-                        'label' => $typeData['label'],
-                        'color' => $typeData['color'],
-                        'ca' => $ca
-                    ];
-                    $totalCA += $ca;
-
-                    // Données pour les graphiques
-                    $labels[] = $typeData['label'];
-                    $dataValues[] = $ca;
-
-                    // Définir les couleurs correspondantes
-                    $colorMap = [
-                        'success' => 'rgba(40, 167, 69, 0.7)',   // Vert
-                        'info' => 'rgba(23, 162, 184, 0.7)',     // Bleu clair
-                        'warning' => 'rgba(255, 193, 7, 0.7)'    // Jaune
-                    ];
-                    $backgroundColors[] = $colorMap[$typeData['color']];
-                } catch (Exception $e) {
-                    // Ignorer les erreurs pour l'affichage
-                }
+        $i = 0;
+        foreach ($stats as $row) {
+            $branche = $row['nom_branche'];
+            if (!isset($grouped[$branche])) {
+                $grouped[$branche] = [
+                    'nom_branche' => $branche,
+                    'ca' => 0,
+                    'quantite' => 0,
+                    'color' => $colors[$i % count($colors)],
+                    'bg' => $colorBg[$i % count($colorBg)],
+                    'border' => $colorBorder[$i % count($colorBorder)],
+                ];
+                $i++;
             }
+            $grouped[$branche]['ca'] += $row['chiffre_affaires'];
+            $grouped[$branche]['quantite'] += $row['total_quantite'];
+            $totalCA += $row['chiffre_affaires'];
+        }
 
-            // Trier par chiffre d'affaires (du plus bas au plus haut)
-            usort($allStats, function ($a, $b) {
-                return $a['ca'] <=> $b['ca'];
-            });
+        foreach ($grouped as $g) {
+            $labels[] = $g['nom_branche'];
+            $dataValues[] = $g['ca'];
+            $backgroundColors[] = $g['bg'];
+            $borderColors[] = $g['border'];
+        }
 
-            // Afficher chaque carte
-            foreach ($allStats as $stat):
-            ?>
-                <div class="col-md-4 mb-4">
-                    <div class="card border-<?= $stat['color'] ?>">
-                        <div class="card-header bg-<?= $stat['color'] ?> text-white">
-                            <h3 class="card-title text-center"><?= $stat['label'] ?></h3>
+        usort($grouped, fn($a, $b) => $b['ca'] <=> $a['ca']);
+        ?>
+
+        <!-- Cartes par branche -->
+        <div class="row">
+            <?php foreach ($grouped as $stat): ?>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card border-<?= $stat['color'] ?> shadow h-100">
+                        <div class="card-header bg-<?= $stat['color'] ?> text-white text-center">
+                            <i class="fas fa-store me-1"></i><?= $stat['nom_branche'] ?>
                         </div>
                         <div class="card-body text-center">
-                            <h4 class="card-text"><?= number_format($stat['ca'], 0, ',', ' ') ?> Ar</h4>
+                            <h4 class="mb-2"><?= number_format($stat['ca'], 0, ',', ' ') ?> Ar</h4>
                             <?php if ($totalCA > 0): ?>
-                                <div class="progress mt-3">
+                                <div class="progress">
                                     <div class="progress-bar bg-<?= $stat['color'] ?>"
-                                        role="progressbar"
-                                        style="width: <?= ($stat['ca'] / $totalCA) * 100 ?>%"
-                                        aria-valuenow="<?= ($stat['ca'] / $totalCA) * 100 ?>"
-                                        aria-valuemin="0"
-                                        aria-valuemax="100">
+                                        style="width: <?= ($stat['ca'] / $totalCA) * 100 ?>%">
                                         <?= number_format(($stat['ca'] / $totalCA) * 100, 1) ?>%
                                     </div>
                                 </div>
@@ -132,55 +116,53 @@
             <?php endforeach; ?>
         </div>
 
-        <!-- Graphiques -->
-        <div class="row mt-4">
-            <!-- Barres -->
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">
-                        <h3>Comparaison par catégorie</h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="chart-container">
-                            <canvas id="barChart"></canvas>
-                        </div>
-                    </div>
-                </div>
+        <!-- Graphique -->
+        <div class="card mt-4 shadow">
+            <div class="card-header">
+                <i class="fas fa-chart-bar me-2"></i>Chiffre d'affaires par branche
+            </div>
+            <div class="card-body">
+                <canvas id="barChart" height="100"></canvas>
             </div>
         </div>
 
-        <!-- Tableau récapitulatif -->
-        <div class="card mt-4">
+        <!-- Tableau -->
+        <div class="card mt-4 shadow">
             <div class="card-header">
-                <h3>Récapitulatif</h3>
+                <i class="fas fa-table me-2"></i>Tableau récapitulatif
             </div>
-            <div class="card-body">
-                <table class="table table-striped">
+            <div class="card-body table-responsive">
+                <table class="table table-striped table-hover align-middle">
                     <thead>
                         <tr>
-                            <th>Type</th>
+                            <th>Branche</th>
                             <th>Chiffre d'affaires</th>
                             <th>Pourcentage</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($allStats as $stat): ?>
+                        <?php foreach ($grouped as $stat): ?>
                             <tr>
-                                <td><?= $stat['label'] ?></td>
-                                <td><?= number_format($stat['ca'], 0, ',', ' ') ?> Ar</td>
+                                <td><i class="fas fa-store me-1"></i><?= $stat['nom_branche'] ?></td>
+                                <td><strong><?= number_format($stat['ca'], 0, ',', ' ') ?> Ar</strong></td>
                                 <td>
-                                    <?php if ($totalCA > 0): ?>
-                                        <?= number_format(($stat['ca'] / $totalCA) * 100, 1) ?>%
-                                    <?php else: ?>
-                                        0%
-                                    <?php endif; ?>
+                                    <div class="d-flex align-items-center">
+                                        <div class="progress me-2" style="width: 100px;">
+                                            <div class="progress-bar bg-<?= $stat['color'] ?>"
+                                                style="width: <?= $totalCA ? ($stat['ca'] / $totalCA) * 100 : 0 ?>%">
+                                            </div>
+                                        </div>
+                                        <span class="badge bg-<?= $stat['color'] ?>">
+                                            <?= number_format(($stat['ca'] / $totalCA) * 100, 1) ?>%
+                                        </span>
+                                    </div>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
                         <tr class="table-primary fw-bold">
-                            <td>TOTAL</td>
+                            <td>Total</td>
                             <td><?= number_format($totalCA, 0, ',', ' ') ?> Ar</td>
-                            <td>100%</td>
+                            <td><span class="badge bg-primary">100%</span></td>
                         </tr>
                     </tbody>
                 </table>
@@ -188,79 +170,36 @@
         </div>
     </div>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Chart.js -->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const periodLinks = document.querySelectorAll('.btn-group a[href*="period="]');
-            const dateInput = document.getElementById('dateSelect');
-            const periodInput = document.querySelector('input[name="period"]');
-
-            periodLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    const url = new URL(this.href);
-                    const period = url.searchParams.get('period');
-
-                    // Mise à jour du champ caché period
-                    periodInput.value = period;
-
-                    // Adaptation du type de input date
-                    if (period === 'annee') {
-                        dateInput.type = 'number';
-                        dateInput.min = '2000';
-                        dateInput.max = '<?= date('Y') + 5 ?>';
-                        dateInput.value = '<?= date('Y') ?>';
-                    } else {
-                        dateInput.type = 'date';
-                    }
-                });
-            });
-
-            const labels = <?= json_encode($labels) ?>;
-            const dataValues = <?= json_encode($dataValues) ?>;
-            const backgroundColors = [
-                'rgba(40, 167, 69, 0.7)',
-                'rgba(23, 162, 184, 0.7)',
-                'rgba(255, 193, 7, 0.7)'
-            ];
-            const borderColors = [
-                'rgba(40, 167, 69, 1)',
-                'rgba(23, 162, 184, 1)',
-                'rgba(255, 193, 7, 1)'
-            ];
-
-            const barCtx = document.getElementById('barChart').getContext('2d');
-            const barChart = new Chart(barCtx, {
+        document.addEventListener('DOMContentLoaded', () => {
+            const ctx = document.getElementById('barChart').getContext('2d');
+            new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: labels,
+                    labels: <?= json_encode($labels) ?>,
                     datasets: [{
                         label: 'Chiffre d\'affaires (Ar)',
-                        data: dataValues,
-                        backgroundColor: backgroundColors,
-                        borderColor: borderColors,
+                        data: <?= json_encode($dataValues) ?>,
+                        backgroundColor: <?= json_encode($backgroundColors) ?>,
+                        borderColor: <?= json_encode($borderColors) ?>,
                         borderWidth: 1
                     }]
                 },
                 options: {
                     responsive: true,
-                    maintainAspectRatio: false,
                     scales: {
                         y: {
                             beginAtZero: true,
                             ticks: {
-                                callback: function(value) {
-                                    return value + ' Ar';
-                                }
+                                callback: value => value.toLocaleString() + ' Ar'
                             }
                         }
                     },
                     plugins: {
                         tooltip: {
                             callbacks: {
-                                label: function(context) {
-                                    return context.parsed.y.toFixed(0) + ' Ar';
-                                }
+                                label: ctx => ctx.parsed.y.toLocaleString() + ' Ar'
                             }
                         }
                     }

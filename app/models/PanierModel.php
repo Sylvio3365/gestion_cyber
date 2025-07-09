@@ -223,26 +223,63 @@ class PanierModel
 
     public function getProduits()
     {
-        $sql = "SELECT p.*, pp.prix,
-                (SELECT SUM(s.quantite)
-                    FROM stock s
-                    WHERE s.id_produit = p.id_produit) AS stock
+        $mois = date('n');
+        $annee = date('Y');
+
+        $sql = "SELECT p.*, 
+                COALESCE(
+                    (SELECT pp1.prix FROM prix_produit pp1 
+                        WHERE pp1.id_produit = p.id_produit 
+                        AND pp1.mois = ? 
+                        AND pp1.annee = ?
+                        ORDER BY pp1.date_modification DESC LIMIT 1
+                    ),
+                    (SELECT pp2.prix FROM prix_produit pp2 
+                        WHERE pp2.id_produit = p.id_produit 
+                        ORDER BY pp2.date_modification DESC LIMIT 1
+                    )
+                ) AS prix,
+                (SELECT SUM(s.quantite) FROM stock s WHERE s.id_produit = p.id_produit) AS stock
             FROM produit p
-            LEFT JOIN prix_produit pp ON p.id_produit = pp.id_produit
             WHERE p.deleted_at IS NULL
-            ORDER BY pp.date_modification DESC";
-        $stmt = $this->db->query($sql);
+            ORDER BY p.nom";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$mois, $annee]);
         return $stmt->fetchAll();
     }
 
     public function getServices()
     {
-        $sql = "SELECT s.*, ps.prix 
-                FROM service s 
-                LEFT JOIN prix_service ps ON s.id_service = ps.id_service 
-                WHERE s.deleted_at IS NULL 
-                AND s.nom != 'connexion'
-                ORDER BY ps.date_modification DESC";
+        $mois = date('n');
+        $annee = date('Y');
+
+        $sql = "SELECT s.*, 
+                COALESCE(
+                    (SELECT ps1.prix FROM prix_service ps1 
+                        WHERE ps1.id_service = s.id_service 
+                        AND ps1.mois = ? 
+                        AND ps1.annee = ?
+                        ORDER BY ps1.date_modification DESC LIMIT 1
+                    ),
+                    (SELECT ps2.prix FROM prix_service ps2 
+                        WHERE ps2.id_service = s.id_service 
+                        ORDER BY ps2.date_modification DESC LIMIT 1
+                    )
+                ) AS prix
+            FROM service s
+            WHERE s.deleted_at IS NULL 
+            AND s.nom != 'connexion'
+            ORDER BY s.nom";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$mois, $annee]);
+        return $stmt->fetchAll();
+    }
+
+    public function getProduitsEtServicesParBranche()
+    {
+        $sql = "SELECT * FROM vue_produits_services_branche ORDER BY nom_branche, type, nom";
         $stmt = $this->db->query($sql);
         return $stmt->fetchAll();
     }

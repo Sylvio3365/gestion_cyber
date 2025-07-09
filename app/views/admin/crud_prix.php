@@ -1,21 +1,24 @@
-<div class="container mt-5">
-    <h2>Gestion des prix par mois</h2>
+<link rel="stylesheet" href="/assets/css/crud.css">
 
-    <!-- Formulaire de sélection -->
-    <form method="get" action="/admin/prix" class="mb-4">
-        <div class="row">
-            <div class="col-md-4">
-                <label for="type" class="form-label">Type :</label>
-                <select name="type" id="type" class="form-select" required onchange="this.form.submit()">
+<div class="container">
+    <h1>Gestion des prix par mois</h1>
+
+    <!-- Section formulaire -->
+    <div class="form-section">
+        <h3>Sélectionner un élément</h3>
+        <form method="get" action="/admin/prix">
+            <label>
+                Type :
+                <select name="type" id="type" required onchange="this.form.submit()">
                     <option disabled <?= !isset($_GET['type']) ? 'selected' : '' ?>>Choisir...</option>
                     <option value="produit" <?= ($_GET['type'] ?? '') === 'produit' ? 'selected' : '' ?>>Produit</option>
                     <option value="service" <?= ($_GET['type'] ?? '') === 'service' ? 'selected' : '' ?>>Service</option>
                 </select>
-            </div>
+            </label>
 
-            <div class="col-md-4">
-                <label for="id_item" class="form-label">Produit ou Service :</label>
-                <select name="id_item" id="id_item" class="form-select" required onchange="this.form.submit()">
+            <label>
+                Produit ou Service :
+                <select name="id_item" id="id_item" required onchange="this.form.submit()">
                     <option disabled <?= !isset($_GET['id_item']) ? 'selected' : '' ?>>Choisir...</option>
                     <?php
                     $type = $_GET['type'] ?? null;
@@ -34,25 +37,28 @@
                     }
                     ?>
                 </select>
-            </div>
+            </label>
 
-            <div class="col-md-3">
-                <label for="annee" class="form-label">Année :</label>
-                <input type="number" name="annee" id="annee" class="form-control"
-                    value="<?= $_GET['annee'] ?? date('Y') ?>" onchange="this.form.submit()">
-            </div>
-        </div>
-    </form>
+            <label>
+                Année :
+                <input type="number" name="annee" id="annee" 
+                       value="<?= $_GET['annee'] ?? date('Y') ?>" 
+                       onchange="this.form.submit()">
+            </label>
+
+            <button type="submit">Rechercher</button>
+        </form>
+    </div>
 
     <!-- Tableau des prix -->
     <?php if (!empty($_GET['type']) && !empty($_GET['id_item']) && !empty($_GET['annee'])): ?>
-        <table class="table table-bordered mt-4">
-            <thead class="table-light">
+        <table>
+            <thead>
                 <tr>
                     <th>Mois</th>
                     <th>Prix d'achat</th>
                     <th>Prix de vente</th>
-                    <th></th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -71,7 +77,7 @@
                                 <?php if (isset($prixAchat[$mois])): ?>
                                     <span class="text-primary"><?= number_format($prixAchat[$mois], 2) ?> Ar</span>
                                 <?php else: ?>
-                                    <input type="number" step="50" name="achat" class="form-control" placeholder="Prix d'achat">
+                                    <input type="number" step="50" name="achat" placeholder="Prix d'achat">
                                 <?php endif; ?>
                             </td>
 
@@ -80,24 +86,34 @@
                                 <?php if (isset($prixVente[$mois])): ?>
                                     <span class="text-success"><?= number_format($prixVente[$mois], 2) ?> Ar</span>
                                 <?php else: ?>
-                                    <input type="number" step="50" name="vente" class="form-control" placeholder="Prix de vente">
+                                    <input type="number" step="50" name="vente" placeholder="Prix de vente">
                                 <?php endif; ?>
                             </td>
 
                             <!-- Action -->
-                            <td class="text-center">
-                                <?php if (!isset($prixAchat[$mois]) || !isset($prixVente[$mois])): ?>
-                                    <button type="submit" class="btn btn-sm btn-success">
-                                        <i class="bi bi-check-circle"></i> Valider
-                                    </button>
-                                <?php else: ?>
-                                    <i class="bi bi-check-circle-fill text-success fs-5"></i>
-                                <?php endif; ?>
+                            <td>
+                                <div class="action-buttons">
+                                    <?php if (!isset($prixAchat[$mois]) || !isset($prixVente[$mois])): ?>
+                                        <button type="submit" class="btn-icon btn-save" title="Valider">
+                                            <i class="fas fa-check"></i>
+                                        </button>
+                                    <?php else: ?>
+                                        <div class="status-badge bon">
+                                            <i class="fas fa-check-circle"></i>
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
                             </td>
                         </form>
                     </tr>
                 <?php endfor; ?>
             </tbody>
         </table>
+    <?php else: ?>
+        <div class="empty-state">
+            <i class="fas fa-chart-line"></i>
+            <h3>Aucune sélection</h3>
+            <p>Veuillez sélectionner un type, un élément et une année pour voir les prix.</p>
+        </div>
     <?php endif; ?>
 </div>
