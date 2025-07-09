@@ -8,23 +8,26 @@ use app\models\ParametreModel;
 class ParametreController
 {
     private ParametreModel $model;
+    private string $ssid;
+    private string $securite;
 
     public function __construct()
     {
+        $this->ssid = 'wifi_5g';      // Nom du réseau WiFi
+        $this->securite = 'WPA';      // Sécurité : WPA, WEP ou nopass
         $this->model = new ParametreModel(Flight::db());
     }
 
     public function getMdp(): void
     {
-        $mdp    = $this->model->getMdp();
-        $qrFile = $mdp ? '/assets/img/qr_' . md5($mdp) . '.png' : null;
-        // 2. Génère l’URL du QR Code via goqr.me
-        $qrUrl = 'https://api.qrserver.com/v1/create-qr-code/?data=' . urlencode($mdp) . '&size=300x300&margin=1';
+        $mdp = $this->model->getMdp();
+
+        $qrUrl = $this->generateWifiQrCode($mdp);
 
         Flight::render('index', [
-            'mdp'    => $mdp,
-            'qrUrl'   => $qrUrl,
-            'page' => 'parametre/index'
+            'mdp'   => $mdp,
+            'qrUrl' => $qrUrl,
+            'page'  => 'parametre/index'
         ]);
     }
 
@@ -34,27 +37,31 @@ class ParametreController
 
         if (empty($data['mdp'])) {
             Flight::render('index', [
-                'error'  => 'Le paramètre "mdp" est requis',
-                'mdp'    => $this->model->getMdp(),
-                'qrUrl'  => null,
-                'page' => 'parametre/index'
+                'error' => 'Le paramètre "mdp" est requis',
+                'mdp'   => $this->model->getMdp(),
+                'qrUrl' => null,
+                'page'  => 'parametre/index'
             ]);
             return;
         }
 
-        // 1. Enregistre en base
+        // Enregistrement du mot de passe
         $this->model->setMdp($data['mdp']);
         $mdp = $this->model->getMdp();
 
-        // 2. Génère l’URL du QR Code via goqr.me
-        $qrUrl = 'https://api.qrserver.com/v1/create-qr-code/?data=' . urlencode($mdp) . '&size=300x300&margin=1';
+        $qrUrl = $this->generateWifiQrCode($mdp);
 
-        // 3. Rend la vue
         Flight::render('index', [
-            'message' => 'Mot de passe enregistré et QR-Code généré',
+            'message' => 'Mot de passe enregistré et QR Code généré',
             'mdp'     => $mdp,
             'qrUrl'   => $qrUrl,
-            'page' => 'parametre/index',
+            'page'    => 'parametre/index',
         ]);
+    }
+
+    private function generateWifiQrCode(string $mdp): string
+    {
+        $wifiString = "WIFI:T:{$this->securite};S:{$this->ssid};P:{$mdp};;";
+        return 'https://api.qrserver.com/v1/create-qr-code/?data=' . urlencode($wifiString) . '&size=300x300&margin=1';
     }
 }
