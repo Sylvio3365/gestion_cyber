@@ -31,10 +31,10 @@
                     <div class="row mb-4">
                         <div class="col-md-6">
                             <h6 class="fw-bold text-primary">Fournisseur</h6>
-                            <p class="mb-1">I-Cyber</p>
+                            <p class="mb-1">e-Cyber</p>
                             <p class="mb-1">MB 156 Andoharanofotsy</p>
                             <p class="mb-1">Tél: +33 1 23 45 67 89</p>
-                            <p class="mb-0">Email: ecyber@example.com</p>
+                            <p class="mb-0">Email: ecyber@gmail.com</p>
                         </div>
                         <div class="col-md-6">
                             <h6 class="fw-bold text-primary">Client</h6>
